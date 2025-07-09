@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "apis": ["app/javascript/src/apis"],
+      "apis/*": ["app/javascript/src/apis/*"],
+      "assets": ["app/javascript/src/assets"],
+      "assets/*": ["app/javascript/src/assets/*"],
+      "constants": ["app/javascript/src/constants"],
+      "constants/*": ["app/javascript/src/constants/*"],
+      "components/*": ["app/javascript/src/components/*"],
+      "hooks": ["app/javascript/src/hooks"],
+      "hooks/*": ["app/javascript/src/hooks/*"],
+      "routes": ["app/javascript/src/routes"],
+      "routes/*": ["app/javascript/src/routes/*"],
+      "stores": ["app/javascript/src/stores"],
+      "stores/*": ["app/javascript/src/stores/*"],
+      "translations": ["app/javascript/src/translations"],
+      "translations/*": ["app/javascript/src/translations/*"],
+      "utils": ["app/javascript/src/utils"],
+      "utils/*": ["app/javascript/src/utils/*"],
+      "neetoui": ["node_modules/@bigbinary/neetoui"],
+      "neetoui/*": ["node_modules/@bigbinary/neetoui/*"],
+      "neetoicons": ["node_modules/@bigbinary/neeto-icons"],
+      "neetoicons/*": ["node_modules/@bigbinary/neeto-icons/*"],
+      "neetocist": ["node_modules/@bigbinary/neeto-cist"],
+      "neetocist/*": ["node_modules/@bigbinary/neeto-cist/*"]
+    }
+  },
+  "exclude": ["**/node_modules", "**/.*/"],
+  "include": ["app/javascript/src/**/*"]
+}
