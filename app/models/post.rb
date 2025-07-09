@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Post < ApplicationRecord
   MAX_TITLE_LENGTH = 125
   MAX_DESCRIPTION_LENGTH = 10000
@@ -11,5 +13,4 @@ class Post < ApplicationRecord
     length: { maximum: MAX_DESCRIPTION_LENGTH }
 
   validates_inclusion_of :is_bloggable, in: [true, false]
-  
 end
