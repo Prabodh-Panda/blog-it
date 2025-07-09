@@ -1,12 +1,19 @@
 import React from "react";
 
-import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
+import {
+  Route,
+  Switch,
+  BrowserRouter as Router,
+  Redirect,
+} from "react-router-dom";
+
+import Blogs from "./components/Blogs";
 
 const App = () => (
   <Router>
     <Switch>
-      <Route exact path="/" render={() => <div>Home</div>} />
-      <Route exact path="/about" render={() => <div>About</div>} />
+      <Route exact component={Blogs} path="/blogs" />
+      <Redirect exact from="/" to="/blogs" />
     </Switch>
   </Router>
 );
