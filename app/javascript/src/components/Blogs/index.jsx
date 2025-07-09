@@ -1,19 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 
-import { Book } from "neetoicons";
-import { Button } from "neetoui";
-
-const Blogs = () => {
-  const [count, setCount] = useState(0);
-
-  return (
-    <div>
-      <p>{count}</p>
-      <Book />
-      <Button>Hello</Button>
-      <button onClick={() => setCount(prev => prev + 1)}>Increment</button>
-    </div>
-  );
-};
+const Blogs = () => (
+  <div>
+    <h1>Blog Posts</h1>
+  </div>
+);
 
 export default Blogs;
