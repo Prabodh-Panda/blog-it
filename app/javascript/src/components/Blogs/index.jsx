@@ -4,10 +4,13 @@ import postsApi from "apis/posts";
 import BlogItem from "components/Blogs/Item";
 import Logger from "js-logger";
 import { Typography, Spinner } from "neetoui";
+import { useTranslation } from "react-i18next";
 
 const Blogs = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState([]);
+
+  const { t } = useTranslation();
 
   const fetchPosts = async () => {
     try {
@@ -30,7 +33,7 @@ const Blogs = () => {
   return (
     <div className="flex-1 px-16 py-10">
       <Typography style="h1" weight="black">
-        Blog posts
+        {t("titles.blogPosts")}
       </Typography>
       {isLoading ? (
         <Spinner />
