@@ -3,6 +3,7 @@ const routes = {
   blogs: {
     index: "/blogs",
     new: "/blogs/new",
+    show: "/blogs/:slug",
   },
 };
 

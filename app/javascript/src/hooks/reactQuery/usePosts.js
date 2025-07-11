@@ -21,3 +21,14 @@ export const useCreatePost = () =>
       queryClient.invalidateQueries([QUERY_KEYS.POSTS]);
     },
   });
+
+export const useShowPost = slug => {
+  const { data, isLoading } = useQuery({
+    queryKey: [QUERY_KEYS.POSTS, slug],
+    queryFn: () => postsApi.show(slug),
+  });
+
+  const post = data?.data?.post;
+
+  return { data: post, isLoading };
+};
