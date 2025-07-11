@@ -23,8 +23,8 @@ const App = () => (
       <div className="flex h-screen">
         <Sidebar />
         <Switch>
-          <Route exact component={ShowBlog} path={routes.blogs.show} />
           <Route exact component={NewBlog} path={routes.blogs.new} />
+          <Route exact component={ShowBlog} path={routes.blogs.show} />
           <Route exact component={Blogs} path={routes.blogs.index} />
           <Redirect exact from={routes.root} to={routes.blogs.index} />
         </Switch>
