@@ -26,6 +26,7 @@ export const useShowPost = slug => {
   const { data, isLoading } = useQuery({
     queryKey: [QUERY_KEYS.POSTS, slug],
     queryFn: () => postsApi.show(slug),
+    retry: false,
   });
 
   const post = data?.data?.post;

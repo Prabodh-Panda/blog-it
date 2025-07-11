@@ -8,7 +8,8 @@
     "title": "Title",
     "description": "Description",
     "cancel": "Cancel",
-    "submit": "Submit"
+    "submit": "Submit",
+    "backToHome": "Back to home"
   },
   "placeholders": {
     "title": "Enter title",
@@ -19,5 +20,8 @@
     "descriptionRequired": "Description is required",
     "titleMaxLength": "Title must be at most {{max}} characters",
     "descriptionMaxLength": "Description must be at most {{max}} characters"
+  },
+  "errors": {
+    "pageNotFound": "The page you're looking for can't be found"
   }
 }

@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Header, PageLoader } from "components/commons";
+import PageNotFound from "components/commons/PageNotFound";
 import { useShowPost } from "hooks/reactQuery/usePosts";
 import { Typography } from "neetoui";
 import { useParams } from "react-router-dom";
@@ -10,6 +11,8 @@ const Show = () => {
   const { data: post, isLoading } = useShowPost(slug);
 
   if (isLoading) return <PageLoader />;
+
+  if (!post) return <PageNotFound />;
 
   const { title, description } = post;
 
