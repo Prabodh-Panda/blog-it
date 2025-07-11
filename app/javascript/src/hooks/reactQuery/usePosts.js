@@ -2,6 +2,7 @@ import { QUERY_KEYS } from "constants/query";
 
 import postsApi from "apis/posts";
 import { useMutation, useQuery } from "react-query";
+import queryClient from "utils/queryClient";
 
 export const useFetchPosts = () => {
   const { data = {}, isLoading } = useQuery({
@@ -14,4 +15,9 @@ export const useFetchPosts = () => {
   return { data: { posts }, isLoading };
 };
 
-export const useCreatePost = () => useMutation(postsApi.create);
+export const useCreatePost = () =>
+  useMutation(postsApi.create, {
+    onSuccess: () => {
+      queryClient.invalidateQueries([QUERY_KEYS.POSTS]);
+    },
+  });

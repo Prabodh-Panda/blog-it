@@ -5,6 +5,7 @@ import { useCreatePost } from "hooks/reactQuery/usePosts";
 import { Button } from "neetoui";
 import { Form, Input, Textarea } from "neetoui/formik";
 import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
 import routes from "routes";
 
 import {
@@ -17,10 +18,16 @@ import {
 const New = () => {
   const { t } = useTranslation();
 
-  const { mutate: createPost } = useCreatePost();
+  const { mutate: createPost, isLoading } = useCreatePost();
+
+  const history = useHistory();
 
   const handleSubmit = async postData => {
-    createPost(postData);
+    createPost(postData, {
+      onSuccess: () => {
+        history.push(routes.blogs.index);
+      },
+    });
   };
 
   return (
@@ -53,10 +60,14 @@ const New = () => {
             />
           </div>
           <div className="ml-auto mt-auto space-x-2">
-            <Button style="secondary" to={routes.blogs.index}>
+            <Button
+              disabled={isLoading}
+              style="secondary"
+              to={routes.blogs.index}
+            >
               {t("labels.cancel")}
             </Button>
-            <Button className="bg-black" type="submit">
+            <Button className="bg-black" disabled={isLoading} type="submit">
               {t("labels.submit")}
             </Button>
           </div>

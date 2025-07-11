@@ -9,6 +9,7 @@ import {
   BrowserRouter as Router,
   Redirect,
 } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import routes from "routes";
 import queryClient from "utils/queryClient";
 
@@ -17,6 +18,7 @@ import Blogs from "./components/Blogs";
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <Router>
+      <ToastContainer />
       <div className="flex h-screen">
         <Sidebar />
         <Switch>
