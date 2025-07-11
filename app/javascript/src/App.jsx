@@ -16,7 +16,7 @@ import Blogs from "./components/Blogs";
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <Router>
-      <div className="flex min-h-screen">
+      <div className="flex h-screen">
         <Sidebar />
         <Switch>
           <Route exact component={Blogs} path={routes.blogs.index} />
