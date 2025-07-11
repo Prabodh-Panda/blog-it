@@ -1,5 +1,17 @@
 {
   "titles": {
-    "blogPosts": "Blog posts"
+    "blogPosts": "Blog posts",
+    "newBlogPost": "New blog post"
+  },
+  "labels": {
+    "addNewBlogPost": "Add new blog post",
+    "title": "Title",
+    "description": "Description",
+    "cancel": "Cancel",
+    "submit": "Submit"
+  },
+  "placeholders": {
+    "title": "Enter title",
+    "description": "Enter description"
   }
 }

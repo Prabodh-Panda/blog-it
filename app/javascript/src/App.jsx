@@ -1,5 +1,6 @@
 import React from "react";
 
+import NewBlog from "components/Blogs/New";
 import Sidebar from "components/commons/Sidebar";
 import { QueryClientProvider } from "react-query";
 import {
@@ -19,6 +20,7 @@ const App = () => (
       <div className="flex h-screen">
         <Sidebar />
         <Switch>
+          <Route exact component={NewBlog} path={routes.blogs.new} />
           <Route exact component={Blogs} path={routes.blogs.index} />
           <Redirect exact from={routes.root} to={routes.blogs.index} />
         </Switch>
