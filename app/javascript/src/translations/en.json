@@ -13,5 +13,11 @@
   "placeholders": {
     "title": "Enter title",
     "description": "Enter description"
+  },
+  "validations": {
+    "titleRequired": "Title is required",
+    "descriptionRequired": "Description is required",
+    "titleMaxLength": "Title must be at most {{max}} characters",
+    "descriptionMaxLength": "Description must be at most {{max}} characters"
   }
 }

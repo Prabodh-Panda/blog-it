@@ -28,7 +28,9 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  generic_error: "Something went wrong. Please try again later."
+  successfully_created: "Post was successfully created!"
+  successfully_updated: "Post was successfully updated!"
   post:
     slug:
       immutable: "is immutable!"
