@@ -7,7 +7,7 @@ import { buildUrl } from "utils/url";
 
 import { getDateStringFromTimestamp } from "./utils";
 
-const Item = ({ title, description, created_at, slug }) => (
+const Item = ({ title, description, created_at, slug, author }) => (
   <div className="my-4 border-b py-4">
     <Link to={buildUrl(routes.blogs.show, { slug })}>
       <Typography
@@ -19,9 +19,14 @@ const Item = ({ title, description, created_at, slug }) => (
       </Typography>
     </Link>
     <Typography className="mt-2">{description}</Typography>
-    <Typography className="mt-1" style="body3">
-      {getDateStringFromTimestamp(created_at)}
-    </Typography>
+    <div className="mt-1">
+      <Typography style="body3" weight="bold">
+        {author.name}
+      </Typography>
+      <Typography style="body3">
+        {getDateStringFromTimestamp(created_at)}
+      </Typography>
+    </div>
   </div>
 );
 

@@ -4,8 +4,8 @@ class PostsController < ApplicationController
   before_action :load_post!, only: :show
 
   def index
-    posts = Post.order(created_at: :desc)
-    render status: :ok, json: { posts: }
+    @posts = Post.order(created_at: :desc)
+    render
   end
 
   def create
