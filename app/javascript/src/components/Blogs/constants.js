@@ -6,6 +6,7 @@ export const MAX_DESCRIPTION_LENGTH = 10000;
 
 export const NEW_BLOG_INITIAL_VALUES = {
   title: "",
+  categories: [],
   description: "",
 };
 
@@ -24,4 +25,14 @@ export const NEW_BLOG_VALIDATION_SCHEMA = yup.object().shape({
       MAX_DESCRIPTION_LENGTH,
       t("validations.descriptionMaxLength", { max: MAX_DESCRIPTION_LENGTH })
     ),
+  categories: yup
+    .array()
+    .of(
+      yup.object().shape({
+        label: yup.string().required(),
+        value: yup.number().required(),
+      })
+    )
+    .min(1, t("validations.atLeastOneCategoryRequired"))
+    .required(t("validations.categoryRequired")),
 });

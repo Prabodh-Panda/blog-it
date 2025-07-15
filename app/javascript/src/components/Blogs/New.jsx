@@ -1,9 +1,10 @@
 import React from "react";
 
-import { Header } from "components/commons";
+import { Header, PageLoader } from "components/commons";
+import { useFetchCategories } from "hooks/reactQuery/useCategories";
 import { useCreatePost } from "hooks/reactQuery/usePosts";
 import { Button } from "neetoui";
-import { Form, Input, Textarea } from "neetoui/formik";
+import { Form, Input, Textarea, Select } from "neetoui/formik";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import routes from "routes";
@@ -14,21 +15,37 @@ import {
   NEW_BLOG_INITIAL_VALUES,
   NEW_BLOG_VALIDATION_SCHEMA,
 } from "./constants";
+import { getCategoryOptions } from "./utils";
 
 const New = () => {
   const { t } = useTranslation();
 
-  const { mutate: createPost, isLoading } = useCreatePost();
+  const { mutate: createPost, isLoading: isCreatePostLoading } =
+    useCreatePost();
+
+  const {
+    data: { categories },
+    isLoading: isFetchCategoriesLoading,
+  } = useFetchCategories();
 
   const history = useHistory();
 
   const handleSubmit = async postData => {
-    createPost(postData, {
+    const payload = {
+      ...postData,
+      category_ids: postData.categories.map(category => category.value),
+      user_id: 1,
+      organization_id: 1,
+    };
+
+    createPost(payload, {
       onSuccess: () => {
         history.push(routes.blogs.index);
       },
     });
   };
+
+  if (isFetchCategoriesLoading) return <PageLoader />;
 
   return (
     <div className="flex flex-1 flex-col">
@@ -42,7 +59,7 @@ const New = () => {
             onSubmit: handleSubmit,
           }}
         >
-          <div>
+          <div className="space-y-4">
             <Input
               required
               label={t("labels.title")}
@@ -50,9 +67,15 @@ const New = () => {
               name="title"
               placeholder={t("placeholders.title")}
             />
+            <Select
+              isMulti
+              required
+              label={t("labels.category")}
+              name="categories"
+              options={getCategoryOptions(categories)}
+            />
             <Textarea
               required
-              className="my-4"
               label={t("labels.description")}
               maxLength={MAX_DESCRIPTION_LENGTH}
               name="description"
@@ -61,13 +84,17 @@ const New = () => {
           </div>
           <div className="ml-auto mt-auto space-x-2">
             <Button
-              disabled={isLoading}
+              disabled={isCreatePostLoading}
               style="secondary"
               to={routes.blogs.index}
             >
               {t("labels.cancel")}
             </Button>
-            <Button className="bg-black" disabled={isLoading} type="submit">
+            <Button
+              className="bg-black"
+              disabled={isCreatePostLoading}
+              type="submit"
+            >
               {t("labels.submit")}
             </Button>
           </div>

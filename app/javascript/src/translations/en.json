@@ -7,6 +7,7 @@
     "addNewBlogPost": "Add new blog post",
     "title": "Title",
     "description": "Description",
+    "category": "Category",
     "cancel": "Cancel",
     "submit": "Submit",
     "backToHome": "Back to home"
@@ -19,7 +20,9 @@
     "titleRequired": "Title is required",
     "descriptionRequired": "Description is required",
     "titleMaxLength": "Title must be at most {{max}} characters",
-    "descriptionMaxLength": "Description must be at most {{max}} characters"
+    "descriptionMaxLength": "Description must be at most {{max}} characters",
+    "categoryRequired": "Category is required",
+    "atLeastOneCategoryRequired": "Please select at least one category."
   },
   "errors": {
     "pageNotFound": "The page you're looking for can't be found"
