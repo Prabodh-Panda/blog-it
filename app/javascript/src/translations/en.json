@@ -1,7 +1,9 @@
 {
   "titles": {
     "blogPosts": "Blog posts",
-    "newBlogPost": "New blog post"
+    "newBlogPost": "New blog post",
+    "categories": "CATEGORIES",
+    "newCategory": "New category"
   },
   "labels": {
     "addNewBlogPost": "Add new blog post",
@@ -10,7 +12,9 @@
     "category": "Category",
     "cancel": "Cancel",
     "submit": "Submit",
-    "backToHome": "Back to home"
+    "backToHome": "Back to home",
+    "add": "Add",
+    "categoryTitle": "Category title"
   },
   "placeholders": {
     "title": "Enter title",
@@ -22,7 +26,8 @@
     "titleMaxLength": "Title must be at most {{max}} characters",
     "descriptionMaxLength": "Description must be at most {{max}} characters",
     "categoryRequired": "Category is required",
-    "atLeastOneCategoryRequired": "Please select at least one category."
+    "atLeastOneCategoryRequired": "Please select at least one category",
+    "categoryNameRequired": "Category title is required"
   },
   "errors": {
     "pageNotFound": "The page you're looking for can't be found"
