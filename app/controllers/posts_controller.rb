@@ -22,7 +22,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    render_json({ post: @post })
+    render
   end
 
   private
