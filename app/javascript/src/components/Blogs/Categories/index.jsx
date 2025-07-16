@@ -5,22 +5,26 @@ import { PageLoader } from "components/commons";
 import { useFetchCategories } from "hooks/reactQuery/useCategories";
 import { Plus, Search } from "neetoicons";
 import { Button, Modal, Typography } from "neetoui";
+import { paths } from "ramda";
 import { useTranslation } from "react-i18next";
 import useCategoriesStore from "stores/useCategoriesStore";
+import { useShallow } from "zustand/react/shallow";
 
 import NewCategory from "./New";
 
 const Categories = () => {
-  const isCategoriesPaneOpen = useCategoriesStore(
-    state => state.isCategoriesPaneOpen
-  );
-
-  const setIsNewCategoryModalOpen = useCategoriesStore(
-    state => state.setIsNewCategoryModalOpen
-  );
-
-  const isNewCategoryModalOpen = useCategoriesStore(
-    state => state.isNewCategoryModalOpen
+  const [
+    isCategoriesPaneOpen,
+    isNewCategoryModalOpen,
+    setIsNewCategoryModalOpen,
+  ] = useCategoriesStore(
+    useShallow(
+      paths([
+        ["isCategoriesPaneOpen"],
+        ["isNewCategoryModalOpen"],
+        ["setIsNewCategoryModalOpen"],
+      ])
+    )
   );
 
   const { t } = useTranslation();
