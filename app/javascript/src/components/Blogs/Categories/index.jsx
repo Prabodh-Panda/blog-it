@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import useCategoriesStore from "stores/useCategoriesStore";
 import { useShallow } from "zustand/react/shallow";
 
+import CategoryItem from "./Item";
 import NewCategory from "./New";
 
 const Categories = () => {
@@ -58,12 +59,7 @@ const Categories = () => {
       </div>
       <div className="my-4 space-y-2">
         {categories.map(category => (
-          <Typography
-            className="min-w-52 cursor-pointer rounded border border-gray-300 px-4 hover:bg-white"
-            key={category.id}
-          >
-            {category.name}
-          </Typography>
+          <CategoryItem key={category.id} {...category} />
         ))}
       </div>
       <Modal
