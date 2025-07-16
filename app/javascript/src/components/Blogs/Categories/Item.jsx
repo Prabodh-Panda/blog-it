@@ -4,7 +4,7 @@ import classNames from "classnames";
 import useQueryParams from "hooks/useQueryParams";
 import { filterNonNull, isNotEmpty } from "neetocist";
 import { Typography } from "neetoui";
-import { append, includes, mergeLeft, without } from "ramda";
+import { append, includes, is, mergeLeft, without } from "ramda";
 import { useHistory } from "react-router-dom";
 import routes from "routes";
 import useCategoriesStore from "stores/useCategoriesStore";
@@ -13,7 +13,7 @@ import { buildUrl } from "utils/url";
 const Item = ({ slug, name }) => {
   const queryParams = useQueryParams();
   let { categories = [] } = queryParams;
-  categories = Array.isArray(categories) ? categories : [categories];
+  categories = is(Array, categories) ? categories : [categories];
 
   const setIsCategoriesPaneOpen = useCategoriesStore(
     state => state.setIsCategoriesPaneOpen

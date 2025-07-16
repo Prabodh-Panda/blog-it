@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import classNames from "classnames";
 import { PageLoader } from "components/commons";
@@ -12,8 +12,13 @@ import { useShallow } from "zustand/react/shallow";
 
 import CategoryItem from "./Item";
 import NewCategory from "./New";
+import CategorySearch from "./Search";
+import { filterByPropertyIncludes } from "./utils";
 
 const Categories = () => {
+  const [isSearchInputShown, setIsSearchInputShown] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+
   const [
     isCategoriesPaneOpen,
     isNewCategoryModalOpen,
@@ -31,9 +36,15 @@ const Categories = () => {
   const { t } = useTranslation();
 
   const {
-    data: { categories },
+    data: { categories = [] },
     isLoading,
   } = useFetchCategories();
+
+  const filteredCategories = filterByPropertyIncludes(
+    categories,
+    searchValue,
+    "name"
+  );
 
   if (isLoading) return <PageLoader />;
 
@@ -54,11 +65,21 @@ const Categories = () => {
             style="link"
             onClick={() => setIsNewCategoryModalOpen(true)}
           />
-          <Button className="text-black" icon={Search} style="link" />
+          <Button
+            className="text-black"
+            icon={Search}
+            style="link"
+            onClick={() => setIsSearchInputShown(open => !open)}
+          />
         </div>
       </div>
+      <CategorySearch
+        isOpen={isSearchInputShown}
+        value={searchValue}
+        onChange={event => setSearchValue(event.target.value)}
+      />
       <div className="my-4 space-y-2">
-        {categories.map(category => (
+        {filteredCategories.map(category => (
           <CategoryItem key={category.id} {...category} />
         ))}
       </div>

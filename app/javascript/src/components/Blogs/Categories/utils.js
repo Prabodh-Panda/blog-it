@@ -5,3 +5,11 @@ export const getIdsFromIdParamString = paramString =>
     .map(Number);
 
 export const getParamStringFromIds = ids => ids.join(",");
+
+export const filterByPropertyIncludes = (list, searchTerm, property) => {
+  const lowerCaseSearch = searchTerm.toLowerCase();
+
+  return list.filter(item =>
+    item[property]?.toLowerCase().includes(lowerCaseSearch)
+  );
+};
