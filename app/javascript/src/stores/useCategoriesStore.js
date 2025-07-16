@@ -1,33 +1,32 @@
 import { append, includes, without } from "ramda";
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 
-const useCategoriesStore = create(
-  persist(
-    set => ({
-      activeCategoryIds: [],
-      isCategoriesPaneOpen: false,
-      isNewCategoryModalOpen: false,
+const useCategoriesStore = create(set => ({
+  activeCategoryIds: [],
+  isCategoriesPaneOpen: false,
+  isNewCategoryModalOpen: false,
 
-      toggleIsCategoriesPageOpen: () =>
-        set(state => ({ isCategoriesPaneOpen: !state.isCategoriesPaneOpen })),
+  toggleIsCategoriesPaneOpen: () =>
+    set(state => ({ isCategoriesPaneOpen: !state.isCategoriesPaneOpen })),
 
-      setIsNewCategoryModalOpen: isOpen =>
-        set(() => ({ isNewCategoryModalOpen: isOpen })),
+  setIsCategoriesPaneOpen: isOpen =>
+    set(() => ({ isCategoriesPaneOpen: isOpen })),
 
-      toggleIdActiveState: id =>
-        set(state => {
-          if (includes(id, state.activeCategoryIds)) {
-            return {
-              activeCategoryIds: without([id], state.activeCategoryIds),
-            };
-          }
+  setIsNewCategoryModalOpen: isOpen =>
+    set(() => ({ isNewCategoryModalOpen: isOpen })),
 
-          return { activeCategoryIds: append(id, state.activeCategoryIds) };
-        }),
+  toggleIdActiveState: id =>
+    set(state => {
+      if (includes(id, state.activeCategoryIds)) {
+        return {
+          activeCategoryIds: without([id], state.activeCategoryIds),
+        };
+      }
+
+      return { activeCategoryIds: append(id, state.activeCategoryIds) };
     }),
-    { name: "categories-store" }
-  )
-);
+
+  setActiveCategoryIds: ids => set(() => ({ activeCategoryIds: ids })),
+}));
 
 export default useCategoriesStore;

@@ -7,8 +7,8 @@ import routes from "routes";
 import useCategoriesStore from "stores/useCategoriesStore";
 
 const Sidebar = () => {
-  const toggleIsCategoriesPageOpen = useCategoriesStore(
-    state => state.toggleIsCategoriesPageOpen
+  const toggleIsCategoriesPaneOpen = useCategoriesStore(
+    state => state.toggleIsCategoriesPaneOpen
   );
 
   return (
@@ -20,7 +20,7 @@ const Sidebar = () => {
           className="flex w-full items-center justify-center"
           icon={ListDetails}
           style="text"
-          onClick={toggleIsCategoriesPageOpen}
+          onClick={toggleIsCategoriesPaneOpen}
         />
       </div>
       <Avatar className="mt-auto" size="large" />
