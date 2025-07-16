@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { PageLoader } from "components/commons";
 import { useFetchCategories } from "hooks/reactQuery/useCategories";
 import useQueryParams from "hooks/useQueryParams";
-import { filterNonNull } from "neetocist";
+import { filterNonNull, isNotEqualDeep } from "neetocist";
 import { Plus, Search } from "neetoicons";
 import { Button, Modal, Typography } from "neetoui";
 import { mergeLeft, paths } from "ramda";
@@ -17,30 +17,29 @@ import { useShallow } from "zustand/react/shallow";
 
 import CategoryItem from "./Item";
 import NewCategory from "./New";
-import { getIdsFromIdParamString, getParamStringFromIds } from "./utils";
 
 const Categories = () => {
   const queryParams = useQueryParams();
-  const { categories: categoriesParam } = queryParams;
+  const { categories: categorySlugs } = queryParams;
 
   const history = useHistory();
 
   const [
-    activeCategoryIds,
+    activeCategorySlugs,
     isCategoriesPaneOpen,
     setIsCategoriesPaneOpen,
     isNewCategoryModalOpen,
     setIsNewCategoryModalOpen,
-    setActiveCategoryIds,
+    setActiveCategorySlugs,
   ] = useCategoriesStore(
     useShallow(
       paths([
-        ["activeCategoryIds"],
+        ["activeCategorySlugs"],
         ["isCategoriesPaneOpen"],
         ["setIsCategoriesPaneOpen"],
         ["isNewCategoryModalOpen"],
         ["setIsNewCategoryModalOpen"],
-        ["setActiveCategoryIds"],
+        ["setActiveCategorySlugs"],
       ])
     )
   );
@@ -53,23 +52,21 @@ const Categories = () => {
   } = useFetchCategories();
 
   useEffect(() => {
-    if (categoriesParam) {
-      const ids = getIdsFromIdParamString(categoriesParam);
-      setActiveCategoryIds(ids);
+    if (categorySlugs && isNotEqualDeep(activeCategorySlugs, categorySlugs)) {
+      setActiveCategorySlugs(categorySlugs);
       setIsCategoriesPaneOpen(true);
     }
-  }, [categoriesParam]);
+  }, []);
 
   useEffect(() => {
-    const updatedParams = filterNonNull(
-      mergeLeft(
-        { categories: getParamStringFromIds(activeCategoryIds) || null },
-        queryParams
-      )
-    );
+    if (!categorySlugs || isNotEqualDeep(activeCategorySlugs, categorySlugs)) {
+      const updatedParams = filterNonNull(
+        mergeLeft({ categories: activeCategorySlugs }, queryParams)
+      );
 
-    history.replace(buildUrl(routes.blogs.index, updatedParams));
-  }, [activeCategoryIds]);
+      history.replace(buildUrl(routes.blogs.index, updatedParams));
+    }
+  }, [activeCategorySlugs, categorySlugs]);
 
   if (isLoading) return <PageLoader />;
 

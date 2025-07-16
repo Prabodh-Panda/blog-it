@@ -8,6 +8,6 @@ json.posts @posts do |post|
   end
 
   json.categories post.categories do |category|
-    json.extract! category, :id, :name
+    json.extract! category, :id, :name, :slug
   end
 end

@@ -2,7 +2,7 @@
 
 class CategoriesController < ApplicationController
   def index
-    categories = Category.select(:id, :name)
+    categories = Category.select(:id, :name, :slug)
     render status: :ok, json: { categories: }
   end
 

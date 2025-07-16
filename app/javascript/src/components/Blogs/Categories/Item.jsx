@@ -6,12 +6,12 @@ import { includes, paths } from "ramda";
 import useCategoriesStore from "stores/useCategoriesStore";
 import { useShallow } from "zustand/react/shallow";
 
-const Item = ({ id, name }) => {
-  const [activeCategoryIds, toggleIdActiveState] = useCategoriesStore(
-    useShallow(paths([["activeCategoryIds"], ["toggleIdActiveState"]]))
+const Item = ({ slug, name }) => {
+  const [activeCategorySlugs, toggleSlugActiveState] = useCategoriesStore(
+    useShallow(paths([["activeCategorySlugs"], ["toggleSlugActiveState"]]))
   );
 
-  const active = includes(id, activeCategoryIds);
+  const active = includes(slug, activeCategorySlugs);
 
   return (
     <Typography
@@ -19,7 +19,7 @@ const Item = ({ id, name }) => {
         "min-w-52 cursor-pointer rounded border border-gray-300 px-4 hover:bg-white",
         { "bg-white": active }
       )}
-      onClick={() => toggleIdActiveState(id)}
+      onClick={() => toggleSlugActiveState(slug)}
     >
       {name}
     </Typography>

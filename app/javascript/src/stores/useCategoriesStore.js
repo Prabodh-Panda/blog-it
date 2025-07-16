@@ -2,7 +2,7 @@ import { append, includes, without } from "ramda";
 import { create } from "zustand";
 
 const useCategoriesStore = create(set => ({
-  activeCategoryIds: [],
+  activeCategorySlugs: [],
   isCategoriesPaneOpen: false,
   isNewCategoryModalOpen: false,
 
@@ -15,18 +15,18 @@ const useCategoriesStore = create(set => ({
   setIsNewCategoryModalOpen: isOpen =>
     set(() => ({ isNewCategoryModalOpen: isOpen })),
 
-  toggleIdActiveState: id =>
+  toggleSlugActiveState: slug =>
     set(state => {
-      if (includes(id, state.activeCategoryIds)) {
+      if (includes(slug, state.activeCategorySlugs)) {
         return {
-          activeCategoryIds: without([id], state.activeCategoryIds),
+          activeCategorySlugs: without([slug], state.activeCategorySlugs),
         };
       }
 
-      return { activeCategoryIds: append(id, state.activeCategoryIds) };
+      return { activeCategorySlugs: append(slug, state.activeCategorySlugs) };
     }),
 
-  setActiveCategoryIds: ids => set(() => ({ activeCategoryIds: ids })),
+  setActiveCategorySlugs: slugs => set(() => ({ activeCategorySlugs: slugs })),
 }));
 
 export default useCategoriesStore;
