@@ -3,6 +3,7 @@ import React from "react";
 import BlogItem from "components/Blogs/Item";
 import { Header, PageLoader } from "components/commons";
 import { useFetchPosts } from "hooks/reactQuery/usePosts";
+import useQueryParams from "hooks/useQueryParams";
 import { Button } from "neetoui";
 import { useTranslation } from "react-i18next";
 import routes from "routes";
@@ -12,10 +13,12 @@ import Categories from "./Categories";
 const Blogs = () => {
   const { t } = useTranslation();
 
+  const params = useQueryParams();
+
   const {
     data: { posts },
     isLoading,
-  } = useFetchPosts();
+  } = useFetchPosts(params);
 
   if (isLoading) return <PageLoader />;
 

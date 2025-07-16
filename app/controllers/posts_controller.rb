@@ -4,7 +4,14 @@ class PostsController < ApplicationController
   before_action :load_post!, only: :show
 
   def index
-    @posts = Post.order(created_at: :desc)
+    if params[:categories].present?
+      @posts = Post.joins(:categories)
+        .where(categories: { slug: params[:categories] })
+        .distinct
+        .order(created_at: :desc)
+    else
+      @posts = Post.order(created_at: :desc)
+    end
     render
   end
 
