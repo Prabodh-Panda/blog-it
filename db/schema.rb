@@ -10,11 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_15_104802) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_16_090917) do
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug", null: false
+    t.index ["slug"], name: "index_categories_on_slug", unique: true
   end
 
   create_table "categories_posts", id: false, force: :cascade do |t|
@@ -22,6 +24,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_15_104802) do
     t.integer "category_id", null: false
     t.index ["category_id", "post_id"], name: "index_categories_posts_on_category_id_and_post_id"
     t.index ["post_id", "category_id"], name: "index_categories_posts_on_post_id_and_category_id", unique: true
+  end
+
+  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
   end
 
   create_table "organizations", force: :cascade do |t|

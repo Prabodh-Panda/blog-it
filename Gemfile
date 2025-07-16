@@ -63,6 +63,6 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
 end
 
-gem "react-rails", "~> 2.7.1"
-# Gemfile
 gem "bcrypt", "~> 3.1.7"
+gem "data_migrate"
+gem "react-rails", "~> 2.7.1"

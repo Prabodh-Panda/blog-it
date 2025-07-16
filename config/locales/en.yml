@@ -35,3 +35,6 @@ en:
   post:
     slug:
       immutable: "is immutable!"
+  category:
+    slug:
+      immutable: "is immutable!"
