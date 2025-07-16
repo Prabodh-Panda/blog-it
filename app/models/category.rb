@@ -3,7 +3,7 @@
 class Category < ApplicationRecord
   has_and_belongs_to_many :posts
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
   validate :slug_not_changed
 
   before_create :set_slug
