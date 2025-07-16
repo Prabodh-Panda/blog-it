@@ -1,45 +1,29 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import classNames from "classnames";
 import { PageLoader } from "components/commons";
 import { useFetchCategories } from "hooks/reactQuery/useCategories";
-import useQueryParams from "hooks/useQueryParams";
-import { filterNonNull, isNotEqualDeep } from "neetocist";
 import { Plus, Search } from "neetoicons";
 import { Button, Modal, Typography } from "neetoui";
-import { mergeLeft, paths } from "ramda";
+import { paths } from "ramda";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
-import routes from "routes";
 import useCategoriesStore from "stores/useCategoriesStore";
-import { buildUrl } from "utils/url";
 import { useShallow } from "zustand/react/shallow";
 
 import CategoryItem from "./Item";
 import NewCategory from "./New";
 
 const Categories = () => {
-  const queryParams = useQueryParams();
-  const { categories: categorySlugs } = queryParams;
-
-  const history = useHistory();
-
   const [
-    activeCategorySlugs,
     isCategoriesPaneOpen,
-    setIsCategoriesPaneOpen,
     isNewCategoryModalOpen,
     setIsNewCategoryModalOpen,
-    setActiveCategorySlugs,
   ] = useCategoriesStore(
     useShallow(
       paths([
-        ["activeCategorySlugs"],
         ["isCategoriesPaneOpen"],
-        ["setIsCategoriesPaneOpen"],
         ["isNewCategoryModalOpen"],
         ["setIsNewCategoryModalOpen"],
-        ["setActiveCategorySlugs"],
       ])
     )
   );
@@ -50,23 +34,6 @@ const Categories = () => {
     data: { categories },
     isLoading,
   } = useFetchCategories();
-
-  useEffect(() => {
-    if (categorySlugs && isNotEqualDeep(activeCategorySlugs, categorySlugs)) {
-      setActiveCategorySlugs(categorySlugs);
-      setIsCategoriesPaneOpen(true);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!categorySlugs || isNotEqualDeep(activeCategorySlugs, categorySlugs)) {
-      const updatedParams = filterNonNull(
-        mergeLeft({ categories: activeCategorySlugs }, queryParams)
-      );
-
-      history.replace(buildUrl(routes.blogs.index, updatedParams));
-    }
-  }, [activeCategorySlugs, categorySlugs]);
 
   if (isLoading) return <PageLoader />;
 
