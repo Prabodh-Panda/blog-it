@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Typography } from "neetoui";
+import { Tag, Typography } from "neetoui";
 import { Link } from "react-router-dom";
 import routes from "routes";
 import { buildUrl } from "utils/url";
@@ -20,13 +20,8 @@ const Item = ({ title, description, created_at, slug, author, categories }) => (
         </Typography>
       </Link>
       <div className="my-2 flex gap-2">
-        {categories.map(category => (
-          <Typography
-            className="rounded-full bg-green-200 px-4"
-            key={category.id}
-          >
-            {category.name}
-          </Typography>
+        {categories.map(({ name, id }) => (
+          <Tag key={id} label={name} style="success" type="solid" />
         ))}
       </div>
     </div>
