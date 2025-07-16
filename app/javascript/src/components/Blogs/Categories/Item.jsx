@@ -12,7 +12,8 @@ import { buildUrl } from "utils/url";
 
 const Item = ({ slug, name }) => {
   const queryParams = useQueryParams();
-  const { categories = [] } = queryParams;
+  let { categories = [] } = queryParams;
+  categories = Array.isArray(categories) ? categories : [categories];
 
   const setIsCategoriesPaneOpen = useCategoriesStore(
     state => state.setIsCategoriesPaneOpen

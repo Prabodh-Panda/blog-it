@@ -1,6 +1,6 @@
 import { keysToSnakeCase } from "neetocist";
 import { stringify } from "qs";
-import { isEmpty, toPairs, pipe, omit } from "ramda";
+import { isEmpty, toPairs, pipe, omit, partialRight } from "ramda";
 
 export const buildUrl = (route, params) => {
   const placeHolders = [];
@@ -14,7 +14,7 @@ export const buildUrl = (route, params) => {
   const queryParams = pipe(
     omit(placeHolders),
     keysToSnakeCase,
-    stringify
+    partialRight(stringify, [{ arrayFormat: "repeat" }])
   )(params);
 
   return isEmpty(queryParams) ? route : `${route}?${queryParams}`;
