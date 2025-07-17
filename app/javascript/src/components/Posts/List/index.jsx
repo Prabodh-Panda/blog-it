@@ -1,6 +1,5 @@
 import React from "react";
 
-import BlogItem from "components/Blogs/Item";
 import { PageLoader } from "components/commons";
 import { useFetchPosts } from "hooks/reactQuery/usePosts";
 import useQueryParams from "hooks/useQueryParams";
@@ -9,6 +8,7 @@ import { isEmpty } from "ramda";
 import { useTranslation } from "react-i18next";
 
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from "./constants";
+import PostItem from "./Item";
 
 const List = () => {
   const { t } = useTranslation();
@@ -32,7 +32,7 @@ const List = () => {
     <div className="flex h-0 flex-1 flex-col">
       <div className="h-0 flex-1 overflow-y-auto px-16">
         {posts.map(post => (
-          <BlogItem key={post.id} {...post} />
+          <PostItem key={post.id} {...post} />
         ))}
       </div>
       <Pagination

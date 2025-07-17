@@ -1,8 +1,9 @@
 import React from "react";
 
-import NewBlog from "components/Blogs/New";
-import ShowBlog from "components/Blogs/Show";
 import Sidebar from "components/commons/Sidebar";
+import Posts from "components/Posts";
+import PostDetails from "components/Posts/Details";
+import NewPost from "components/Posts/New";
 import { QueryClientProvider } from "react-query";
 import {
   Route,
@@ -14,8 +15,6 @@ import { ToastContainer } from "react-toastify";
 import routes from "routes";
 import queryClient from "utils/queryClient";
 
-import Blogs from "./components/Blogs";
-
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <Router>
@@ -23,9 +22,9 @@ const App = () => (
       <div className="flex h-screen">
         <Sidebar />
         <Switch>
-          <Route exact component={NewBlog} path={routes.blogs.new} />
-          <Route exact component={ShowBlog} path={routes.blogs.show} />
-          <Route exact component={Blogs} path={routes.blogs.index} />
+          <Route exact component={NewPost} path={routes.blogs.new} />
+          <Route exact component={PostDetails} path={routes.blogs.show} />
+          <Route exact component={Posts} path={routes.blogs.index} />
           <Redirect exact from={routes.root} to={routes.blogs.index} />
         </Switch>
       </div>

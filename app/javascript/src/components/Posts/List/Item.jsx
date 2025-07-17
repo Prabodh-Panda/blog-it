@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import routes from "routes";
 import { buildUrl } from "utils/url";
 
-import { getDateStringFromTimestamp } from "./utils";
+import { getDateStringFromTimestamp } from "../utils";
 
 const Item = ({ title, description, createdAt, slug, author, categories }) => (
   <div className="my-4 border-b py-4">

@@ -6,9 +6,9 @@ import routes from "routes";
 import withT from "utils/withT";
 
 import Categories from "./Categories";
-import BlogList from "./List";
+import PostList from "./List";
 
-const Blogs = ({ t }) => (
+const Posts = ({ t }) => (
   <div className="flex w-0 flex-1">
     <Categories />
     <div className="flex flex-1 flex-col">
@@ -22,9 +22,9 @@ const Blogs = ({ t }) => (
           />
         }
       />
-      <BlogList />
+      <PostList />
     </div>
   </div>
 );
 
-export default withT(Blogs);
+export default withT(Posts);

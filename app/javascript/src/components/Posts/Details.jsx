@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 
 import { getDateStringFromTimestamp } from "./utils";
 
-const Show = () => {
+const Details = () => {
   const { slug } = useParams();
   const { data: { post } = {}, isLoading } = useShowPost(slug);
 
@@ -54,4 +54,4 @@ const Show = () => {
   );
 };
 
-export default Show;
+export default Details;
