@@ -1,5 +1,6 @@
 import React from "react";
 
+import { truncate } from "neetocist";
 import { Tag, Typography } from "neetoui";
 import { Link } from "react-router-dom";
 import routes from "routes";
@@ -25,7 +26,7 @@ const Item = ({ title, description, createdAt, slug, author, categories }) => (
         ))}
       </div>
     </div>
-    <Typography className="mt-2">{description}</Typography>
+    <Typography className="mt-2">{truncate(description, 400)}</Typography>
     <div className="mt-1">
       <Typography style="body3" weight="bold">
         {author.name}
