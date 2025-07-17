@@ -11,7 +11,7 @@ import { getDateStringFromTimestamp } from "../utils";
 const Item = ({ title, description, createdAt, slug, author, categories }) => (
   <div className="my-4 border-b py-4">
     <div>
-      <Link to={buildUrl(routes.blogs.show, { slug })}>
+      <Link to={buildUrl(routes.posts.show, { slug })}>
         <Typography
           className="cursor-pointer hover:underline"
           style="h2"

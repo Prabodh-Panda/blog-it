@@ -14,8 +14,8 @@ const Sidebar = () => {
   return (
     <div className="flex flex-col items-center border-r p-4">
       <div className="space-y-4">
-        <SidebarItem icon={<Book />} to={routes.blogs.index} />
-        <SidebarItem icon={<Edit />} to={routes.blogs.new} />
+        <SidebarItem icon={<Book />} to={routes.posts.index} />
+        <SidebarItem icon={<Edit />} to={routes.posts.new} />
         <Button
           className="flex w-full items-center justify-center"
           icon={ListDetails}

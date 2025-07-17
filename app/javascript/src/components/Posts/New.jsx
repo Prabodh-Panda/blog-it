@@ -38,7 +38,7 @@ const New = () => {
 
     createPost(payload, {
       onSuccess: () => {
-        history.push(routes.blogs.index);
+        history.push(routes.posts.index);
       },
     });
   };
@@ -84,7 +84,7 @@ const New = () => {
             <Button
               disabled={isCreatePostLoading}
               style="secondary"
-              to={routes.blogs.index}
+              to={routes.posts.index}
             >
               {t("labels.cancel")}
             </Button>

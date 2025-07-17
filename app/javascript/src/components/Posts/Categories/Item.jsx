@@ -35,7 +35,7 @@ const Item = ({ slug, name }) => {
       mergeLeft({ categories: updatedCategories }, queryParams)
     );
 
-    history.replace(buildUrl(routes.blogs.index, updatedParams));
+    history.replace(buildUrl(routes.posts.index, updatedParams));
   };
 
   useEffect(() => {

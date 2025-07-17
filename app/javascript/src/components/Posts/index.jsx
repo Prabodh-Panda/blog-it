@@ -18,7 +18,7 @@ const Posts = ({ t }) => (
           <Button
             className="bg-black"
             label={t("labels.addNewBlogPost")}
-            to={routes.blogs.new}
+            to={routes.posts.new}
           />
         }
       />

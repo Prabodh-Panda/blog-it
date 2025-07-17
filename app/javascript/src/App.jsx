@@ -22,10 +22,10 @@ const App = () => (
       <div className="flex h-screen">
         <Sidebar />
         <Switch>
-          <Route exact component={NewPost} path={routes.blogs.new} />
-          <Route exact component={PostDetails} path={routes.blogs.show} />
-          <Route exact component={Posts} path={routes.blogs.index} />
-          <Redirect exact from={routes.root} to={routes.blogs.index} />
+          <Route exact component={NewPost} path={routes.posts.new} />
+          <Route exact component={PostDetails} path={routes.posts.show} />
+          <Route exact component={Posts} path={routes.posts.index} />
+          <Redirect exact from={routes.root} to={routes.posts.index} />
         </Switch>
       </div>
     </Router>

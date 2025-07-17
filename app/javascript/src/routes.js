@@ -1,9 +1,9 @@
 const routes = {
   root: "/",
-  blogs: {
-    index: "/blogs",
-    new: "/blogs/new",
-    show: "/blogs/:slug",
+  posts: {
+    index: "/posts",
+    new: "/posts/new",
+    show: "/posts/:slug/show",
   },
 };
 
