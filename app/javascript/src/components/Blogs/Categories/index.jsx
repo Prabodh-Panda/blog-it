@@ -35,10 +35,7 @@ const Categories = () => {
 
   const { t } = useTranslation();
 
-  const {
-    data: { categories = [] },
-    isLoading,
-  } = useFetchCategories();
+  const { data: { categories = [] } = {}, isLoading } = useFetchCategories();
 
   const filteredCategories = filterByPropertyIncludes(
     categories,

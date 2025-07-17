@@ -16,10 +16,7 @@ const List = () => {
 
   const { page } = params;
 
-  const {
-    data: { posts, totalCount },
-    isLoading,
-  } = useFetchPosts(params);
+  const { data: { posts, totalCount } = {}, isLoading } = useFetchPosts(params);
 
   if (isLoading) return <PageLoader />;
 

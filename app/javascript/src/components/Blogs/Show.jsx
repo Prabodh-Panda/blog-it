@@ -10,7 +10,7 @@ import { getDateStringFromTimestamp } from "./utils";
 
 const Show = () => {
   const { slug } = useParams();
-  const { data: post, isLoading } = useShowPost(slug);
+  const { data: { post } = {}, isLoading } = useShowPost(slug);
 
   if (isLoading) return <PageLoader />;
 
@@ -20,7 +20,7 @@ const Show = () => {
     title,
     description,
     author: { name },
-    created_at,
+    createdAt,
     categories,
   } = post;
 
@@ -44,7 +44,7 @@ const Show = () => {
               {name}
             </Typography>
             <Typography style="body3">
-              {getDateStringFromTimestamp(created_at)}
+              {getDateStringFromTimestamp(createdAt)}
             </Typography>
           </div>
         </div>

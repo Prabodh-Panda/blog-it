@@ -1,4 +1,5 @@
 import axios from "axios";
+import { keysToCamelCase } from "neetocist";
 import { Toastr } from "neetoui";
 import { setToLocalStorage, getFromLocalStorage } from "utils/storage";
 
@@ -49,9 +50,23 @@ const handleErrorResponse = axiosErrorObject => {
   return Promise.reject(axiosErrorObject);
 };
 
+const transformResponseKeysToCamelCase = response => {
+  if (response.data) response.data = keysToCamelCase(response.data);
+};
+
 const registerIntercepts = () => {
-  axios.interceptors.response.use(handleSuccessResponse, error =>
-    handleErrorResponse(error)
+  axios.interceptors.response.use(
+    response => {
+      handleSuccessResponse(response);
+      transformResponseKeysToCamelCase(response);
+
+      return response.data;
+    },
+    error => {
+      handleErrorResponse(error);
+
+      return Promise.reject(error);
+    }
   );
 };
 

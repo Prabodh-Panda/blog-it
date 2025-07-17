@@ -23,10 +23,8 @@ const New = () => {
   const { mutate: createPost, isLoading: isCreatePostLoading } =
     useCreatePost();
 
-  const {
-    data: { categories },
-    isLoading: isFetchCategoriesLoading,
-  } = useFetchCategories();
+  const { data: { categories } = {}, isLoading: isFetchCategoriesLoading } =
+    useFetchCategories();
 
   const history = useHistory();
 

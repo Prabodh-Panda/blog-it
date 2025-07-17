@@ -4,16 +4,11 @@ import postsApi from "apis/posts";
 import { useMutation, useQuery } from "react-query";
 import queryClient from "utils/queryClient";
 
-export const useFetchPosts = params => {
-  const { data = {}, isLoading } = useQuery({
+export const useFetchPosts = params =>
+  useQuery({
     queryKey: [QUERY_KEYS.POSTS, params],
     queryFn: () => postsApi.fetch(params),
   });
-
-  const { data: { posts, total_count } = {} } = data;
-
-  return { data: { posts, totalCount: total_count }, isLoading };
-};
 
 export const useCreatePost = () =>
   useMutation(postsApi.create, {
@@ -22,14 +17,9 @@ export const useCreatePost = () =>
     },
   });
 
-export const useShowPost = slug => {
-  const { data, isLoading } = useQuery({
+export const useShowPost = slug =>
+  useQuery({
     queryKey: [QUERY_KEYS.POSTS, slug],
     queryFn: () => postsApi.show(slug),
     retry: false,
   });
-
-  const post = data?.data?.post;
-
-  return { data: post, isLoading };
-};
