@@ -11,3 +11,5 @@ json.posts @posts do |post|
     json.extract! category, :id, :name, :slug
   end
 end
+
+json.total_count @posts.total_count

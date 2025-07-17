@@ -10,9 +10,9 @@ export const useFetchPosts = params => {
     queryFn: () => postsApi.fetch(params),
   });
 
-  const { data: { posts } = {} } = data;
+  const { data: { posts, total_count } = {} } = data;
 
-  return { data: { posts }, isLoading };
+  return { data: { posts, totalCount: total_count }, isLoading };
 };
 
 export const useCreatePost = () =>

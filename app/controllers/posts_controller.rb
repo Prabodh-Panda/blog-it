@@ -9,8 +9,9 @@ class PostsController < ApplicationController
         .where(categories: { slug: params[:categories] })
         .distinct
         .order(created_at: :desc)
+        .page(params[:page])
     else
-      @posts = Post.order(created_at: :desc)
+      @posts = Post.order(created_at: :desc).page(params[:page])
     end
     render
   end

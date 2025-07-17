@@ -1,6 +1,9 @@
 import { t } from "i18next";
 import * as yup from "yup";
 
+export const DEFAULT_PAGE_SIZE = 5;
+export const DEFAULT_PAGE = 1;
+
 export const MAX_TITLE_LENGTH = 125;
 export const MAX_DESCRIPTION_LENGTH = 10000;
 

@@ -65,4 +65,5 @@ end
 
 gem "bcrypt", "~> 3.1.7"
 gem "data_migrate"
+gem "kaminari", "~> 1.2", ">= 1.2.2"
 gem "react-rails", "~> 2.7.1"
