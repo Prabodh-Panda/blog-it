@@ -13,7 +13,7 @@ import { useShallow } from "zustand/react/shallow";
 import CategoryItem from "./Item";
 import NewCategory from "./New";
 import CategorySearch from "./Search";
-import { filterByPropertyIncludes } from "./utils";
+import { getFilteredCategories } from "./utils";
 
 const Categories = () => {
   const [isSearchInputShown, setIsSearchInputShown] = useState(false);
@@ -37,11 +37,7 @@ const Categories = () => {
 
   const { data: { categories = [] } = {}, isLoading } = useFetchCategories();
 
-  const filteredCategories = filterByPropertyIncludes(
-    categories,
-    searchValue,
-    "name"
-  );
+  const filteredCategories = getFilteredCategories(categories, searchValue);
 
   if (isLoading) return <PageLoader />;
 

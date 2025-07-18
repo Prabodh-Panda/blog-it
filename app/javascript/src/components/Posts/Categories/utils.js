@@ -6,10 +6,10 @@ export const getIdsFromIdParamString = paramString =>
 
 export const getParamStringFromIds = ids => ids.join(",");
 
-export const filterByPropertyIncludes = (list, searchTerm, property) => {
+export const getFilteredCategories = (categories, searchTerm) => {
   const lowerCaseSearch = searchTerm.toLowerCase();
 
-  return list.filter(item =>
-    item[property]?.toLowerCase().includes(lowerCaseSearch)
+  return categories.filter(({ name }) =>
+    name.toLowerCase().includes(lowerCaseSearch)
   );
 };
