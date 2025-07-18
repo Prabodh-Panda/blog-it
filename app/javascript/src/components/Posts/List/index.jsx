@@ -4,19 +4,30 @@ import { PageLoader } from "components/commons";
 import { useFetchPosts } from "hooks/reactQuery/usePosts";
 import useQueryParams from "hooks/useQueryParams";
 import { NoData, Pagination } from "neetoui";
-import { isEmpty } from "ramda";
+import { isEmpty, mergeLeft } from "ramda";
 import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
+import routes from "routes";
+import { buildUrl } from "utils/url";
 
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from "./constants";
 import PostItem from "./Item";
 
 const List = () => {
   const { t } = useTranslation();
-  const params = useQueryParams();
+  const queryParams = useQueryParams();
 
-  const { page } = params;
+  const history = useHistory();
 
-  const { data: { posts, totalCount } = {}, isLoading } = useFetchPosts(params);
+  const { page } = queryParams;
+
+  const { data: { posts, totalCount } = {}, isLoading } =
+    useFetchPosts(queryParams);
+
+  const handlePageNavigation = page =>
+    history.replace(
+      buildUrl(routes.posts.index, mergeLeft({ page }, queryParams))
+    );
 
   if (isLoading) return <PageLoader />;
 
@@ -38,6 +49,7 @@ const List = () => {
       <Pagination
         className="float-right my-4 mr-4"
         count={totalCount}
+        navigate={handlePageNavigation}
         pageNo={Number(page) || DEFAULT_PAGE}
         pageSize={DEFAULT_PAGE_SIZE}
       />
