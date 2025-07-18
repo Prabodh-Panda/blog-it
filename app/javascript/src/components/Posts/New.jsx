@@ -12,8 +12,8 @@ import routes from "routes";
 import {
   MAX_DESCRIPTION_LENGTH,
   MAX_TITLE_LENGTH,
-  NEW_BLOG_INITIAL_VALUES,
-  NEW_BLOG_VALIDATION_SCHEMA,
+  NEW_POST_INITIAL_VALUES,
+  NEW_POST_VALIDATION_SCHEMA,
 } from "./constants";
 import { getCategoryOptions } from "./utils";
 
@@ -52,8 +52,8 @@ const New = () => {
         <Form
           className="flex h-full flex-col justify-start rounded-lg border p-10"
           formikProps={{
-            initialValues: NEW_BLOG_INITIAL_VALUES,
-            validationSchema: NEW_BLOG_VALIDATION_SCHEMA,
+            initialValues: NEW_POST_INITIAL_VALUES,
+            validationSchema: NEW_POST_VALIDATION_SCHEMA,
             onSubmit: handleSubmit,
           }}
         >

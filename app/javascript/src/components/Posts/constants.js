@@ -4,13 +4,13 @@ import * as yup from "yup";
 export const MAX_TITLE_LENGTH = 125;
 export const MAX_DESCRIPTION_LENGTH = 10000;
 
-export const NEW_BLOG_INITIAL_VALUES = {
+export const NEW_POST_INITIAL_VALUES = {
   title: "",
   categories: [],
   description: "",
 };
 
-export const NEW_BLOG_VALIDATION_SCHEMA = yup.object().shape({
+export const NEW_POST_VALIDATION_SCHEMA = yup.object().shape({
   title: yup
     .string()
     .required(t("validations.titleRequired"))
