@@ -26,7 +26,7 @@ const Login = () => {
           userId: id,
           userName: name,
         });
-        history.replace(routes.root);
+        history.replace(routes.posts.index);
       },
     });
   };
