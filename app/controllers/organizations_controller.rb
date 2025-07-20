@@ -8,7 +8,7 @@ class OrganizationsController < ApplicationController
   def create
     organization = Organization.create(organization_params)
     organization.save!
-    render_notice(t("successfully_created"))
+    render_notice(t("successfully_created", entity: "Organization"))
   end
 
   private

@@ -5,9 +5,11 @@ import {
   useCreateOrganization,
   useFetchOrganizations,
 } from "hooks/reactQuery/useOrganizations";
+import { useCreateUser } from "hooks/reactQuery/useUsers";
 import { Button, Typography } from "neetoui";
 import { Form, Input, Select } from "neetoui/formik";
 import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
 import routes from "routes";
 
 import { SIGNUP_INITIAL_VALUES, SIGNUP_VALIDATION_SCHEMA } from "./constants";
@@ -15,6 +17,8 @@ import { getOrganizationOptions } from "./utils";
 
 const Signup = () => {
   const { t } = useTranslation();
+
+  const history = useHistory();
 
   const {
     data: { organizations } = {},
@@ -24,7 +28,21 @@ const Signup = () => {
   const { mutate: createOrganization, isLoading: isCreateOrganizationLoading } =
     useCreateOrganization();
 
-  const handleSubmit = () => {};
+  const { mutate: createUser, isLoading: isCreateUserLoading } =
+    useCreateUser();
+
+  const handleSubmit = data => {
+    const payload = {
+      ...data,
+      organizationId: data.organization.value,
+    };
+
+    createUser(payload, {
+      onSuccess: () => {
+        history.push("/login");
+      },
+    });
+  };
 
   const handleCreateOrganization = organizationName => {
     createOrganization({
@@ -91,7 +109,7 @@ const Signup = () => {
           />
           <Button
             className="justify-center"
-            disabled={isCreateOrganizationLoading}
+            disabled={isCreateOrganizationLoading || isCreateUserLoading}
             label={t("labels.signUp")}
             type="submit"
           />

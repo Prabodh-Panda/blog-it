@@ -1,6 +1,7 @@
 import axios from "axios";
-import { keysToCamelCase } from "neetocist";
+import { keysToCamelCase, serializeKeysToSnakeCase } from "neetocist";
 import { Toastr } from "neetoui";
+import { evolve } from "ramda";
 import { setToLocalStorage, getFromLocalStorage } from "utils/storage";
 
 const DEFAULT_ERROR_NOTIFICATION = "Something went wrong!";
@@ -55,6 +56,10 @@ const transformResponseKeysToCamelCase = response => {
 };
 
 const registerIntercepts = () => {
+  axios.interceptors.request.use(
+    evolve({ data: serializeKeysToSnakeCase, params: serializeKeysToSnakeCase })
+  );
+
   axios.interceptors.response.use(
     response => {
       handleSuccessResponse(response);
