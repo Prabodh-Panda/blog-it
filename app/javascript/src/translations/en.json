@@ -3,7 +3,8 @@
     "blogPosts": "Blog posts",
     "newBlogPost": "New blog post",
     "categories": "CATEGORIES",
-    "newCategory": "New category"
+    "newCategory": "New category",
+    "signUp": "Sign up"
   },
   "labels": {
     "addNewBlogPost": "Add new blog post",
@@ -14,11 +15,22 @@
     "submit": "Submit",
     "backToHome": "Back to home",
     "add": "Add",
-    "categoryTitle": "Category title"
+    "categoryTitle": "Category title",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "passwordConfirmation": "Password confirmation",
+    "organization": "Organization",
+    "signUp": "Sign up",
+    "loginNow": "Or login now"
   },
   "placeholders": {
     "title": "Enter title",
-    "description": "Enter description"
+    "description": "Enter description",
+    "name": "Oliver",
+    "email": "oliver@example.com",
+    "password": "********",
+    "organization": "PixelCompute"
   },
   "validations": {
     "titleRequired": "Title is required",
@@ -27,7 +39,26 @@
     "descriptionMaxLength": "Description must be at most {{max}} characters",
     "categoryRequired": "Category is required",
     "atLeastOneCategoryRequired": "Please select at least one category",
-    "categoryNameRequired": "Category title is required"
+    "categoryNameRequired": "Category title is required",
+    "name": {
+      "required": "Name is required",
+      "min": "Name must be at least 3 characters"
+    },
+    "email": {
+      "required": "Email is required",
+      "invalid": "Enter a valid email address"
+    },
+    "password": {
+      "required": "Password is required",
+      "min": "Password must be at least 6 characters"
+    },
+    "passwordConfirmation": {
+      "required": "Password confirmation is required",
+      "match": "Passwords must match"
+    },
+    "organization": {
+      "required": "Organization is required"
+    }
   },
   "errors": {
     "pageNotFound": "The page you're looking for can't be found",

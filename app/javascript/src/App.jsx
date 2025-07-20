@@ -1,6 +1,6 @@
 import React from "react";
 
-import Sidebar from "components/commons/Sidebar";
+import Signup from "components/Authentication/Signup";
 import Posts from "components/Posts";
 import PostDetails from "components/Posts/Details";
 import NewPost from "components/Posts/New";
@@ -19,15 +19,13 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <Router>
       <ToastContainer />
-      <div className="flex h-screen">
-        <Sidebar />
-        <Switch>
-          <Route exact component={NewPost} path={routes.posts.new} />
-          <Route exact component={PostDetails} path={routes.posts.show} />
-          <Route exact component={Posts} path={routes.posts.index} />
-          <Redirect exact from={routes.root} to={routes.posts.index} />
-        </Switch>
-      </div>
+      <Switch>
+        <Route exact component={NewPost} path={routes.posts.new} />
+        <Route exact component={PostDetails} path={routes.posts.show} />
+        <Route exact component={Posts} path={routes.posts.index} />
+        <Route exact component={Signup} path={routes.auth.signup} />
+        <Redirect exact from={routes.root} to={routes.posts.index} />
+      </Switch>
     </Router>
   </QueryClientProvider>
 );
