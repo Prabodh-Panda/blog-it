@@ -1,5 +1,6 @@
 import React from "react";
 
+import Login from "components/Authentication/Login";
 import Signup from "components/Authentication/Signup";
 import Posts from "components/Posts";
 import PostDetails from "components/Posts/Details";
@@ -24,6 +25,7 @@ const App = () => (
         <Route exact component={PostDetails} path={routes.posts.show} />
         <Route exact component={Posts} path={routes.posts.index} />
         <Route exact component={Signup} path={routes.auth.signup} />
+        <Route exact component={Login} path={routes.auth.login} />
         <Redirect exact from={routes.root} to={routes.posts.index} />
       </Switch>
     </Router>

@@ -37,3 +37,20 @@ export const SIGNUP_VALIDATION_SCHEMA = yup.object().shape({
     })
     .required(t("validations.organization.required")),
 });
+
+export const LOGIN_INITIAL_VALUES = {
+  email: "",
+  password: "",
+};
+
+export const LOGIN_VALIDATION_SCHEMA = yup.object().shape({
+  email: yup
+    .string()
+    .required(t("validations.email.required"))
+    .email(t("validations.email.invalid")),
+
+  password: yup
+    .string()
+    .required(t("validations.password.required"))
+    .min(6, t("validations.password.min")),
+});

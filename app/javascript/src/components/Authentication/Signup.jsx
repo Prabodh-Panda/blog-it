@@ -39,7 +39,7 @@ const Signup = () => {
 
     createUser(payload, {
       onSuccess: () => {
-        history.push("/login");
+        history.push(routes.auth.login);
       },
     });
   };

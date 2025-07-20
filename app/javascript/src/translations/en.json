@@ -4,7 +4,8 @@
     "newBlogPost": "New blog post",
     "categories": "CATEGORIES",
     "newCategory": "New category",
-    "signUp": "Sign up"
+    "signUp": "Sign up",
+    "login": "Login"
   },
   "labels": {
     "addNewBlogPost": "Add new blog post",
@@ -22,7 +23,9 @@
     "passwordConfirmation": "Password confirmation",
     "organization": "Organization",
     "signUp": "Sign up",
-    "loginNow": "Or login now"
+    "login": "Login",
+    "loginNow": "Or login now",
+    "signUpNow": "Or sign up now"
   },
   "placeholders": {
     "title": "Enter title",
