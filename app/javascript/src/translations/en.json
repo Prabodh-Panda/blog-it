@@ -25,7 +25,8 @@
     "signUp": "Sign up",
     "login": "Login",
     "loginNow": "Or login now",
-    "signUpNow": "Or sign up now"
+    "signUpNow": "Or sign up now",
+    "logout": "Logout"
   },
   "placeholders": {
     "title": "Enter title",

@@ -1,12 +1,11 @@
 import React from "react";
 
-import { useCreateSession } from "hooks/reactQuery/useSessions";
+import { useLogin } from "hooks/reactQuery/useAuth";
 import { Button, Typography } from "neetoui";
 import { Form, Input } from "neetoui/formik";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import routes from "routes";
-import { setToLocalStorage } from "utils/storage";
 
 import { LOGIN_INITIAL_VALUES, LOGIN_VALIDATION_SCHEMA } from "./constants";
 
@@ -15,17 +14,11 @@ const Login = () => {
 
   const history = useHistory();
 
-  const { mutate: createSession, isLoading } = useCreateSession();
+  const { mutate: login, isLoading } = useLogin();
 
   const handleSubmit = payload => {
-    createSession(payload, {
-      onSuccess: ({ name, id, authenticationToken }) => {
-        setToLocalStorage({
-          authToken: authenticationToken,
-          email: payload.email.toLowerCase(),
-          userId: id,
-          userName: name,
-        });
+    login(payload, {
+      onSuccess: () => {
         history.replace(routes.posts.index);
       },
     });

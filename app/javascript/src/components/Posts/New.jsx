@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Header, PageLoader } from "components/commons";
+import { Header, PageLoader, Sidebar } from "components/commons";
 import { useFetchCategories } from "hooks/reactQuery/useCategories";
 import { useCreatePost } from "hooks/reactQuery/usePosts";
 import { Button } from "neetoui";
@@ -46,57 +46,60 @@ const New = () => {
   if (isFetchCategoriesLoading) return <PageLoader />;
 
   return (
-    <div className="flex flex-1 flex-col">
-      <Header title={t("titles.newBlogPost")} />
-      <div className="w-full flex-1 px-16 pb-10">
-        <Form
-          className="flex h-full flex-col justify-start rounded-lg border p-10"
-          formikProps={{
-            initialValues: NEW_POST_INITIAL_VALUES,
-            validationSchema: NEW_POST_VALIDATION_SCHEMA,
-            onSubmit: handleSubmit,
-          }}
-        >
-          <div className="space-y-4">
-            <Input
-              required
-              label={t("labels.title")}
-              maxLength={MAX_TITLE_LENGTH}
-              name="title"
-              placeholder={t("placeholders.title")}
-            />
-            <Select
-              isMulti
-              required
-              label={t("labels.category")}
-              name="categories"
-              options={getCategoryOptions(categories)}
-            />
-            <Textarea
-              required
-              label={t("labels.description")}
-              maxLength={MAX_DESCRIPTION_LENGTH}
-              name="description"
-              placeholder={t("placeholders.description")}
-            />
-          </div>
-          <div className="ml-auto mt-auto space-x-2">
-            <Button
-              disabled={isCreatePostLoading}
-              style="secondary"
-              to={routes.posts.index}
-            >
-              {t("labels.cancel")}
-            </Button>
-            <Button
-              className="bg-black"
-              disabled={isCreatePostLoading}
-              type="submit"
-            >
-              {t("labels.submit")}
-            </Button>
-          </div>
-        </Form>
+    <div className="flex h-screen w-screen">
+      <Sidebar />
+      <div className="flex flex-1 flex-col">
+        <Header title={t("titles.newBlogPost")} />
+        <div className="w-full flex-1 px-16 pb-10">
+          <Form
+            className="flex h-full flex-col justify-start rounded-lg border p-10"
+            formikProps={{
+              initialValues: NEW_POST_INITIAL_VALUES,
+              validationSchema: NEW_POST_VALIDATION_SCHEMA,
+              onSubmit: handleSubmit,
+            }}
+          >
+            <div className="space-y-4">
+              <Input
+                required
+                label={t("labels.title")}
+                maxLength={MAX_TITLE_LENGTH}
+                name="title"
+                placeholder={t("placeholders.title")}
+              />
+              <Select
+                isMulti
+                required
+                label={t("labels.category")}
+                name="categories"
+                options={getCategoryOptions(categories)}
+              />
+              <Textarea
+                required
+                label={t("labels.description")}
+                maxLength={MAX_DESCRIPTION_LENGTH}
+                name="description"
+                placeholder={t("placeholders.description")}
+              />
+            </div>
+            <div className="ml-auto mt-auto space-x-2">
+              <Button
+                disabled={isCreatePostLoading}
+                style="secondary"
+                to={routes.posts.index}
+              >
+                {t("labels.cancel")}
+              </Button>
+              <Button
+                className="bg-black"
+                disabled={isCreatePostLoading}
+                type="submit"
+              >
+                {t("labels.submit")}
+              </Button>
+            </div>
+          </Form>
+        </div>
       </div>
     </div>
   );

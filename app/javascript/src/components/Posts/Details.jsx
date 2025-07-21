@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Header, PageLoader } from "components/commons";
+import { Header, PageLoader, Sidebar } from "components/commons";
 import PageNotFound from "components/commons/PageNotFound";
 import { useShowPost } from "hooks/reactQuery/usePosts";
 import { Avatar, Tag, Typography } from "neetoui";
@@ -25,30 +25,33 @@ const Details = () => {
   } = post;
 
   return (
-    <div>
-      <Header
-        title={title}
-        preHeaderContent={
-          <div className="mb-2 space-x-2">
-            {categories.map(({ name, id }) => (
-              <Tag key={id} label={name} style="success" type="solid" />
-            ))}
+    <div className="flex h-screen w-screen">
+      <Sidebar />
+      <div>
+        <Header
+          title={title}
+          preHeaderContent={
+            <div className="mb-2 space-x-2">
+              {categories.map(({ name, id }) => (
+                <Tag key={id} label={name} style="success" type="solid" />
+              ))}
+            </div>
+          }
+        />
+        <div className="px-16 pb-4">
+          <div className="mb-8 flex items-center gap-4">
+            <Avatar size="large" />
+            <div>
+              <Typography style="body2" weight="medium">
+                {name}
+              </Typography>
+              <Typography style="body3">
+                {getDateStringFromTimestamp(createdAt)}
+              </Typography>
+            </div>
           </div>
-        }
-      />
-      <div className="px-16 pb-4">
-        <div className="mb-8 flex items-center gap-4">
-          <Avatar size="large" />
-          <div>
-            <Typography style="body2" weight="medium">
-              {name}
-            </Typography>
-            <Typography style="body3">
-              {getDateStringFromTimestamp(createdAt)}
-            </Typography>
-          </div>
+          <Typography>{description}</Typography>
         </div>
-        <Typography>{description}</Typography>
       </div>
     </div>
   );
