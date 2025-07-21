@@ -4,7 +4,6 @@ import { useLogin } from "hooks/reactQuery/useAuth";
 import { Button, Typography } from "neetoui";
 import { Form, Input } from "neetoui/formik";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
 import routes from "routes";
 
 import { LOGIN_INITIAL_VALUES, LOGIN_VALIDATION_SCHEMA } from "./constants";
@@ -12,14 +11,12 @@ import { LOGIN_INITIAL_VALUES, LOGIN_VALIDATION_SCHEMA } from "./constants";
 const Login = () => {
   const { t } = useTranslation();
 
-  const history = useHistory();
-
   const { mutate: login, isLoading } = useLogin();
 
   const handleSubmit = payload => {
     login(payload, {
       onSuccess: () => {
-        history.replace(routes.posts.index);
+        window.location.href = routes.posts.index;
       },
     });
   };

@@ -15,9 +15,9 @@ class PostsController < ApplicationController
   end
 
   def create
-    post = Post.new(post_params)
+    post = @current_user.posts.new(post_params.merge(organization: @current_user.organization))
     post.save!
-    render_notice(t("successfully_created"))
+    render_notice(t("successfully_created", entity: "Post"))
   end
 
   def show
@@ -31,6 +31,6 @@ class PostsController < ApplicationController
     end
 
     def post_params
-      params.require(:post).permit(:title, :description, :user_id, :organization_id, category_ids: [])
+      params.require(:post).permit(:title, :description, category_ids: [])
     end
 end
