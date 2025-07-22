@@ -1,7 +1,10 @@
 import React from "react";
 
 import { Header, PageLoader, Sidebar } from "components/commons";
-import { useFetchCategories } from "hooks/reactQuery/useCategories";
+import {
+  useCreateCategory,
+  useFetchCategories,
+} from "hooks/reactQuery/useCategories";
 import { useCreatePost } from "hooks/reactQuery/usePosts";
 import { Button } from "neetoui";
 import { Form, Input, Textarea, Select } from "neetoui/formik";
@@ -23,6 +26,9 @@ const New = () => {
   const { mutate: createPost, isLoading: isCreatePostLoading } =
     useCreatePost();
 
+  const { mutate: createCategory, isLoading: isCreateCategoryLoading } =
+    useCreateCategory();
+
   const { data: { categories } = {}, isLoading: isFetchCategoriesLoading } =
     useFetchCategories();
 
@@ -43,7 +49,13 @@ const New = () => {
     });
   };
 
-  if (isFetchCategoriesLoading) return <PageLoader />;
+  const handleCreateCategory = name => {
+    createCategory({ name });
+  };
+
+  if (isFetchCategoriesLoading || isCreateCategoryLoading) {
+    return <PageLoader />;
+  }
 
   return (
     <div className="flex h-screen w-screen">
@@ -68,11 +80,13 @@ const New = () => {
                 placeholder={t("placeholders.title")}
               />
               <Select
+                isCreateable
                 isMulti
                 required
                 label={t("labels.category")}
                 name="categories"
                 options={getCategoryOptions(categories)}
+                onCreateOption={handleCreateCategory}
               />
               <Textarea
                 required

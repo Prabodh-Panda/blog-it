@@ -2,14 +2,14 @@
 
 class CategoriesController < ApplicationController
   def index
-    categories = Category.select(:id, :name, :slug)
+    categories = @current_user.organization.categories
     render status: :ok, json: { categories: }
   end
 
   def create
-    category = Category.new(category_params)
+    category = @current_user.organization.categories.new(category_params)
     category.save!
-    render_notice(t("category_successfully_created"))
+    render_notice(t("successfully_created", entity: "Category"))
   end
 
   private
