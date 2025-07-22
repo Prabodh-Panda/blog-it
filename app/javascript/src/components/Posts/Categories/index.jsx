@@ -10,10 +10,9 @@ import { useTranslation } from "react-i18next";
 import useCategoriesStore from "stores/useCategoriesStore";
 import { useShallow } from "zustand/react/shallow";
 
-import CategoryItem from "./Item";
+import CategoriesList from "./List";
 import NewCategory from "./New";
 import CategorySearch from "./Search";
-import { getFilteredCategories } from "./utils";
 
 const Categories = () => {
   const [isSearchInputShown, setIsSearchInputShown] = useState(false);
@@ -36,8 +35,6 @@ const Categories = () => {
   const { t } = useTranslation();
 
   const { data: { categories = [] } = {}, isLoading } = useFetchCategories();
-
-  const filteredCategories = getFilteredCategories(categories, searchValue);
 
   if (isLoading) return <PageLoader />;
 
@@ -71,11 +68,7 @@ const Categories = () => {
         value={searchValue}
         onChange={event => setSearchValue(event.target.value)}
       />
-      <div className="my-4 space-y-2">
-        {filteredCategories.map(category => (
-          <CategoryItem key={category.id} {...category} />
-        ))}
-      </div>
+      <CategoriesList {...{ searchValue, categories }} />
       <Modal
         isOpen={isNewCategoryModalOpen}
         onClose={() => setIsNewCategoryModalOpen(false)}

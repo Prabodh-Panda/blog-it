@@ -10,14 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_20_181548) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_22_104027) do
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "slug", null: false
-    t.index ["name"], name: "index_categories_on_name", unique: true
-    t.index ["slug"], name: "index_categories_on_slug", unique: true
+    t.integer "organization_id", null: false
+    t.index ["organization_id", "name"], name: "index_categories_on_organization_id_and_name", unique: true
+    t.index ["organization_id", "slug"], name: "index_categories_on_organization_id_and_slug", unique: true
+    t.index ["organization_id"], name: "index_categories_on_organization_id"
   end
 
   create_table "categories_posts", id: false, force: :cascade do |t|
@@ -64,6 +66,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_20_181548) do
     t.index ["organization_id"], name: "index_users_on_organization_id"
   end
 
+  add_foreign_key "categories", "organizations"
   add_foreign_key "posts", "organizations"
   add_foreign_key "posts", "users"
   add_foreign_key "users", "organizations"

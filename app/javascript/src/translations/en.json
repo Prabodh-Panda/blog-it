@@ -66,6 +66,7 @@
   },
   "errors": {
     "pageNotFound": "The page you're looking for can't be found",
-    "noPostsFound": "No posts found"
+    "noPostsFound": "No posts found",
+    "noCategoriesFound": "No categories found"
   }
 }

@@ -1,9 +1,10 @@
 import React from "react";
 
 import { PageLoader } from "components/commons";
+import NotFound from "components/commons/NotFound";
 import { useFetchPosts } from "hooks/reactQuery/usePosts";
 import useQueryParams from "hooks/useQueryParams";
-import { NoData, Pagination } from "neetoui";
+import { Pagination } from "neetoui";
 import { isEmpty, mergeLeft } from "ramda";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
@@ -31,13 +32,7 @@ const List = () => {
 
   if (isLoading) return <PageLoader />;
 
-  if (isEmpty(posts)) {
-    return (
-      <div className="flex h-full w-full items-center justify-center">
-        <NoData title={t("errors.noPostsFound")} />
-      </div>
-    );
-  }
+  if (isEmpty(posts)) return <NotFound title={t("errors.noPostsFound")} />;
 
   return (
     <div className="flex h-0 flex-1 flex-col">
