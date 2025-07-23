@@ -1,5 +1,5 @@
-import dayjs from "dayjs";
-import { capitalize } from "neetocist";
+import StatusCell from "./StatusCell";
+import { getCategoriesString, getLastUpdatedAtDateTimeString } from "./utils";
 
 export const COLUMN_DATA = [
   {
@@ -11,21 +11,18 @@ export const COLUMN_DATA = [
     title: "Categories",
     dataIndex: "categories",
     key: "categories",
-    render: categories => categories.map(category => category.name).join(", "),
+    render: getCategoriesString,
   },
   {
     title: "Last Published At",
     dataIndex: "lastPublishedAt",
     key: "lastPublishedAt",
-    render: lastPublishedAt =>
-      lastPublishedAt
-        ? dayjs(lastPublishedAt).format("DD MMM, YYYY, hh:mm A")
-        : "Has not been published",
+    render: getLastUpdatedAtDateTimeString,
   },
   {
     title: "Status",
     dataIndex: "status",
     key: "status",
-    render: status => capitalize(status),
+    render: StatusCell,
   },
 ];
