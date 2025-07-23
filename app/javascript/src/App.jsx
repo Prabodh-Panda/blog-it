@@ -32,15 +32,15 @@ const App = () => {
           <Route exact component={Signup} path={routes.auth.signup} />
           <Route exact component={Login} path={routes.auth.login} />
           <PrivateRoute
-            component={NewPost}
-            condition={isLoggedIn}
-            path={routes.posts.new}
-            redirectRoute={routes.auth.login}
-          />
-          <PrivateRoute
             component={PostDetails}
             condition={isLoggedIn}
             path={routes.posts.show}
+            redirectRoute={routes.auth.login}
+          />
+          <PrivateRoute
+            component={NewPost}
+            condition={isLoggedIn}
+            path={routes.posts.new}
             redirectRoute={routes.auth.login}
           />
           <PrivateRoute
