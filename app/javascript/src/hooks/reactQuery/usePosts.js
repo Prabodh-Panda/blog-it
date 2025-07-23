@@ -14,6 +14,7 @@ export const useCreatePost = () =>
   useMutation(postsApi.create, {
     onSuccess: () => {
       queryClient.invalidateQueries([QUERY_KEYS.POSTS]);
+      queryClient.invalidateQueries([QUERY_KEYS.MY_POSTS]);
     },
   });
 
@@ -22,4 +23,13 @@ export const useShowPost = slug =>
     queryKey: [QUERY_KEYS.POSTS, slug],
     queryFn: () => postsApi.show(slug),
     retry: false,
+  });
+
+export const useUpdatePost = () =>
+  useMutation(postsApi.update, {
+    onSuccess: (_data, { slug }) => {
+      queryClient.invalidateQueries([QUERY_KEYS.MY_POSTS]);
+      queryClient.invalidateQueries([QUERY_KEYS.POSTS]);
+      queryClient.invalidateQueries([QUERY_KEYS.POSTS, slug]);
+    },
   });

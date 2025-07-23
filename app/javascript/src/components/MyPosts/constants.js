@@ -1,4 +1,4 @@
-import StatusCell from "./StatusCell";
+import CellRenderer from "./CellRenderer";
 import { getCategoriesString, getLastUpdatedAtDateTimeString } from "./utils";
 
 export const COLUMN_DATA = [
@@ -23,6 +23,6 @@ export const COLUMN_DATA = [
     title: "Status",
     dataIndex: "status",
     key: "status",
-    render: StatusCell,
+    render: CellRenderer,
   },
 ];

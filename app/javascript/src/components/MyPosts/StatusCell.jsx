@@ -1,5 +1,6 @@
 import React from "react";
 
+import { useUpdatePost } from "hooks/reactQuery/usePosts";
 import { capitalize } from "neetocist";
 import { MenuHorizontal } from "neetoicons";
 import { Dropdown, Typography } from "neetoui";
@@ -9,18 +10,36 @@ const {
   Menu,
 } = Dropdown;
 
-const StatusCell = status => {
-  const handleUpdate = () => {};
+const StatusCell = ({ status, slug }) => {
+  const { mutate: updatePost, isLoading } = useUpdatePost();
+
+  const updatePostStatus = status => {
+    updatePost({
+      slug,
+      payload: {
+        status,
+      },
+    });
+  };
 
   return (
     <div className="flex items-center justify-between">
       <Typography>{capitalize(status)}</Typography>
-      <Dropdown buttonStyle="text" icon={MenuHorizontal} strategy="fixed">
+      <Dropdown
+        buttonStyle="text"
+        disabled={isLoading}
+        icon={MenuHorizontal}
+        strategy="fixed"
+      >
         <Menu>
           {status === "draft" ? (
-            <MenuItemButton onClick={handleUpdate}>Publish</MenuItemButton>
+            <MenuItemButton onClick={() => updatePostStatus("published")}>
+              Publish
+            </MenuItemButton>
           ) : (
-            <MenuItemButton>Unpublish</MenuItemButton>
+            <MenuItemButton onClick={() => updatePostStatus("draft")}>
+              Unpublish
+            </MenuItemButton>
           )}
           <MenuItemButton style="danger">Delete</MenuItemButton>
         </Menu>

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PostsController < ApplicationController
-  before_action :load_post!, only: :show
+  before_action :load_post!, only: %i[show update]
 
   def index
     @posts = @current_user.organization.posts.published
@@ -23,6 +23,10 @@ class PostsController < ApplicationController
     render
   end
 
+  def update
+    @post.update(post_params)
+  end
+
   private
 
     def load_post!
@@ -30,6 +34,6 @@ class PostsController < ApplicationController
     end
 
     def post_params
-      params.require(:post).permit(:title, :description, category_ids: [])
+      params.require(:post).permit(:title, :description, :status, category_ids: [])
     end
 end
