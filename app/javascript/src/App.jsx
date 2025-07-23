@@ -3,6 +3,7 @@ import React from "react";
 import Login from "components/Authentication/Login";
 import Signup from "components/Authentication/Signup";
 import { PrivateRoute } from "components/commons";
+import MyPosts from "components/MyPosts";
 import Posts from "components/Posts";
 import PostDetails from "components/Posts/Details";
 import NewPost from "components/Posts/New";
@@ -46,6 +47,12 @@ const App = () => {
             component={Posts}
             condition={isLoggedIn}
             path={routes.posts.index}
+            redirectRoute={routes.auth.login}
+          />
+          <PrivateRoute
+            component={MyPosts}
+            condition={isLoggedIn}
+            path={routes.myPosts.index}
             redirectRoute={routes.auth.login}
           />
           <Redirect exact from={routes.root} to={routes.posts.index} />

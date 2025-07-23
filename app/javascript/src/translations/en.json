@@ -5,7 +5,8 @@
     "categories": "CATEGORIES",
     "newCategory": "New category",
     "signUp": "Sign up",
-    "login": "Login"
+    "login": "Login",
+    "myBlogPosts": "My Blog Posts"
   },
   "labels": {
     "addNewBlogPost": "Add new blog post",

@@ -4,14 +4,13 @@ class PostsController < ApplicationController
   before_action :load_post!, only: :show
 
   def index
-    @posts = @current_user.organization.posts
+    @posts = @current_user.organization.posts.published
     if params[:categories].present?
       @posts = @posts.joins(:categories)
         .where(categories: { slug: params[:categories] })
         .distinct
     end
     @posts = @posts.order(created_at: :desc).page(params[:page])
-    render
   end
 
   def create
@@ -27,7 +26,7 @@ class PostsController < ApplicationController
   private
 
     def load_post!
-      @post = Post.find_by!(slug: params[:slug])
+      @post = @current_user.organization.posts.find_by!(slug: params[:slug])
     end
 
     def post_params

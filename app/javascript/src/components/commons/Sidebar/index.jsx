@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 
 import SidebarItem from "components/commons/Sidebar/Item";
 import { useLogout } from "hooks/reactQuery/useAuth";
-import { Book, Edit, LeftArrow, ListDetails } from "neetoicons";
+import { Book, Edit, LeftArrow, List, ListDetails } from "neetoicons";
 import { Avatar, Button, Popover, Typography } from "neetoui";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
@@ -45,6 +45,11 @@ const Sidebar = () => {
           icon={<Edit />}
           to={routes.posts.new}
           tooltipText="New Blog Post"
+        />
+        <SidebarItem
+          icon={<List />}
+          to={routes.myPosts.index}
+          tooltipText="My Blog Posts"
         />
         <Button
           className="flex w-full items-center justify-center"
