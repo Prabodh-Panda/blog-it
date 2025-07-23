@@ -25,6 +25,7 @@ class PostsController < ApplicationController
 
   def update
     @post.update(post_params)
+    render_notice(t("successfully_updated", entity: "Post")) unless params.key?(:quiet)
   end
 
   def destroy

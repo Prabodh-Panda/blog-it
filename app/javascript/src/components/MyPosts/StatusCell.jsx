@@ -25,6 +25,7 @@ const StatusCell = ({ status, slug }) => {
       payload: {
         status,
       },
+      quiet: true,
     });
   };
 
