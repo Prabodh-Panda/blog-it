@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PostsController < ApplicationController
-  before_action :load_post!, only: %i[show update]
+  before_action :load_post!, only: %i[show update destroy]
 
   def index
     @posts = @current_user.organization.posts.published
@@ -25,6 +25,11 @@ class PostsController < ApplicationController
 
   def update
     @post.update(post_params)
+  end
+
+  def destroy
+    @post.destroy!
+    render_notice(t("successfully_deleted", entity: "Post")) unless params.key?(:quiet)
   end
 
   private

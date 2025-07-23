@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useUpdatePost } from "hooks/reactQuery/usePosts";
+import { useDestroyPost, useUpdatePost } from "hooks/reactQuery/usePosts";
 import { capitalize } from "neetocist";
 import { MenuHorizontal } from "neetoicons";
 import { Dropdown, Typography } from "neetoui";
@@ -11,7 +11,13 @@ const {
 } = Dropdown;
 
 const StatusCell = ({ status, slug }) => {
-  const { mutate: updatePost, isLoading } = useUpdatePost();
+  const { mutate: updatePost, isLoading: isUpdatePostLoading } =
+    useUpdatePost();
+
+  const { mutate: destroyPost, isLoading: isDestroyPostLoading } =
+    useDestroyPost();
+
+  const isLoading = isUpdatePostLoading || isDestroyPostLoading;
 
   const updatePostStatus = status => {
     updatePost({
@@ -20,6 +26,10 @@ const StatusCell = ({ status, slug }) => {
         status,
       },
     });
+  };
+
+  const handleDeletePost = () => {
+    destroyPost({ slug, quiet: true });
   };
 
   return (
@@ -41,7 +51,9 @@ const StatusCell = ({ status, slug }) => {
               Unpublish
             </MenuItemButton>
           )}
-          <MenuItemButton style="danger">Delete</MenuItemButton>
+          <MenuItemButton style="danger" onClick={handleDeletePost}>
+            Delete
+          </MenuItemButton>
         </Menu>
       </Dropdown>
     </div>

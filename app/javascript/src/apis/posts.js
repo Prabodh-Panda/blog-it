@@ -17,6 +17,12 @@ const update = ({ slug, payload, quiet = false }) => {
   });
 };
 
-const postsApi = { fetch, create, show, update };
+const destroy = ({ slug, quiet }) => {
+  const path = quiet ? `/posts/${slug}?quiet` : `/posts/${slug}`;
+
+  return axios.delete(path);
+};
+
+const postsApi = { fetch, create, show, update, destroy };
 
 export default postsApi;

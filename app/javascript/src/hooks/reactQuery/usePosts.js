@@ -33,3 +33,12 @@ export const useUpdatePost = () =>
       queryClient.invalidateQueries([QUERY_KEYS.POSTS, slug]);
     },
   });
+
+export const useDestroyPost = () =>
+  useMutation(postsApi.destroy, {
+    onSuccess: (_data, { slug }) => {
+      queryClient.invalidateQueries([QUERY_KEYS.MY_POSTS]);
+      queryClient.invalidateQueries([QUERY_KEYS.POSTS]);
+      queryClient.invalidateQueries([QUERY_KEYS.POSTS, slug]);
+    },
+  });
