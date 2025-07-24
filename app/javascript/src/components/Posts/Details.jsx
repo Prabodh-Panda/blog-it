@@ -23,8 +23,9 @@ const Details = () => {
     title,
     description,
     author: { name },
-    createdAt,
+    lastPublishedAt,
     categories,
+    status,
   } = post;
 
   return (
@@ -52,6 +53,11 @@ const Details = () => {
               ))}
             </div>
           }
+          suffix={
+            status === "draft" ? (
+              <Tag label="Draft" size="large" style="danger" />
+            ) : undefined
+          }
         />
         <div className="px-16 pb-4">
           <div className="mb-8 flex items-center gap-4">
@@ -61,7 +67,7 @@ const Details = () => {
                 {name}
               </Typography>
               <Typography style="body3">
-                {getDateStringFromTimestamp(createdAt)}
+                {getDateStringFromTimestamp(lastPublishedAt)}
               </Typography>
             </div>
           </div>

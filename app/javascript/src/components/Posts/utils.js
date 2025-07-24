@@ -1,7 +1,10 @@
 import dayjs from "dayjs";
+import { t } from "i18next";
 
 export const getDateStringFromTimestamp = timestamp =>
-  dayjs(timestamp).format("DD MMMM YYYY");
+  timestamp
+    ? dayjs(timestamp).format("DD MMMM YYYY")
+    : t("messages.notPublishedYet");
 
 export const getCategoryOptions = categories => {
   if (!categories) return [];

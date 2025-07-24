@@ -6,11 +6,12 @@ import {
   useShowPost,
   useUpdatePost,
 } from "hooks/reactQuery/usePosts";
-import { MenuHorizontal } from "neetoicons";
+import { ExternalLink, MenuHorizontal } from "neetoicons";
 import { ActionDropdown, Button, Dropdown } from "neetoui";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams } from "react-router-dom";
 import routes from "routes";
+import { buildUrl } from "utils/url";
 
 import EditPostForm from "./Form";
 import { getCategoryOptions } from "./utils";
@@ -85,6 +86,11 @@ const Edit = () => {
           title={t("titles.editBlogPost")}
           actionBlock={
             <div className="ml-auto mt-auto flex items-center space-x-2">
+              <Button
+                icon={ExternalLink}
+                style="text"
+                to={buildUrl(routes.posts.show, { slug })}
+              />
               <Button
                 disabled={isUpdatePostLoading}
                 style="secondary"
