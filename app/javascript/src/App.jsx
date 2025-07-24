@@ -6,6 +6,7 @@ import { PrivateRoute } from "components/commons";
 import MyPosts from "components/MyPosts";
 import Posts from "components/Posts";
 import PostDetails from "components/Posts/Details";
+import EditPost from "components/Posts/Edit";
 import NewPost from "components/Posts/New";
 import { either, isEmpty, isNil } from "ramda";
 import { QueryClientProvider } from "react-query";
@@ -41,6 +42,12 @@ const App = () => {
             component={NewPost}
             condition={isLoggedIn}
             path={routes.posts.new}
+            redirectRoute={routes.auth.login}
+          />
+          <PrivateRoute
+            component={EditPost}
+            condition={isLoggedIn}
+            path={routes.posts.edit}
             redirectRoute={routes.auth.login}
           />
           <PrivateRoute

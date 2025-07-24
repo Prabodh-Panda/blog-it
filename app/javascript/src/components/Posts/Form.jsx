@@ -16,7 +16,7 @@ import {
 } from "./constants";
 import { getCategoryOptions } from "./utils";
 
-const Form = ({ innerRef, onSubmit }) => {
+const Form = ({ initialValues, innerRef, onSubmit }) => {
   const { t } = useTranslation();
 
   const { mutate: createCategory, isLoading: isCreateCategoryLoading } =
@@ -29,6 +29,8 @@ const Form = ({ innerRef, onSubmit }) => {
     createCategory({ name });
   };
 
+  const formInitialValues = initialValues || NEW_POST_INITIAL_VALUES;
+
   if (isFetchCategoriesLoading || isCreateCategoryLoading) {
     return <PageLoader />;
   }
@@ -39,7 +41,7 @@ const Form = ({ innerRef, onSubmit }) => {
       formikProps={{
         onSubmit,
         innerRef,
-        initialValues: NEW_POST_INITIAL_VALUES,
+        initialValues: formInitialValues,
         validationSchema: NEW_POST_VALIDATION_SCHEMA,
       }}
     >

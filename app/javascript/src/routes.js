@@ -4,6 +4,7 @@ const routes = {
     index: "/posts",
     new: "/posts/new",
     show: "/posts/:slug/show",
+    edit: "/posts/:slug/edit",
   },
   myPosts: {
     index: "/my-posts",

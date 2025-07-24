@@ -3,8 +3,11 @@ import React from "react";
 import { Header, PageLoader, Sidebar } from "components/commons";
 import PageNotFound from "components/commons/PageNotFound";
 import { useShowPost } from "hooks/reactQuery/usePosts";
-import { Avatar, Tag, Typography } from "neetoui";
+import { Highlight } from "neetoicons";
+import { Avatar, Button, Tag, Typography } from "neetoui";
 import { useParams } from "react-router-dom";
+import routes from "routes";
+import { buildUrl } from "utils/url";
 
 import { getDateStringFromTimestamp } from "./utils";
 
@@ -27,9 +30,21 @@ const Details = () => {
   return (
     <div className="flex h-screen w-screen">
       <Sidebar />
-      <div>
+      <div className="w-full">
         <Header
           title={title}
+          actionBlock={
+            <Button
+              className="ml-auto mt-auto"
+              icon={Highlight}
+              style="text"
+              to={buildUrl(routes.posts.edit, { slug })}
+              tooltipProps={{
+                position: "top",
+                content: "Edit",
+              }}
+            />
+          }
           preHeaderContent={
             <div className="mb-2 space-x-2">
               {categories.map(({ name, id }) => (
