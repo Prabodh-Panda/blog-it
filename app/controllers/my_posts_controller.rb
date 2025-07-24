@@ -2,6 +2,6 @@
 
 class MyPostsController < ApplicationController
   def index
-    @posts = @current_user.posts.order(created_at: :desc)
+    @posts = policy_scope(Post)
   end
 end
