@@ -2,22 +2,13 @@ import { QUERY_KEYS } from "constants/query";
 
 import postsApi from "apis/posts";
 import { useMutation, useQuery } from "react-query";
-import queryClient from "utils/queryClient";
 
-import { invalidateQueryKeysWithDelay } from "./utils";
+import { invalidateQueryKeys, invalidateQueryKeysWithDelay } from "./utils";
 
 export const useFetchPosts = params =>
   useQuery({
     queryKey: [QUERY_KEYS.POSTS, params],
     queryFn: () => postsApi.fetch(params),
-  });
-
-export const useCreatePost = () =>
-  useMutation(postsApi.create, {
-    onSuccess: () => {
-      queryClient.invalidateQueries([QUERY_KEYS.POSTS]);
-      queryClient.invalidateQueries([QUERY_KEYS.MY_POSTS]);
-    },
   });
 
 export const useShowPost = slug =>
@@ -27,12 +18,21 @@ export const useShowPost = slug =>
     retry: false,
   });
 
+export const useCreatePost = () =>
+  useMutation(postsApi.create, {
+    onSuccess: () => {
+      invalidateQueryKeys([[QUERY_KEYS.MY_POSTS], [QUERY_KEYS.POSTS]]);
+    },
+  });
+
 export const useUpdatePost = () =>
   useMutation(postsApi.update, {
     onSuccess: (_data, { slug }) => {
-      queryClient.invalidateQueries([QUERY_KEYS.MY_POSTS]);
-      queryClient.invalidateQueries([QUERY_KEYS.POSTS]);
-      queryClient.invalidateQueries([QUERY_KEYS.POSTS, slug]);
+      invalidateQueryKeys([
+        [QUERY_KEYS.MY_POSTS],
+        [QUERY_KEYS.POSTS],
+        [QUERY_KEYS.POSTS, slug],
+      ]);
     },
   });
 
