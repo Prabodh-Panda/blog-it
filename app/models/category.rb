@@ -13,7 +13,7 @@ class Category < ApplicationRecord
   private
 
     def capitalize_name
-      self.name = name.capitalize
+      self.name = name.to_s.capitalize
     end
 
     def set_slug
