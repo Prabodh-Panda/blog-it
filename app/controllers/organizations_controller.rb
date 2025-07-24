@@ -3,11 +3,12 @@
 class OrganizationsController < ApplicationController
   skip_before_action :authenticate_user_using_x_auth_token
   def index
-    @organizations = Organization.all
+    @organizations = policy_scope(Organization)
   end
 
   def create
     organization = Organization.create(organization_params)
+    authorize organization
     organization.save!
     render_notice(t("successfully_created", entity: "Organization"))
   end
