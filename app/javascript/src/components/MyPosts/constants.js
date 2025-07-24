@@ -1,4 +1,5 @@
 import CellRenderer from "./CellRenderer";
+import LinkCell from "./LinkCell";
 import { getCategoriesString, getLastUpdatedAtDateTimeString } from "./utils";
 
 export const COLUMN_DATA = [
@@ -6,6 +7,7 @@ export const COLUMN_DATA = [
     title: "Title",
     dataIndex: "title",
     key: "title",
+    render: LinkCell,
   },
   {
     title: "Categories",

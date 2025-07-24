@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { PageLoader } from "components/commons";
 import NotFound from "components/commons/NotFound";
@@ -9,6 +9,8 @@ import { isEmpty } from "ramda";
 import { COLUMN_DATA } from "./constants";
 
 const Table = () => {
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+
   const { data: { posts } = {}, isLoading } = useFetchMyPosts();
 
   if (isLoading) return <PageLoader />;
@@ -17,7 +19,13 @@ const Table = () => {
 
   return (
     <div className="px-16">
-      <NeetoUITable columnData={COLUMN_DATA} rowData={posts} />
+      <NeetoUITable
+        rowSelection
+        columnData={COLUMN_DATA}
+        rowData={posts}
+        selectedRowKeys={selectedRowKeys}
+        onRowSelect={setSelectedRowKeys}
+      />
     </div>
   );
 };
