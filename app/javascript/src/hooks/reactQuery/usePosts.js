@@ -41,7 +41,7 @@ export const useDestroyPost = () =>
     onSuccess: (_data, { slug }) => {
       invalidateQueryKeysWithDelay(
         [[QUERY_KEYS.MY_POSTS], [QUERY_KEYS.POSTS], [QUERY_KEYS.POSTS, slug]],
-        100
+        50
       );
     },
   });
