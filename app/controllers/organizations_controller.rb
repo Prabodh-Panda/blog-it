@@ -2,6 +2,9 @@
 
 class OrganizationsController < ApplicationController
   skip_before_action :authenticate_user_using_x_auth_token
+  after_action :verify_authorized, except: :index
+  after_action :verify_policy_scoped, only: :index
+
   def index
     @organizations = policy_scope(Organization)
   end

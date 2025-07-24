@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class CategoriesController < ApplicationController
+  after_action :verify_authorized, except: :index
+  after_action :verify_policy_scoped, only: :index
+
   def index
     categories = policy_scope(Category)
     render status: :ok, json: { categories: }
