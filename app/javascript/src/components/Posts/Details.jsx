@@ -7,6 +7,7 @@ import { Highlight } from "neetoicons";
 import { Avatar, Button, Tag, Typography } from "neetoui";
 import { useParams } from "react-router-dom";
 import routes from "routes";
+import { getFromLocalStorage } from "utils/storage";
 import { buildUrl } from "utils/url";
 
 import { getDateStringFromTimestamp } from "./utils";
@@ -15,6 +16,8 @@ const Details = () => {
   const { slug } = useParams();
   const { data: { post } = {}, isLoading } = useShowPost(slug);
 
+  const userId = getFromLocalStorage("authUserId");
+
   if (isLoading) return <PageLoader />;
 
   if (!post) return <PageNotFound />;
@@ -22,11 +25,13 @@ const Details = () => {
   const {
     title,
     description,
-    author: { name },
+    author: { name, id: authorId },
     lastPublishedAt,
     categories,
     status,
   } = post;
+
+  const isAuthor = userId === authorId;
 
   return (
     <div className="flex h-screen w-screen">
@@ -35,16 +40,18 @@ const Details = () => {
         <Header
           title={title}
           actionBlock={
-            <Button
-              className="ml-auto mt-auto"
-              icon={Highlight}
-              style="text"
-              to={buildUrl(routes.posts.edit, { slug })}
-              tooltipProps={{
-                position: "top",
-                content: "Edit",
-              }}
-            />
+            isAuthor && (
+              <Button
+                className="ml-auto mt-auto"
+                icon={Highlight}
+                style="text"
+                to={buildUrl(routes.posts.edit, { slug })}
+                tooltipProps={{
+                  position: "top",
+                  content: "Edit",
+                }}
+              />
+            )
           }
           preHeaderContent={
             <div className="mb-2 space-x-2">
