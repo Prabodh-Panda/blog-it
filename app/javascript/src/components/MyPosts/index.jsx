@@ -8,7 +8,7 @@ import MyPostsTable from "./Table";
 const MyPosts = ({ t }) => (
   <div className="flex h-screen w-screen flex-1">
     <Sidebar />
-    <div className="flex flex-1 flex-col">
+    <div className="flex w-0 flex-1 flex-col">
       <Header title={t("titles.myBlogPosts")} />
       <MyPostsTable />
     </div>

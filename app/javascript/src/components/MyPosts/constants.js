@@ -8,6 +8,7 @@ export const COLUMN_DATA = [
     dataIndex: "title",
     key: "title",
     render: LinkCell,
+    width: 450,
   },
   {
     title: "Categories",
