@@ -4,6 +4,8 @@ import postsApi from "apis/posts";
 import { useMutation, useQuery } from "react-query";
 import queryClient from "utils/queryClient";
 
+import { invalidateQueryKeysWithDelay } from "./utils";
+
 export const useFetchPosts = params =>
   useQuery({
     queryKey: [QUERY_KEYS.POSTS, params],
@@ -37,8 +39,9 @@ export const useUpdatePost = () =>
 export const useDestroyPost = () =>
   useMutation(postsApi.destroy, {
     onSuccess: (_data, { slug }) => {
-      queryClient.invalidateQueries([QUERY_KEYS.MY_POSTS]);
-      queryClient.invalidateQueries([QUERY_KEYS.POSTS]);
-      queryClient.invalidateQueries([QUERY_KEYS.POSTS, slug]);
+      invalidateQueryKeysWithDelay(
+        [[QUERY_KEYS.MY_POSTS], [QUERY_KEYS.POSTS], [QUERY_KEYS.POSTS, slug]],
+        100
+      );
     },
   });

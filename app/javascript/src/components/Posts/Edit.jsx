@@ -1,8 +1,13 @@
 import React, { useRef, useState } from "react";
 
 import { Header, PageLoader, Sidebar } from "components/commons";
-import { useShowPost, useUpdatePost } from "hooks/reactQuery/usePosts";
-import { ActionDropdown, Button } from "neetoui";
+import {
+  useDestroyPost,
+  useShowPost,
+  useUpdatePost,
+} from "hooks/reactQuery/usePosts";
+import { MenuHorizontal } from "neetoicons";
+import { ActionDropdown, Button, Dropdown } from "neetoui";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams } from "react-router-dom";
 import routes from "routes";
@@ -31,6 +36,9 @@ const Edit = () => {
   const { mutate: updatePost, isLoading: isUpdatePostLoading } =
     useUpdatePost();
 
+  const { mutate: destroyPost, isLoading: isDestroyPostLoading } =
+    useDestroyPost();
+
   const initialValues = {
     ...post,
     categories: getCategoryOptions(post?.categories),
@@ -50,9 +58,16 @@ const Edit = () => {
       },
       {
         onSuccess: () => {
-          history.push(routes.posts.index);
+          history.replace(routes.posts.index);
         },
       }
+    );
+  };
+
+  const handleDelete = () => {
+    destroyPost(
+      { slug },
+      { onSuccess: () => history.replace(routes.posts.index) }
     );
   };
 
@@ -69,7 +84,7 @@ const Edit = () => {
         <Header
           title={t("titles.editBlogPost")}
           actionBlock={
-            <div className="ml-auto mt-auto space-x-2">
+            <div className="ml-auto mt-auto flex items-center space-x-2">
               <Button
                 disabled={isUpdatePostLoading}
                 style="secondary"
@@ -90,6 +105,18 @@ const Edit = () => {
                   </MenuItemButton>
                 </Menu>
               </ActionDropdown>
+              <Dropdown
+                buttonStyle="text"
+                disabled={isDestroyPostLoading}
+                icon={MenuHorizontal}
+                strategy="fixed"
+              >
+                <Menu>
+                  <MenuItemButton style="danger" onClick={handleDelete}>
+                    Delete
+                  </MenuItemButton>
+                </Menu>
+              </Dropdown>
             </div>
           }
         />
