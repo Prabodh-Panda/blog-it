@@ -30,7 +30,7 @@ const Details = () => {
   return (
     <div className="flex h-screen w-screen">
       <Sidebar />
-      <div className="w-full">
+      <div className="h-full w-full overflow-y-auto">
         <Header
           title={title}
           actionBlock={
@@ -65,7 +65,7 @@ const Details = () => {
               </Typography>
             </div>
           </div>
-          <Typography>{description}</Typography>
+          <Typography className="whitespace-pre-line">{description}</Typography>
         </div>
       </div>
     </div>
