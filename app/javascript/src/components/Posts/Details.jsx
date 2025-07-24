@@ -42,7 +42,7 @@ const Details = () => {
           actionBlock={
             isAuthor && (
               <Button
-                className="ml-auto mt-auto"
+                className="ml-auto mt-auto flex-shrink-0"
                 icon={Highlight}
                 style="text"
                 to={buildUrl(routes.posts.edit, { slug })}
