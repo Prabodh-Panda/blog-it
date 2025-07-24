@@ -12,7 +12,7 @@ import { buildUrl } from "utils/url";
 
 import { getDateStringFromTimestamp } from "./utils";
 
-const Details = () => {
+const Show = () => {
   const { slug } = useParams();
   const { data: { post } = {}, isLoading } = useShowPost(slug);
 
@@ -85,4 +85,4 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default Show;
