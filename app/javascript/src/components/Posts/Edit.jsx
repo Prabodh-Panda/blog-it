@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { useHistory, useParams } from "react-router-dom";
 import routes from "routes";
 
-import NewPostForm from "./Form";
+import EditPostForm from "./Form";
 import { getCategoryOptions } from "./utils";
 
 const {
@@ -94,7 +94,7 @@ const Edit = () => {
           }
         />
         <div className="w-full flex-1 px-16 pb-10">
-          <NewPostForm
+          <EditPostForm
             initialValues={initialValues}
             innerRef={formikRef}
             onSubmit={handleSubmit}
