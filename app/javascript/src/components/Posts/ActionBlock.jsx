@@ -3,6 +3,7 @@ import React from "react";
 import { useDestroyPost } from "hooks/reactQuery/usePosts";
 import { ExternalLink, MenuHorizontal } from "neetoicons";
 import { ActionDropdown, Button, Dropdown } from "neetoui";
+import { useHistory } from "react-router-dom";
 import routes from "routes";
 import { buildUrl } from "utils/url";
 import withT from "utils/withT";
@@ -22,6 +23,8 @@ const ActionBlock = ({
   shouldShowPreviewButton = false,
   shouldShowDeleteButton = false,
 }) => {
+  const history = useHistory();
+
   const { mutate: destroyPost, isLoading } = useDestroyPost();
 
   const handleDelete = () => {
