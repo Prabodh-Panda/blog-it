@@ -20,10 +20,8 @@ const Signup = () => {
 
   const history = useHistory();
 
-  const {
-    data: { organizations } = {},
-    isLoading: isFetchOrganizationsLoading,
-  } = useFetchOrganizations();
+  const { data: organizations = [], isLoading: isFetchOrganizationsLoading } =
+    useFetchOrganizations();
 
   const { mutate: createOrganization, isLoading: isCreateOrganizationLoading } =
     useCreateOrganization();
