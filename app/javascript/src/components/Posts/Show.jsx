@@ -5,6 +5,7 @@ import PageNotFound from "components/commons/PageNotFound";
 import { useShowPost } from "hooks/reactQuery/usePosts";
 import { Highlight } from "neetoicons";
 import { Avatar, Button, Tag, Typography } from "neetoui";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import routes from "routes";
 import { getFromLocalStorage } from "utils/storage";
@@ -15,6 +16,8 @@ import { getDateStringFromTimestamp } from "./utils";
 const Show = () => {
   const { slug } = useParams();
   const { data: { post } = {}, isLoading } = useShowPost(slug);
+
+  const { t } = useTranslation();
 
   const userId = getFromLocalStorage("authUserId");
 
@@ -48,7 +51,7 @@ const Show = () => {
                 to={buildUrl(routes.posts.edit, { slug })}
                 tooltipProps={{
                   position: "top",
-                  content: "Edit",
+                  content: t("labels.edit"),
                 }}
               />
             )
@@ -61,9 +64,9 @@ const Show = () => {
             </div>
           }
           suffix={
-            status === "draft" ? (
-              <Tag label="Draft" size="large" style="danger" />
-            ) : undefined
+            status === "draft" && (
+              <Tag label={t("labels.draft")} size="large" style="danger" />
+            )
           }
         />
         <div className="px-16 pb-4">

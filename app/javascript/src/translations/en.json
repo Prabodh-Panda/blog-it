@@ -32,7 +32,9 @@
     "publish": "Publish",
     "unpublish": "Unpublish",
     "delete": "Delete",
-    "saveAsDraft": "Save as draft"
+    "saveAsDraft": "Save as draft",
+    "draft": "Draft",
+    "edit": "Edit"
   },
   "placeholders": {
     "title": "Enter title",
