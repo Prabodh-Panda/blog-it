@@ -31,9 +31,11 @@ const Signup = () => {
   const { mutate: signup, isLoading: isCreateUserLoading } = useSignup();
 
   const handleSubmit = data => {
+    const { organization, ...user } = data;
+
     const payload = {
-      ...data,
-      organizationId: data.organization.value,
+      ...user,
+      organizationId: organization.value,
     };
 
     signup(payload, {
