@@ -78,7 +78,8 @@
   "errors": {
     "pageNotFound": "The page you're looking for can't be found",
     "noPostsFound": "No posts found",
-    "noCategoriesFound": "No categories found"
+    "noCategoriesFound": "No categories found",
+    "defaultNotification": "Something went wrong!"
   },
   "messages": {
     "notPublishedYet": "Has not been published yet",

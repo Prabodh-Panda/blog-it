@@ -1,10 +1,11 @@
 import axios from "axios";
+import { t } from "i18next";
 import { keysToCamelCase, serializeKeysToSnakeCase } from "neetocist";
 import { Toastr } from "neetoui";
 import { evolve } from "ramda";
 import { setToLocalStorage, getFromLocalStorage } from "utils/storage";
 
-const DEFAULT_ERROR_NOTIFICATION = "Something went wrong!";
+const DEFAULT_ERROR_NOTIFICATION = t("errors.defaultNotification");
 
 axios.defaults.baseURL = "/";
 
