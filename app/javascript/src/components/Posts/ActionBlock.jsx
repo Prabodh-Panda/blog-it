@@ -30,7 +30,7 @@ const ActionBlock = ({
   const handleDelete = () => {
     destroyPost(
       { slug },
-      { onSuccess: () => history.replace(routes.posts.index) }
+      { onSuccess: () => history.push(routes.posts.index) }
     );
   };
 
