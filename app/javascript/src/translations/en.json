@@ -7,7 +7,10 @@
     "newCategory": "New category",
     "signUp": "Sign up",
     "login": "Login",
-    "myBlogPosts": "My blog posts"
+    "myBlogPosts": "My blog posts",
+    "title": "Title",
+    "lastPublishedAt": "Last published at",
+    "status": "Status"
   },
   "labels": {
     "addNewBlogPost": "Add new blog post",
