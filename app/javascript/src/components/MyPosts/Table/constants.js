@@ -1,5 +1,5 @@
-import CellRenderer from "./CellRenderer";
-import LinkCell from "./LinkCell";
+import Status from "./Status";
+import TitleLink from "./TitleLink";
 import { getCategoriesString, getLastUpdatedAtDateTimeString } from "./utils";
 
 export const COLUMN_DATA = [
@@ -7,7 +7,7 @@ export const COLUMN_DATA = [
     title: "Title",
     dataIndex: "title",
     key: "title",
-    render: LinkCell,
+    render: TitleLink,
     width: 450,
   },
   {
@@ -26,6 +26,6 @@ export const COLUMN_DATA = [
     title: "Status",
     dataIndex: "status",
     key: "status",
-    render: CellRenderer,
+    render: Status,
   },
 ];

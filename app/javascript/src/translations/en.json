@@ -28,7 +28,10 @@
     "login": "Login",
     "loginNow": "Or login now",
     "signUpNow": "Or sign up now",
-    "logout": "Logout"
+    "logout": "Logout",
+    "publish": "Publish",
+    "unpublish": "Unpublish",
+    "delete": "Delete"
   },
   "placeholders": {
     "title": "Enter title",

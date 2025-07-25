@@ -5,7 +5,7 @@ import { Button, Typography } from "neetoui";
 import routes from "routes";
 import { buildUrl } from "utils/url";
 
-const LinkCell = (title, { slug }) => (
+const TitleLink = (title, { slug }) => (
   <Button
     className="block"
     style="link"
@@ -20,4 +20,4 @@ const LinkCell = (title, { slug }) => (
   </Button>
 );
 
-export default LinkCell;
+export default TitleLink;

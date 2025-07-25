@@ -1,0 +1,37 @@
+import React from "react";
+
+import { useUpdatePost } from "hooks/reactQuery/usePosts";
+import { Dropdown } from "neetoui";
+import { useTranslation } from "react-i18next";
+
+const {
+  MenuItem: { Button: MenuItemButton },
+} = Dropdown;
+
+const UpdateMenuItem = ({ status, slug }) => {
+  const { t } = useTranslation();
+
+  const { mutate: updatePost, isLoading } = useUpdatePost();
+
+  const handleUpdatePost = () => {
+    updatePost({
+      slug,
+      payload: {
+        status: status === "draft" ? "published" : "draft",
+      },
+      quiet: true,
+    });
+  };
+
+  return (
+    <MenuItemButton
+      disabled={isLoading}
+      style="text"
+      onClick={handleUpdatePost}
+    >
+      {status === "draft" ? t("labels.publish") : t("labels.unpublish")}
+    </MenuItemButton>
+  );
+};
+
+export default UpdateMenuItem;
