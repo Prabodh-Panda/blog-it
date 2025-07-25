@@ -1,25 +1,14 @@
 import React, { useRef, useState } from "react";
 
 import { Header, PageLoader, Sidebar } from "components/commons";
-import {
-  useDestroyPost,
-  useShowPost,
-  useUpdatePost,
-} from "hooks/reactQuery/usePosts";
-import { ExternalLink, MenuHorizontal } from "neetoicons";
-import { ActionDropdown, Button, Dropdown } from "neetoui";
+import { useShowPost, useUpdatePost } from "hooks/reactQuery/usePosts";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams } from "react-router-dom";
 import routes from "routes";
-import { buildUrl } from "utils/url";
 
+import ActionBlock from "./ActionBlock";
 import EditPostForm from "./Form";
-import { getCategoryOptions } from "./utils";
-
-const {
-  Menu,
-  MenuItem: { Button: MenuItemButton },
-} = ActionDropdown;
+import { getCategoryOptions, getPayloadFromFormData } from "./utils";
 
 const Edit = () => {
   const [status, setStatus] = useState("published");
@@ -37,39 +26,22 @@ const Edit = () => {
   const { mutate: updatePost, isLoading: isUpdatePostLoading } =
     useUpdatePost();
 
-  const { mutate: destroyPost, isLoading: isDestroyPostLoading } =
-    useDestroyPost();
-
   const initialValues = {
     ...post,
     categories: getCategoryOptions(post?.categories),
   };
 
   const handleSubmit = async postData => {
-    const payload = {
-      ...postData,
-      status,
-      category_ids: postData.categories.map(category => category.value),
+    const updateData = {
+      slug,
+      payload: getPayloadFromFormData(postData, status),
     };
 
-    updatePost(
-      {
-        slug,
-        payload,
+    updatePost(updateData, {
+      onSuccess: () => {
+        history.replace(routes.posts.index);
       },
-      {
-        onSuccess: () => {
-          history.replace(routes.posts.index);
-        },
-      }
-    );
-  };
-
-  const handleDelete = () => {
-    destroyPost(
-      { slug },
-      { onSuccess: () => history.replace(routes.posts.index) }
-    );
+    });
   };
 
   const handleSubmitButtonClick = () => {
@@ -85,45 +57,17 @@ const Edit = () => {
         <Header
           title={t("titles.editBlogPost")}
           actionBlock={
-            <div className="ml-auto mt-auto flex items-center space-x-2">
-              <Button
-                icon={ExternalLink}
-                style="text"
-                to={buildUrl(routes.posts.show, { slug })}
-              />
-              <Button
-                disabled={isUpdatePostLoading}
-                style="secondary"
-                to={routes.posts.index}
-              >
-                {t("labels.cancel")}
-              </Button>
-              <ActionDropdown
-                label={status === "published" ? "Publish" : "Save as draft"}
-                onClick={handleSubmitButtonClick}
-              >
-                <Menu>
-                  <MenuItemButton onClick={() => setStatus("published")}>
-                    Publish
-                  </MenuItemButton>
-                  <MenuItemButton onClick={() => setStatus("draft")}>
-                    Save as draft
-                  </MenuItemButton>
-                </Menu>
-              </ActionDropdown>
-              <Dropdown
-                buttonStyle="text"
-                disabled={isDestroyPostLoading}
-                icon={MenuHorizontal}
-                strategy="fixed"
-              >
-                <Menu>
-                  <MenuItemButton style="danger" onClick={handleDelete}>
-                    Delete
-                  </MenuItemButton>
-                </Menu>
-              </Dropdown>
-            </div>
+            <ActionBlock
+              {...{
+                slug,
+                status,
+                setStatus,
+                onClick: handleSubmitButtonClick,
+                disabled: isUpdatePostLoading,
+                shouldShowPreviewButton: true,
+                shouldShowDeleteButton: true,
+              }}
+            />
           }
         />
         <div className="w-full flex-1 px-16 pb-10">

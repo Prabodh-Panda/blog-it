@@ -44,11 +44,9 @@ const New = () => {
         <Header
           title={t("titles.newBlogPost")}
           actionBlock={
-            <div className="ml-auto mt-auto space-x-2">
-              <ActionBlock
-                {...{ status, setStatus, onClick: handleSubmitButtonClick }}
-              />
-            </div>
+            <ActionBlock
+              {...{ status, setStatus, onClick: handleSubmitButtonClick }}
+            />
           }
         />
         <div className="w-full flex-1 px-16 pb-10">

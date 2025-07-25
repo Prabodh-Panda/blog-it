@@ -31,7 +31,8 @@
     "logout": "Logout",
     "publish": "Publish",
     "unpublish": "Unpublish",
-    "delete": "Delete"
+    "delete": "Delete",
+    "saveAsDraft": "Save as draft"
   },
   "placeholders": {
     "title": "Enter title",
