@@ -62,6 +62,7 @@ const Edit = () => {
                 slug,
                 status,
                 setStatus,
+                title: post.title,
                 onClick: handleSubmitButtonClick,
                 disabled: isUpdatePostLoading,
                 shouldShowPreviewButton: true,

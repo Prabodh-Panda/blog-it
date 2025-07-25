@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useDestroyPost } from "hooks/reactQuery/usePosts";
 import { ExternalLink, MenuHorizontal } from "neetoicons";
-import { ActionDropdown, Button, Dropdown } from "neetoui";
+import { ActionDropdown, Alert, Button, Dropdown } from "neetoui";
+import { Trans } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import routes from "routes";
 import { buildUrl } from "utils/url";
@@ -16,6 +17,7 @@ const {
 const ActionBlock = ({
   t,
   slug,
+  title,
   status,
   setStatus,
   onClick,
@@ -23,6 +25,8 @@ const ActionBlock = ({
   shouldShowPreviewButton = false,
   shouldShowDeleteButton = false,
 }) => {
+  const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState();
+
   const history = useHistory();
 
   const { mutate: destroyPost, isLoading } = useDestroyPost();
@@ -62,18 +66,41 @@ const ActionBlock = ({
         </Menu>
       </ActionDropdown>
       {shouldShowDeleteButton && (
-        <Dropdown
-          buttonStyle="text"
-          icon={MenuHorizontal}
-          strategy="fixed"
-          {...{ disabled: disabled || isLoading }}
-        >
-          <Menu>
-            <MenuItemButton style="danger" onClick={handleDelete}>
-              {t("labels.delete")}
-            </MenuItemButton>
-          </Menu>
-        </Dropdown>
+        <>
+          <Dropdown
+            buttonStyle="text"
+            icon={MenuHorizontal}
+            strategy="fixed"
+            {...{ disabled: disabled || isLoading }}
+          >
+            <Menu>
+              <MenuItemButton
+                style="danger"
+                onClick={() => setIsDeleteAlertOpen(true)}
+              >
+                {t("labels.delete")}
+              </MenuItemButton>
+            </Menu>
+          </Dropdown>
+          <Alert
+            isOpen={isDeleteAlertOpen}
+            submitButtonLabel={t("labels.delete")}
+            title={t("titles.deletePost")}
+            message={
+              <Trans
+                shouldUnescape
+                components={{ strong: <strong /> }}
+                i18nKey="messages.deletePost"
+                values={{ title }}
+              />
+            }
+            onClose={() => setIsDeleteAlertOpen(false)}
+            onSubmit={() => {
+              handleDelete();
+              setIsDeleteAlertOpen(false);
+            }}
+          />
+        </>
       )}
     </div>
   );
