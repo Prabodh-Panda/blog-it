@@ -4,6 +4,8 @@ class Post < ApplicationRecord
   MAX_TITLE_LENGTH = 125
   MAX_DESCRIPTION_LENGTH = 10000
 
+  enum :status, { draft: "draft", published: "published" }, default: :draft
+
   belongs_to :user
   belongs_to :organization
 
@@ -24,6 +26,7 @@ class Post < ApplicationRecord
   validate :slug_not_changed
 
   before_create :set_slug
+  before_save :set_last_published_if_published, if: -> { new_record? || will_save_change_to_status? }
 
   private
 
@@ -48,5 +51,9 @@ class Post < ApplicationRecord
       if will_save_change_to_slug? && self.persisted?
         errors.add(:slug, I18n.t("post.slug.immutable"))
       end
+    end
+
+    def set_last_published_if_published
+      self.last_published_at = Time.current if published?
     end
 end

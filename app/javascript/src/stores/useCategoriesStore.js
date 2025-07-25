@@ -14,4 +14,9 @@ const useCategoriesStore = create(set => ({
     set(() => ({ isNewCategoryModalOpen: isOpen })),
 }));
 
+export const categoriesActions = {
+  toggleIsCategoriesPaneOpen: () =>
+    useCategoriesStore.getState().toggleIsCategoriesPaneOpen(),
+};
+
 export default useCategoriesStore;

@@ -8,8 +8,13 @@ class Category < ApplicationRecord
   validate :slug_not_changed
 
   before_create :set_slug
+  before_validation :capitalize_name
 
   private
+
+    def capitalize_name
+      self.name = name.to_s.capitalize
+    end
 
     def set_slug
       name_slug = name.parameterize

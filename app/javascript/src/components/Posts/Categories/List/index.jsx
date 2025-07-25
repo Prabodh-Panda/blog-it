@@ -1,6 +1,6 @@
 import React from "react";
 
-import NotFound from "components/commons/NotFound";
+import { NoData } from "neetoui";
 import { isEmpty } from "ramda";
 import { useTranslation } from "react-i18next";
 
@@ -13,7 +13,12 @@ const List = ({ categories, searchValue }) => {
   const filteredCategories = getFilteredCategories(categories, searchValue);
 
   if (isEmpty(filteredCategories)) {
-    return <NotFound title={t("errors.noCategoriesFound")} />;
+    return (
+      <NoData
+        className="mt-4 w-full text-center"
+        title={t("errors.noCategoriesFound")}
+      />
+    );
   }
 
   return (

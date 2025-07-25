@@ -34,18 +34,18 @@ const Categories = () => {
 
   const { t } = useTranslation();
 
-  const { data: { categories = [] } = {}, isLoading } = useFetchCategories();
+  const { data: categories = [], isLoading } = useFetchCategories();
 
   if (isLoading) return <PageLoader />;
 
   return (
     <div
-      className={classNames("bg-gray-200 p-4", {
+      className={classNames("min-w-80 bg-gray-200 p-4", {
         hidden: !isCategoriesPaneOpen,
       })}
     >
       <div className="flex items-center justify-between">
-        <Typography style="h4" weight="bold">
+        <Typography className="uppercase" style="h4" weight="bold">
           {t("titles.categories")}
         </Typography>
         <div>

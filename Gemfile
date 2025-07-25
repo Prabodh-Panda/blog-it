@@ -45,6 +45,9 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
   gem "rubocop", require: false
   gem "rubocop-rails", require: false
+
+  gem "factory_bot_rails"
+  gem "faker"
 end
 
 group :development do
@@ -66,4 +69,5 @@ end
 gem "bcrypt", "~> 3.1.7"
 gem "data_migrate"
 gem "kaminari", "~> 1.2", ">= 1.2.2"
+gem "pundit"
 gem "react-rails", "~> 2.7.1"

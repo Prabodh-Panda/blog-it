@@ -1,118 +1,56 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 
 import { Header, PageLoader, Sidebar } from "components/commons";
-import {
-  useCreateCategory,
-  useFetchCategories,
-} from "hooks/reactQuery/useCategories";
 import { useCreatePost } from "hooks/reactQuery/usePosts";
-import { Button } from "neetoui";
-import { Form, Input, Textarea, Select } from "neetoui/formik";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import routes from "routes";
 
-import {
-  MAX_DESCRIPTION_LENGTH,
-  MAX_TITLE_LENGTH,
-  NEW_POST_INITIAL_VALUES,
-  NEW_POST_VALIDATION_SCHEMA,
-} from "./constants";
-import { getCategoryOptions } from "./utils";
+import ActionBlock from "./ActionBlock";
+import NewPostForm from "./Form";
+import { getPayloadFromFormData } from "./utils";
 
 const New = () => {
+  const [status, setStatus] = useState("published");
+
   const { t } = useTranslation();
 
-  const { mutate: createPost, isLoading: isCreatePostLoading } =
-    useCreatePost();
+  const formikRef = useRef();
 
-  const { mutate: createCategory, isLoading: isCreateCategoryLoading } =
-    useCreateCategory();
-
-  const { data: { categories } = {}, isLoading: isFetchCategoriesLoading } =
-    useFetchCategories();
+  const { mutate: createPost, isLoading } = useCreatePost();
 
   const history = useHistory();
 
   const handleSubmit = async postData => {
-    const payload = {
-      ...postData,
-      category_ids: postData.categories.map(category => category.value),
-      user_id: 1,
-      organization_id: 1,
-    };
+    const payload = getPayloadFromFormData(postData, status);
 
     createPost(payload, {
       onSuccess: () => {
-        history.push(routes.posts.index);
+        history.push(routes.myPosts.index);
       },
     });
   };
 
-  const handleCreateCategory = name => {
-    createCategory({ name });
+  const handleSubmitButtonClick = () => {
+    if (formikRef.current) formikRef.current.submitForm();
   };
 
-  if (isFetchCategoriesLoading || isCreateCategoryLoading) {
-    return <PageLoader />;
-  }
+  if (isLoading) return <PageLoader />;
 
   return (
     <div className="flex h-screen w-screen">
       <Sidebar />
       <div className="flex flex-1 flex-col">
-        <Header title={t("titles.newBlogPost")} />
+        <Header
+          title={t("titles.newBlogPost")}
+          actionBlock={
+            <ActionBlock
+              {...{ status, setStatus, onClick: handleSubmitButtonClick }}
+            />
+          }
+        />
         <div className="w-full flex-1 px-16 pb-10">
-          <Form
-            className="flex h-full flex-col justify-start rounded-lg border p-10"
-            formikProps={{
-              initialValues: NEW_POST_INITIAL_VALUES,
-              validationSchema: NEW_POST_VALIDATION_SCHEMA,
-              onSubmit: handleSubmit,
-            }}
-          >
-            <div className="space-y-4">
-              <Input
-                required
-                label={t("labels.title")}
-                maxLength={MAX_TITLE_LENGTH}
-                name="title"
-                placeholder={t("placeholders.title")}
-              />
-              <Select
-                isCreateable
-                isMulti
-                required
-                label={t("labels.category")}
-                name="categories"
-                options={getCategoryOptions(categories)}
-                onCreateOption={handleCreateCategory}
-              />
-              <Textarea
-                required
-                label={t("labels.description")}
-                maxLength={MAX_DESCRIPTION_LENGTH}
-                name="description"
-                placeholder={t("placeholders.description")}
-              />
-            </div>
-            <div className="ml-auto mt-auto space-x-2">
-              <Button
-                disabled={isCreatePostLoading}
-                style="secondary"
-                to={routes.posts.index}
-              >
-                {t("labels.cancel")}
-              </Button>
-              <Button
-                className="bg-black"
-                disabled={isCreatePostLoading}
-                type="submit"
-              >
-                {t("labels.submit")}
-              </Button>
-            </div>
-          </Form>
+          <NewPostForm innerRef={formikRef} onSubmit={handleSubmit} />
         </div>
       </div>
     </div>
