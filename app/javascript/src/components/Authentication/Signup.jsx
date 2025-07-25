@@ -1,11 +1,11 @@
 import React from "react";
 
 import { PageLoader } from "components/commons";
+import { useSignup } from "hooks/reactQuery/useAuth";
 import {
   useCreateOrganization,
   useFetchOrganizations,
 } from "hooks/reactQuery/useOrganizations";
-import { useCreateUser } from "hooks/reactQuery/useUsers";
 import { Button, Typography } from "neetoui";
 import { Form, Input, Select } from "neetoui/formik";
 import { useTranslation } from "react-i18next";
@@ -28,8 +28,7 @@ const Signup = () => {
   const { mutate: createOrganization, isLoading: isCreateOrganizationLoading } =
     useCreateOrganization();
 
-  const { mutate: createUser, isLoading: isCreateUserLoading } =
-    useCreateUser();
+  const { mutate: signup, isLoading: isCreateUserLoading } = useSignup();
 
   const handleSubmit = data => {
     const payload = {
@@ -37,7 +36,7 @@ const Signup = () => {
       organizationId: data.organization.value,
     };
 
-    createUser(payload, {
+    signup(payload, {
       onSuccess: () => {
         history.push(routes.auth.login);
       },
