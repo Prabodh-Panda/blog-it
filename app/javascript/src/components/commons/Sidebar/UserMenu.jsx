@@ -23,7 +23,7 @@ const UserMenu = () => {
   const handleLogout = () => {
     logout(null, {
       onSuccess: () => {
-        history.replace(routes.auth.login);
+        history.push(routes.auth.login);
       },
     });
   };
