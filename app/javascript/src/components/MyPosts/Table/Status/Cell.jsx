@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
+import { DeletePostAlert } from "components/commons";
 import { useDestroyPost } from "hooks/reactQuery/usePosts";
 import { capitalize } from "neetocist";
 import { MenuHorizontal } from "neetoicons";
-import { Typography, Dropdown, Alert } from "neetoui";
-import { Trans, useTranslation } from "react-i18next";
+import { Typography, Dropdown } from "neetoui";
 
 import DeleteMenuItem from "./DeleteMenuItem";
 import UpdateMenuItem from "./UpdateMenuItem";
@@ -13,7 +13,6 @@ const { Menu } = Dropdown;
 
 const Cell = ({ status, slug, title }) => {
   const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
-  const { t } = useTranslation();
 
   const { mutate: destroyPost } = useDestroyPost();
 
@@ -30,23 +29,11 @@ const Cell = ({ status, slug, title }) => {
           <DeleteMenuItem onClick={() => setIsDeleteAlertOpen(true)} />
         </Menu>
       </Dropdown>
-      <Alert
+      <DeletePostAlert
         isOpen={isDeleteAlertOpen}
-        submitButtonLabel={t("labels.delete")}
-        title={t("titles.deletePost")}
-        message={
-          <Trans
-            shouldUnescape
-            components={{ strong: <strong /> }}
-            i18nKey="messages.deletePost"
-            values={{ title }}
-          />
-        }
-        onClose={() => setIsDeleteAlertOpen(false)}
-        onSubmit={() => {
-          handleDeletePost();
-          setIsDeleteAlertOpen(false);
-        }}
+        setIsOpen={setIsDeleteAlertOpen}
+        title={title}
+        onSubmit={handleDeletePost}
       />
     </div>
   );

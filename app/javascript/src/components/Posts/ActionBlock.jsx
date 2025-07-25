@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
+import { DeletePostAlert } from "components/commons";
 import { useDestroyPost } from "hooks/reactQuery/usePosts";
 import { ExternalLink, MenuHorizontal } from "neetoicons";
-import { ActionDropdown, Alert, Button, Dropdown } from "neetoui";
-import { Trans } from "react-i18next";
+import { ActionDropdown, Button, Dropdown } from "neetoui";
 import { useHistory } from "react-router-dom";
 import routes from "routes";
 import { buildUrl } from "utils/url";
@@ -82,23 +82,11 @@ const ActionBlock = ({
               </MenuItemButton>
             </Menu>
           </Dropdown>
-          <Alert
+          <DeletePostAlert
             isOpen={isDeleteAlertOpen}
-            submitButtonLabel={t("labels.delete")}
-            title={t("titles.deletePost")}
-            message={
-              <Trans
-                shouldUnescape
-                components={{ strong: <strong /> }}
-                i18nKey="messages.deletePost"
-                values={{ title }}
-              />
-            }
-            onClose={() => setIsDeleteAlertOpen(false)}
-            onSubmit={() => {
-              handleDelete();
-              setIsDeleteAlertOpen(false);
-            }}
+            setIsOpen={setIsDeleteAlertOpen}
+            title={title}
+            onSubmit={handleDelete}
           />
         </>
       )}
