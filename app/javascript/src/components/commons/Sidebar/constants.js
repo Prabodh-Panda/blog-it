@@ -20,7 +20,7 @@ export const SIDEBAR_ITEMS = [
     key: "newBlogPost",
     icon: Edit,
     to: routes.posts.new,
-    tooltipContent: t("titles.editBlogPost"),
+    tooltipContent: t("titles.newBlogPost"),
   },
   {
     key: "myBlogPosts",
