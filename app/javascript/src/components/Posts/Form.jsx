@@ -19,8 +19,7 @@ import { getCategoryOptions } from "./utils";
 const Form = ({ initialValues, innerRef, onSubmit }) => {
   const { t } = useTranslation();
 
-  const { mutate: createCategory, isLoading: isCreateCategoryLoading } =
-    useCreateCategory();
+  const { mutate: createCategory } = useCreateCategory();
 
   const { data: categories = [], isLoading: isFetchCategoriesLoading } =
     useFetchCategories();
@@ -31,7 +30,7 @@ const Form = ({ initialValues, innerRef, onSubmit }) => {
 
   const formInitialValues = initialValues || NEW_POST_INITIAL_VALUES;
 
-  if (isFetchCategoriesLoading || isCreateCategoryLoading) {
+  if (isFetchCategoriesLoading) {
     return <PageLoader />;
   }
 
