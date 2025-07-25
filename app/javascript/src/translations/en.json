@@ -78,6 +78,8 @@
     "noCategoriesFound": "No categories found"
   },
   "messages": {
-    "notPublishedYet": "Has not been published yet"
+    "notPublishedYet": "Has not been published yet",
+    "articleCount_one": "{{count}} article",
+    "articleCount_other": "{{count}} articles"
   }
 }

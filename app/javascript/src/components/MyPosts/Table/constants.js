@@ -2,6 +2,9 @@ import Status from "./Status";
 import TitleLink from "./TitleLink";
 import { getCategoriesString, getLastUpdatedAtDateTimeString } from "./utils";
 
+export const DEFAULT_PAGE = 1;
+export const DEFAULT_PAGE_SIZE = 10;
+
 export const COLUMN_DATA = [
   {
     title: "Title",
