@@ -20,8 +20,7 @@ const Edit = () => {
   const { t } = useTranslation();
 
   const { slug } = useParams();
-  const { data: { post } = {}, isLoading: isShowPostLoading } =
-    useShowPost(slug);
+  const { data: post, isLoading: isShowPostLoading } = useShowPost(slug);
 
   const { mutate: updatePost, isLoading: isUpdatePostLoading } =
     useUpdatePost();

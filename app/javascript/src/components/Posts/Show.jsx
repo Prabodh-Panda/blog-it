@@ -15,7 +15,7 @@ import { getDateStringFromTimestamp } from "./utils";
 
 const Show = () => {
   const { slug } = useParams();
-  const { data: { post } = {}, isLoading } = useShowPost(slug);
+  const { data: post, isLoading } = useShowPost(slug);
 
   const { t } = useTranslation();
 

@@ -1,6 +1,7 @@
 import { QUERY_KEYS } from "constants/query";
 
 import postsApi from "apis/posts";
+import { prop } from "ramda";
 import { useMutation, useQuery } from "react-query";
 
 import { invalidateQueryKeys, invalidateQueryKeysWithDelay } from "./utils";
@@ -16,6 +17,7 @@ export const useShowPost = slug =>
     queryKey: [QUERY_KEYS.POSTS, slug],
     queryFn: () => postsApi.show(slug),
     retry: false,
+    select: prop("post"),
   });
 
 export const useCreatePost = () =>
