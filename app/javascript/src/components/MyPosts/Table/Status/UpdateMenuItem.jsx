@@ -13,11 +13,13 @@ const UpdateMenuItem = ({ status, slug }) => {
 
   const { mutate: updatePost, isLoading } = useUpdatePost();
 
+  const isDraft = status === "draft";
+
   const handleUpdatePost = () => {
     updatePost({
       slug,
       payload: {
-        status: status === "draft" ? "published" : "draft",
+        status: isDraft ? "published" : "draft",
       },
       quiet: true,
     });
@@ -29,7 +31,7 @@ const UpdateMenuItem = ({ status, slug }) => {
       style="text"
       onClick={handleUpdatePost}
     >
-      {status === "draft" ? t("labels.publish") : t("labels.unpublish")}
+      {isDraft ? t("labels.publish") : t("labels.unpublish")}
     </MenuItemButton>
   );
 };

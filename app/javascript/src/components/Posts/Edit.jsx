@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-import { Header, PageLoader, Sidebar } from "components/commons";
+import { Header, PageLoader, PageNotFound, Sidebar } from "components/commons";
 import { useShowPost, useUpdatePost } from "hooks/reactQuery/usePosts";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams } from "react-router-dom";
@@ -46,6 +46,8 @@ const Edit = () => {
   const handleSubmitButtonClick = () => {
     if (formikRef.current) formikRef.current.submitForm();
   };
+
+  if (!post) return <PageNotFound />;
 
   if (isShowPostLoading) return <PageLoader />;
 
