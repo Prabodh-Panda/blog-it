@@ -40,7 +40,7 @@ const Categories = () => {
 
   return (
     <div
-      className={classNames("bg-gray-200 p-4", {
+      className={classNames("min-w-80 bg-gray-200 p-4", {
         hidden: !isCategoriesPaneOpen,
       })}
     >
