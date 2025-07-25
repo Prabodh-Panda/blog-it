@@ -31,7 +31,7 @@ const Table = () => {
 
   if (isLoading) return <PageLoader />;
 
-  if (isEmpty(posts)) return <NotFound title="No Posts Found" />;
+  if (isEmpty(posts)) return <NotFound title={t("errors.noPostsFound")} />;
 
   return (
     <div className="px-16">
