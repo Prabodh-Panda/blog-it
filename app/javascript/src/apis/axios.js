@@ -42,9 +42,14 @@ const handleErrorResponse = axiosErrorObject => {
     setTimeout(() => (window.location.href = "/"), 2000);
   }
 
-  Toastr.error(
-    axiosErrorObject.response?.data?.error || DEFAULT_ERROR_NOTIFICATION
-  );
+  if (axiosErrorObject.message === t("errors.networkError")) {
+    Toastr.error(t("errors.noInternetConnection"));
+  } else {
+    Toastr.error(
+      axiosErrorObject.response?.data?.error || DEFAULT_ERROR_NOTIFICATION
+    );
+  }
+
   if (axiosErrorObject.response?.status === 423) {
     window.location.href = "/";
   }

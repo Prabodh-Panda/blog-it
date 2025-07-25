@@ -79,7 +79,9 @@
     "pageNotFound": "The page you're looking for can't be found",
     "noPostsFound": "No posts found",
     "noCategoriesFound": "No categories found",
-    "defaultNotification": "Something went wrong!"
+    "defaultNotification": "Something went wrong!",
+    "noInternetConnection": "No internet connection",
+    "networkError": "Network Error"
   },
   "messages": {
     "notPublishedYet": "Has not been published yet",
