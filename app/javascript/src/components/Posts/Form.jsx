@@ -22,7 +22,7 @@ const Form = ({ initialValues, innerRef, onSubmit }) => {
   const { mutate: createCategory, isLoading: isCreateCategoryLoading } =
     useCreateCategory();
 
-  const { data: { categories } = {}, isLoading: isFetchCategoriesLoading } =
+  const { data: categories = [], isLoading: isFetchCategoriesLoading } =
     useFetchCategories();
 
   const handleCreateCategory = name => {

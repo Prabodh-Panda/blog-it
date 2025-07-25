@@ -34,7 +34,7 @@ const Categories = () => {
 
   const { t } = useTranslation();
 
-  const { data: { categories = [] } = {}, isLoading } = useFetchCategories();
+  const { data: categories = [], isLoading } = useFetchCategories();
 
   if (isLoading) return <PageLoader />;
 
