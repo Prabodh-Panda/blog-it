@@ -1,31 +1,16 @@
 import React from "react";
 
-import { useDestroyPost } from "hooks/reactQuery/usePosts";
 import { Dropdown } from "neetoui";
-import { useTranslation } from "react-i18next";
+import withT from "utils/withT";
 
 const {
   MenuItem: { Button: MenuItemButton },
 } = Dropdown;
 
-const DeleteMenuItem = ({ slug }) => {
-  const { t } = useTranslation();
+const DeleteMenuItem = ({ t, onClick }) => (
+  <MenuItemButton style="danger" {...{ onClick }}>
+    {t("labels.delete")}
+  </MenuItemButton>
+);
 
-  const { mutate: destroyPost, isLoading } = useDestroyPost();
-
-  const handleDeletePost = () => {
-    destroyPost({ slug, quiet: true });
-  };
-
-  return (
-    <MenuItemButton
-      disabled={isLoading}
-      style="danger"
-      onClick={handleDeletePost}
-    >
-      {t("labels.delete")}
-    </MenuItemButton>
-  );
-};
-
-export default DeleteMenuItem;
+export default withT(DeleteMenuItem);

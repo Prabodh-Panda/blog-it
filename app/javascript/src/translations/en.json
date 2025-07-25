@@ -10,7 +10,8 @@
     "myBlogPosts": "My blog posts",
     "title": "Title",
     "lastPublishedAt": "Last published at",
-    "status": "Status"
+    "status": "Status",
+    "deletePost": "Delete post?"
   },
   "labels": {
     "addNewBlogPost": "Add new blog post",
@@ -86,6 +87,7 @@
   "messages": {
     "notPublishedYet": "Has not been published yet",
     "articleCount_one": "{{count}} article",
-    "articleCount_other": "{{count}} articles"
+    "articleCount_other": "{{count}} articles",
+    "deletePost": "You are about to delete <strong>{{title}}</strong>. This action cannot be undone. Are you sure you want to continue?"
   }
 }
