@@ -38,7 +38,7 @@ const Edit = () => {
 
     updatePost(updateData, {
       onSuccess: () => {
-        history.push(routes.posts.index);
+        history.push(routes.myPosts.index);
       },
     });
   };
