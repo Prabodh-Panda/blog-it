@@ -2,17 +2,13 @@ import React, { useRef, useState } from "react";
 
 import { Header, PageLoader, Sidebar } from "components/commons";
 import { useCreatePost } from "hooks/reactQuery/usePosts";
-import { ActionDropdown, Button } from "neetoui";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import routes from "routes";
 
+import ActionBlock from "./ActionBlock";
 import NewPostForm from "./Form";
-
-const {
-  Menu,
-  MenuItem: { Button: MenuItemButton },
-} = ActionDropdown;
+import { getPayloadFromFormData } from "./utils";
 
 const New = () => {
   const [status, setStatus] = useState("published");
@@ -26,11 +22,7 @@ const New = () => {
   const history = useHistory();
 
   const handleSubmit = async postData => {
-    const payload = {
-      ...postData,
-      status,
-      category_ids: postData.categories.map(category => category.value),
-    };
+    const payload = getPayloadFromFormData(postData, status);
 
     createPost(payload, {
       onSuccess: () => {
@@ -53,26 +45,9 @@ const New = () => {
           title={t("titles.newBlogPost")}
           actionBlock={
             <div className="ml-auto mt-auto space-x-2">
-              <Button
-                disabled={isLoading}
-                style="secondary"
-                to={routes.posts.index}
-              >
-                {t("labels.cancel")}
-              </Button>
-              <ActionDropdown
-                label={status === "published" ? "Publish" : "Save as draft"}
-                onClick={handleSubmitButtonClick}
-              >
-                <Menu>
-                  <MenuItemButton onClick={() => setStatus("published")}>
-                    Publish
-                  </MenuItemButton>
-                  <MenuItemButton onClick={() => setStatus("draft")}>
-                    Save as draft
-                  </MenuItemButton>
-                </Menu>
-              </ActionDropdown>
+              <ActionBlock
+                {...{ status, setStatus, onClick: handleSubmitButtonClick }}
+              />
             </div>
           }
         />
