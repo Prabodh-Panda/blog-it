@@ -7,8 +7,8 @@ const Item = ({ to, icon, tooltipText }) => (
   <Tooltip content={tooltipText}>
     <NavLink
       exact
-      activeClassName="bg-black text-white hover:!bg-black"
-      className="block rounded-md  p-2 hover:bg-gray-200"
+      activeClassName="!bg-black text-white hover:!bg-gray-900"
+      className="block rounded-md p-2 hover:bg-gray-200"
       {...{ to }}
     >
       {icon}
