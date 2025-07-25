@@ -45,7 +45,7 @@ const Categories = () => {
       })}
     >
       <div className="flex items-center justify-between">
-        <Typography style="h4" weight="bold">
+        <Typography className="uppercase" style="h4" weight="bold">
           {t("titles.categories")}
         </Typography>
         <div>
