@@ -71,3 +71,4 @@ gem "data_migrate"
 gem "kaminari", "~> 1.2", ">= 1.2.2"
 gem "pundit"
 gem "react-rails", "~> 2.7.1"
+gem "simplecov", require: false, group: :test
