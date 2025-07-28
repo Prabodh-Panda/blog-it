@@ -1,7 +1,6 @@
 import React from "react";
 
-import Login from "components/Authentication/Login";
-import Signup from "components/Authentication/Signup";
+import { Login, Signup } from "components/Authentication";
 import { PrivateRoute } from "components/commons";
 import Posts from "components/Posts";
 import PostDetails from "components/Posts/Details";
