@@ -2,10 +2,16 @@
   "titles": {
     "blogPosts": "Blog posts",
     "newBlogPost": "New blog post",
-    "categories": "CATEGORIES",
+    "editBlogPost": "Edit blog post",
+    "categories": "Categories",
     "newCategory": "New category",
     "signUp": "Sign up",
-    "login": "Login"
+    "login": "Login",
+    "myBlogPosts": "My blog posts",
+    "title": "Title",
+    "lastPublishedAt": "Last published at",
+    "status": "Status",
+    "deletePost": "Delete post?"
   },
   "labels": {
     "addNewBlogPost": "Add new blog post",
@@ -26,7 +32,13 @@
     "login": "Login",
     "loginNow": "Or login now",
     "signUpNow": "Or sign up now",
-    "logout": "Logout"
+    "logout": "Logout",
+    "publish": "Publish",
+    "unpublish": "Unpublish",
+    "delete": "Delete",
+    "saveAsDraft": "Save as draft",
+    "draft": "Draft",
+    "edit": "Edit"
   },
   "placeholders": {
     "title": "Enter title",
@@ -67,6 +79,15 @@
   "errors": {
     "pageNotFound": "The page you're looking for can't be found",
     "noPostsFound": "No posts found",
-    "noCategoriesFound": "No categories found"
+    "noCategoriesFound": "No categories found",
+    "defaultNotification": "Something went wrong!",
+    "noInternetConnection": "No internet connection",
+    "networkError": "Network Error"
+  },
+  "messages": {
+    "notPublishedYet": "Has not been published yet",
+    "articleCount_one": "{{count}} article",
+    "articleCount_other": "{{count}} articles",
+    "deletePost": "You are about to delete <strong>{{title}}</strong>. This action cannot be undone. Are you sure you want to continue?"
   }
 }

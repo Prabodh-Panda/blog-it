@@ -4,4 +4,5 @@ export const QUERY_KEYS = {
   ORGANIZATIONS: "organizations",
   USERS: "users",
   SESSION: "session",
+  MY_POSTS: "my-posts",
 };

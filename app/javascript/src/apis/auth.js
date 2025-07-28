@@ -9,6 +9,11 @@ const logout = () => {
   axios.delete("/session");
 };
 
-const authApi = { login, logout };
+const signup = payload =>
+  axios.post("/users", {
+    user: payload,
+  });
+
+const authApi = { login, logout, signup };
 
 export default authApi;
