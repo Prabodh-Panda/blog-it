@@ -39,7 +39,7 @@ export const COLUMN_DATA = [
   },
   {
     title: "",
-    dataIndex: "actionButtons",
+    key: "actionButtons",
     render: ActionButtons,
   },
 ];
