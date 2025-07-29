@@ -3,14 +3,31 @@
 require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
-  include FactoryBot::Syntax::Methods
-
   def setup
     @user = build(:user)
   end
 
   def test_valid_factory
-    assert @user.valid?, "Expected factory-built user to be valid"
+    assert @user.valid?
+  end
+
+  def test_user_should_not_be_valid_without_organization
+    @user.organization = nil
+    assert_not @user.save
+    assert_includes @user.errors[:organization], "must exist"
+  end
+
+  def test_values_of_created_at_and_updated_at
+    user = build(:user)
+    assert_nil user.created_at
+    assert_nil user.updated_at
+
+    user.save!
+    assert_not_nil user.created_at
+    assert_equal user.updated_at, user.created_at
+
+    user.update!(name: "This is a updated user")
+    assert_not_equal user.updated_at, user.created_at
   end
 
   def test_name_presence
@@ -20,7 +37,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   def test_name_length_limit
-    @user.name = "a" * 36
+    @user.name = "a" * (User::MAX_NAME_LENGTH + 1)
     assert_not @user.valid?
     assert_includes @user.errors[:name], "is too long (maximum is 35 characters)"
   end
@@ -53,7 +70,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   def test_email_length_limit
-    @user.email = "a" * 250 + "@a.com"
+    @user.email = "a" * User::MAX_EMAIL_LENGTH + "@a.com"
     assert_not @user.valid?
     assert_includes @user.errors[:email], "is too long (maximum is 255 characters)"
   end
@@ -75,6 +92,12 @@ class UserTest < ActiveSupport::TestCase
     user = build(:user, password_confirmation: nil)
     assert_not user.valid?
     assert_includes user.errors[:password_confirmation], "can't be blank"
+  end
+
+  def test_password_must_match_confirmation_password
+    user = build(:user, password: "welcome", password_confirmation: "welcome1")
+    assert_not user.valid?
+    assert_includes user.errors[:password_confirmation], "doesn't match Password"
   end
 
   def test_authentication_token_generated
