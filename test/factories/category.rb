@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :category do
     association :organization
-    name { Faker::Lorem.unique.word.capitalize }
+    name { Faker::Commerce.unique.department }
   end
 end
