@@ -5,7 +5,7 @@ require "test_helper"
 class CategoryTest < ActiveSupport::TestCase
   def test_factory_is_valid
     category = build(:category)
-    assert category.valid?, "Expected factory to build a valid category"
+    assert category.valid?
   end
 
   def test_is_invalid_without_a_name
