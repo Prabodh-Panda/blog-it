@@ -15,7 +15,7 @@ class CategoryTest < ActiveSupport::TestCase
   def test_category_should_not_be_valid_without_organization
     @category.organization = nil
     assert_not @category.save
-    assert_includes @category.errors["organization"], "must exist"
+    assert_includes @category.errors[:organization], "must exist"
   end
 
   def test_values_of_created_at_and_updated_at
