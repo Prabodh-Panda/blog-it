@@ -2,9 +2,8 @@ import React, { useState } from "react";
 
 import { DeletePostAlert } from "components/commons";
 import { useDestroyPost } from "hooks/reactQuery/usePosts";
-import { capitalize } from "neetocist";
 import { MenuHorizontal } from "neetoicons";
-import { Typography, Dropdown } from "neetoui";
+import { Dropdown } from "neetoui";
 
 import DeleteMenuItem from "./DeleteMenuItem";
 import UpdateMenuItem from "./UpdateMenuItem";
@@ -21,8 +20,7 @@ const Cell = ({ status, slug, title }) => {
   };
 
   return (
-    <div className="flex items-center justify-between">
-      <Typography>{capitalize(status)}</Typography>
+    <div>
       <Dropdown buttonStyle="text" icon={MenuHorizontal} strategy="fixed">
         <Menu>
           <UpdateMenuItem {...{ status, slug }} />

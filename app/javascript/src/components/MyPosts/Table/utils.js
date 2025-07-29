@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { t } from "i18next";
+import { capitalize } from "neetocist";
 
 export const getLastUpdatedAtDateTimeString = timestamp =>
   timestamp
@@ -8,3 +9,5 @@ export const getLastUpdatedAtDateTimeString = timestamp =>
 
 export const getCategoriesString = categories =>
   categories.map(category => category.name).join(", ");
+
+export const getCapitalizedStatus = status => capitalize(status);

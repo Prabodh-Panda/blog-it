@@ -1,8 +1,12 @@
 import { t } from "i18next";
 
-import Status from "./Status";
+import ActionButtons from "./ActionButtons";
 import TitleLink from "./TitleLink";
-import { getCategoriesString, getLastUpdatedAtDateTimeString } from "./utils";
+import {
+  getCapitalizedStatus,
+  getCategoriesString,
+  getLastUpdatedAtDateTimeString,
+} from "./utils";
 
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_PAGE_SIZE = 10;
@@ -31,6 +35,11 @@ export const COLUMN_DATA = [
     title: t("titles.status"),
     dataIndex: "status",
     key: "status",
-    render: Status,
+    render: getCapitalizedStatus,
+  },
+  {
+    title: "",
+    dataIndex: "actionButtons",
+    render: ActionButtons,
   },
 ];
