@@ -1,12 +1,10 @@
 import { t } from "i18next";
+import { getCategoriesString } from "utils/categories";
+import * as yup from "yup";
 
 import ActionButtons from "./ActionButtons";
 import TitleLink from "./TitleLink";
-import {
-  getCapitalizedStatus,
-  getCategoriesString,
-  getLastUpdatedAtDateTimeString,
-} from "./utils";
+import { getCapitalizedStatus, getLastUpdatedAtDateTimeString } from "./utils";
 
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_PAGE_SIZE = 10;
@@ -62,4 +60,27 @@ export const COLUMN_NAME_SELECTOR_OPTIONS = [
     name: "status",
     label: t("titles.status"),
   },
+];
+
+export const FILTER_INITIAL_VALUES = {
+  title: "",
+  status: {},
+  categories: [],
+};
+
+export const FILTER_VALIDATION_SCHEMA = yup.object().shape({
+  title: yup.string(),
+  status: yup
+    .object()
+    .shape({
+      label: yup.string().required(),
+      value: yup.number().required(),
+    })
+    .nullable(),
+  categories: yup.array().nullable(),
+});
+
+export const STATUS_OPTIONS = [
+  { value: "draft", label: "Draft" },
+  { value: "published", label: "Published" },
 ];

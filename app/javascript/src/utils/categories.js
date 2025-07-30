@@ -6,3 +6,6 @@ export const getCategoryOptions = categories => {
     label: name,
   }));
 };
+
+export const getCategoriesString = categories =>
+  categories.map(category => category.name).join(", ");
