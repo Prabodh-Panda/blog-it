@@ -63,3 +63,14 @@ export const COLUMN_NAME_SELECTOR_OPTIONS = [
     label: t("titles.status"),
   },
 ];
+
+export const FILTER_INITIAL_VALUES = {
+  title: "",
+  categories: [],
+  status: {},
+};
+
+export const STATUS_OPTIONS = [
+  { value: "draft", label: t("labels.draft") },
+  { value: "published", label: t("labels.published") },
+];

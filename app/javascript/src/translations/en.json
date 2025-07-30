@@ -11,7 +11,8 @@
     "title": "Title",
     "lastPublishedAt": "Last published at",
     "status": "Status",
-    "deletePost": "Delete post?"
+    "deletePost": "Delete post?",
+    "filters": "Filters"
   },
   "labels": {
     "addNewBlogPost": "Add new blog post",
@@ -39,7 +40,11 @@
     "saveAsDraft": "Save as draft",
     "draft": "Draft",
     "edit": "Edit",
-    "columns": "Columns"
+    "columns": "Columns",
+    "done": "Done",
+    "clearFilters": "Clear filters",
+    "status": "Status",
+    "published": "Published"
   },
   "placeholders": {
     "title": "Enter title",
@@ -47,7 +52,9 @@
     "name": "Oliver",
     "email": "oliver@example.com",
     "password": "********",
-    "organization": "PixelCompute"
+    "organization": "PixelCompute",
+    "categories": "Choose categories",
+    "status": "Choose a status"
   },
   "validations": {
     "titleRequired": "Title is required",

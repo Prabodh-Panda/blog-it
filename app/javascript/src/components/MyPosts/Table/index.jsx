@@ -4,7 +4,8 @@ import { PageLoader } from "components/commons";
 import NotFound from "components/commons/NotFound";
 import { useFetchMyPosts } from "hooks/reactQuery/useMyPosts";
 import useQueryParams from "hooks/useQueryParams";
-import { Table as NeetoUITable, Typography } from "neetoui";
+import { Filter } from "neetoicons";
+import { Button, Table as NeetoUITable, Typography } from "neetoui";
 import { isEmpty } from "ramda";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
@@ -14,10 +15,13 @@ import { buildUrl } from "utils/url";
 
 import ColumnSelector from "./ColumnSelector";
 import { COLUMN_DATA, DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from "./constants";
+import FilterPane from "./FilterPane";
 import { getFilteredColumns } from "./utils";
 
 const Table = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [isFilterPaneOpen, setIsFilterPaneOpen] = useState(false);
+
   const selectedColumnNames = useSelectedColumnsStore(
     state => state.selectedColumnNames
   );
@@ -45,7 +49,14 @@ const Table = () => {
         <Typography weight="medium">
           {t("messages.articleCount", { count: totalCount })}
         </Typography>
-        <ColumnSelector />
+        <div className="flex items-center gap-4">
+          <ColumnSelector />
+          <Button
+            icon={Filter}
+            style="text"
+            onClick={() => setIsFilterPaneOpen(true)}
+          />
+        </div>
       </div>
       <NeetoUITable
         rowSelection
@@ -58,6 +69,7 @@ const Table = () => {
         totalCount={totalCount}
         onRowSelect={setSelectedRowKeys}
       />
+      <FilterPane isOpen={isFilterPaneOpen} onClose={setIsFilterPaneOpen} />
     </div>
   );
 };
