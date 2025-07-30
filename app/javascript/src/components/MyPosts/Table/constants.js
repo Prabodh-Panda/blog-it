@@ -43,3 +43,23 @@ export const COLUMN_DATA = [
     render: ActionButtons,
   },
 ];
+
+export const COLUMN_NAME_SELECTOR_OPTIONS = [
+  {
+    name: "title",
+    label: t("titles.title"),
+    disabled: true,
+  },
+  {
+    name: "categories",
+    label: t("titles.categories"),
+  },
+  {
+    name: "lastPublishedAt",
+    label: t("titles.lastPublishedAt"),
+  },
+  {
+    name: "status",
+    label: t("titles.status"),
+  },
+];

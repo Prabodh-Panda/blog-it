@@ -38,7 +38,8 @@
     "delete": "Delete",
     "saveAsDraft": "Save as draft",
     "draft": "Draft",
-    "edit": "Edit"
+    "edit": "Edit",
+    "columns": "Columns"
   },
   "placeholders": {
     "title": "Enter title",

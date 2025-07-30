@@ -9,12 +9,18 @@ import { isEmpty } from "ramda";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import routes from "routes";
+import useSelectedColumnsStore from "stores/useSelectedColumnsStore";
 import { buildUrl } from "utils/url";
 
+import ColumnSelector from "./ColumnSelector";
 import { COLUMN_DATA, DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from "./constants";
+import { getFilteredColumns } from "./utils";
 
 const Table = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const selectedColumnNames = useSelectedColumnsStore(
+    state => state.selectedColumnNames
+  );
 
   const { t } = useTranslation();
 
@@ -35,12 +41,15 @@ const Table = () => {
 
   return (
     <div className="px-16">
-      <Typography className="mb-4" weight="medium">
-        {t("messages.articleCount", { count: totalCount })}
-      </Typography>
+      <div className="mb-4 flex items-center justify-between">
+        <Typography weight="medium">
+          {t("messages.articleCount", { count: totalCount })}
+        </Typography>
+        <ColumnSelector />
+      </div>
       <NeetoUITable
         rowSelection
-        columnData={COLUMN_DATA}
+        columnData={getFilteredColumns(selectedColumnNames, COLUMN_DATA)}
         currentPageNumber={Number(page) || DEFAULT_PAGE}
         defaultPageSize={DEFAULT_PAGE_SIZE}
         handlePageChange={handlePageNavigation}
