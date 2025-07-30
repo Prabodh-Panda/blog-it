@@ -1,6 +1,5 @@
 import { t } from "i18next";
 import { getCategoriesString } from "utils/categories";
-import * as yup from "yup";
 
 import ActionButtons from "./ActionButtons";
 import TitleLink from "./TitleLink";
@@ -64,23 +63,11 @@ export const COLUMN_NAME_SELECTOR_OPTIONS = [
 
 export const FILTER_INITIAL_VALUES = {
   title: "",
-  status: {},
   categories: [],
+  status: {},
 };
 
-export const FILTER_VALIDATION_SCHEMA = yup.object().shape({
-  title: yup.string(),
-  status: yup
-    .object()
-    .shape({
-      label: yup.string().required(),
-      value: yup.number().required(),
-    })
-    .nullable(),
-  categories: yup.array().nullable(),
-});
-
 export const STATUS_OPTIONS = [
-  { value: "draft", label: "Draft" },
-  { value: "published", label: "Published" },
+  { value: "draft", label: t("labels.draft") },
+  { value: "published", label: t("labels.published") },
 ];

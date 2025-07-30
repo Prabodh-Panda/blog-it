@@ -42,8 +42,9 @@
     "edit": "Edit",
     "columns": "Columns",
     "done": "Done",
-    "clearFilters": "Clear Filters",
-    "status": "Status"
+    "clearFilters": "Clear filters",
+    "status": "Status",
+    "published": "Published"
   },
   "placeholders": {
     "title": "Enter title",
@@ -51,7 +52,9 @@
     "name": "Oliver",
     "email": "oliver@example.com",
     "password": "********",
-    "organization": "PixelCompute"
+    "organization": "PixelCompute",
+    "categories": "Choose categories",
+    "status": "Choose a status"
   },
   "validations": {
     "titleRequired": "Title is required",
