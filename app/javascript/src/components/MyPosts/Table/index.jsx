@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 
 import { PageLoader } from "components/commons";
-import NotFound from "components/commons/NotFound";
 import { useFetchMyPosts } from "hooks/reactQuery/useMyPosts";
 import useQueryParams from "hooks/useQueryParams";
 import { Filter } from "neetoicons";
 import { Button, Table as NeetoUITable, Typography } from "neetoui";
-import { isEmpty } from "ramda";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import routes from "routes";
@@ -40,8 +38,6 @@ const Table = () => {
     history.replace(buildUrl(routes.myPosts.index, { page }));
 
   if (isLoading) return <PageLoader />;
-
-  if (isEmpty(posts)) return <NotFound title={t("errors.noPostsFound")} />;
 
   return (
     <div className="px-16">
