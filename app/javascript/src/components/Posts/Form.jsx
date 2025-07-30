@@ -7,6 +7,7 @@ import {
 } from "hooks/reactQuery/useCategories";
 import { Form as NeetoUIForm, Input, Select, Textarea } from "neetoui/formik";
 import { useTranslation } from "react-i18next";
+import { getCategoryOptions } from "utils/categories";
 
 import {
   MAX_DESCRIPTION_LENGTH,
@@ -14,7 +15,6 @@ import {
   NEW_POST_INITIAL_VALUES,
   NEW_POST_VALIDATION_SCHEMA,
 } from "./constants";
-import { getCategoryOptions } from "./utils";
 
 const Form = ({ initialValues, innerRef, onSubmit }) => {
   const { t } = useTranslation();
