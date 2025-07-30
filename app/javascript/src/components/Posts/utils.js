@@ -11,3 +11,12 @@ export const getPayloadFromFormData = (formData, status) => ({
   category_ids: formData.categories.map(category => category.value),
   status,
 });
+
+export const getCategoryOptions = categories => {
+  if (!categories) return [];
+
+  return categories.map(({ id, name }) => ({
+    value: id,
+    label: name,
+  }));
+};

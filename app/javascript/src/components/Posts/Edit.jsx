@@ -5,11 +5,10 @@ import { useShowPost, useUpdatePost } from "hooks/reactQuery/usePosts";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams } from "react-router-dom";
 import routes from "routes";
-import { getCategoryOptions } from "utils/categories";
 
 import ActionBlock from "./ActionBlock";
 import EditPostForm from "./Form";
-import { getPayloadFromFormData } from "./utils";
+import { getCategoryOptions, getPayloadFromFormData } from "./utils";
 
 const Edit = () => {
   const [status, setStatus] = useState("published");

@@ -1,9 +1,12 @@
 import { t } from "i18next";
-import { getCategoriesString } from "utils/categories";
 
 import ActionButtons from "./ActionButtons";
 import TitleLink from "./TitleLink";
-import { getCapitalizedStatus, getLastUpdatedAtDateTimeString } from "./utils";
+import {
+  getCapitalizedStatus,
+  getCategoriesString,
+  getLastUpdatedAtDateTimeString,
+} from "./utils";
 
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_PAGE_SIZE = 10;

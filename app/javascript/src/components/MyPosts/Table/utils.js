@@ -24,3 +24,6 @@ export const getSelectedCategoriesOptions = (slugs, options = []) =>
 
 export const getSelectedStatusOption = (status, options) =>
   findBy({ value: status }, options);
+
+export const getCategoriesString = categories =>
+  categories.map(category => category.name).join(", ");
