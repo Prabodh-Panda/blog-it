@@ -7,8 +7,8 @@ class MyPostsController < ApplicationController
   MY_POSTS_DEFAULT_PAGE_SIZE = 10
 
   def index
-    @posts = policy_scope(Post, policy_scope_class: MyPostPolicy::Scope)
-      .page(params[:page])
-      .per(MY_POSTS_DEFAULT_PAGE_SIZE)
+    scoped_posts = policy_scope(Post, policy_scope_class: MyPostPolicy::Scope)
+    @posts = PostsFilterService.new(scoped_posts, params).process!
+      .page(params[:page]).per(MY_POSTS_DEFAULT_PAGE_SIZE)
   end
 end
