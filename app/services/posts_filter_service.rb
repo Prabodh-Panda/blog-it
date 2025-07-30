@@ -21,7 +21,6 @@ class PostsFilterService
     end
 
     def filter_by_categories(posts)
-      puts posts
       return posts unless params[:categories].present?
 
       posts.joins(:categories)
