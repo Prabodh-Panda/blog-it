@@ -30,7 +30,7 @@ const Table = () => {
   const history = useHistory();
 
   const queryParams = useQueryParams();
-  const { page } = queryParams;
+  const { page, title } = queryParams;
 
   const { data: { posts, totalCount } = {}, isLoading } =
     useFetchMyPosts(queryParams);
@@ -45,7 +45,7 @@ const Table = () => {
       <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Typography weight="medium">
-            {getArticleCountText(selectedRowKeys.length, totalCount)}
+            {getArticleCountText(selectedRowKeys.length, totalCount, title)}
           </Typography>
           <ActiveFilterDisplay />
         </div>

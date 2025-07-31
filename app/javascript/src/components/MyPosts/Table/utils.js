@@ -31,10 +31,21 @@ export const getSelectedStatusOption = (status, options) =>
 export const getCategoriesString = categories =>
   categories.map(category => category.name).join(", ");
 
-export const getArticleCountText = (selectedCount, articleCount) =>
-  selectedCount > 0
-    ? t("messages.selectedCount", {
-        count: selectedCount,
-        totalCount: articleCount,
-      })
-    : t("messages.articleCount", { count: articleCount });
+export const getArticleCountText = (
+  selectedCount,
+  articleCount,
+  searchTerm
+) => {
+  if (searchTerm) {
+    return t("messages.searchResults", { count: articleCount, searchTerm });
+  }
+
+  if (selectedCount > 0) {
+    return t("messages.selectedCount", {
+      count: selectedCount,
+      totalCount: articleCount,
+    });
+  }
+
+  return t("messages.articleCount", { count: articleCount });
+};
