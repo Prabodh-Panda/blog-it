@@ -22,8 +22,19 @@ export const getCategoriesOption = categories =>
 export const getSelectedCategoriesOptions = (slugs, options = []) =>
   slugs ? filter(({ value }) => includes(value, slugs), options) : [];
 
+export const getSelectedCategoriesFromSlugs = (slugs, categories) =>
+  slugs ? filter(({ slug }) => includes(slug, slugs), categories) : [];
+
 export const getSelectedStatusOption = (status, options) =>
   findBy({ value: status }, options);
 
 export const getCategoriesString = categories =>
   categories.map(category => category.name).join(", ");
+
+export const getArticleCountText = (selectedCount, articleCount) =>
+  selectedCount > 0
+    ? t("messages.selectedCount", {
+        count: selectedCount,
+        totalCount: articleCount,
+      })
+    : t("messages.articleCount", { count: articleCount });

@@ -11,20 +11,21 @@ import routes from "routes";
 import useSelectedColumnsStore from "stores/useSelectedColumnsStore";
 import { buildUrl } from "utils/url";
 
+import ActiveFilterDisplay from "./ActiveFilterDisplay";
 import ColumnSelector from "./ColumnSelector";
 import { COLUMN_DATA, DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from "./constants";
 import FilterPane from "./FilterPane";
-import { getFilteredColumns } from "./utils";
+import { getArticleCountText, getFilteredColumns } from "./utils";
 
 const Table = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [isFilterPaneOpen, setIsFilterPaneOpen] = useState(false);
 
+  const { t } = useTranslation();
+
   const selectedColumnNames = useSelectedColumnsStore(
     state => state.selectedColumnNames
   );
-
-  const { t } = useTranslation();
 
   const history = useHistory();
 
@@ -42,17 +43,26 @@ const Table = () => {
   return (
     <div className="px-16">
       <div className="mb-4 flex items-center justify-between">
-        <Typography weight="medium">
-          {t("messages.articleCount", { count: totalCount })}
-        </Typography>
         <div className="flex items-center gap-4">
-          <ColumnSelector />
-          <Button
-            icon={Filter}
-            style="text"
-            onClick={() => setIsFilterPaneOpen(true)}
-          />
+          <Typography weight="medium">
+            {getArticleCountText(selectedRowKeys.length, totalCount)}
+          </Typography>
+          <ActiveFilterDisplay />
         </div>
+        {selectedRowKeys.length > 0 ? (
+          <div>
+            <Button label={t("labels.delete")} style="danger-text" />
+          </div>
+        ) : (
+          <div className="flex items-center gap-4">
+            <ColumnSelector />
+            <Button
+              icon={Filter}
+              style="text"
+              onClick={() => setIsFilterPaneOpen(true)}
+            />
+          </div>
+        )}
       </div>
       <NeetoUITable
         rowSelection

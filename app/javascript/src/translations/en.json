@@ -97,6 +97,8 @@
     "articleCount_one": "{{count}} article",
     "articleCount_other": "{{count}} articles",
     "deletePost": "You are about to delete <strong>{{title}}</strong>. This action cannot be undone. Are you sure you want to continue?",
-    "notPublished": "Has not been published"
+    "notPublished": "Has not been published",
+    "selectedCount_one": "{{count}} article selected of {{totalCount}}",
+    "selectedCount_other": "{{count}} articles selected of {{totalCount}}"
   }
 }
