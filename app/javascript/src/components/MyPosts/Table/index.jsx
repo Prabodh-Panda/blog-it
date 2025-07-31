@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 
 import { PageLoader } from "components/commons";
-import { useFetchMyPosts } from "hooks/reactQuery/useMyPosts";
+import {
+  useBulkDeleteMyPosts,
+  useFetchMyPosts,
+} from "hooks/reactQuery/useMyPosts";
 import useQueryParams from "hooks/useQueryParams";
 import { Filter } from "neetoicons";
 import { Button, Table as NeetoUITable, Typography } from "neetoui";
@@ -35,8 +38,14 @@ const Table = () => {
   const { data: { posts, totalCount } = {}, isLoading } =
     useFetchMyPosts(queryParams);
 
+  const { mutate: bulkDeleteMyPosts } = useBulkDeleteMyPosts();
+
   const handlePageNavigation = page =>
     history.replace(buildUrl(routes.myPosts.index, { page }));
+
+  const handleBulkDelete = async () => {
+    bulkDeleteMyPosts(selectedRowKeys);
+  };
 
   if (isLoading) return <PageLoader />;
 
@@ -51,7 +60,11 @@ const Table = () => {
         </div>
         {selectedRowKeys.length > 0 ? (
           <div>
-            <Button label={t("labels.delete")} style="danger-text" />
+            <Button
+              label={t("labels.delete")}
+              style="danger-text"
+              onClick={handleBulkDelete}
+            />
           </div>
         ) : (
           <div className="flex items-center gap-4">
@@ -71,6 +84,7 @@ const Table = () => {
         defaultPageSize={DEFAULT_PAGE_SIZE}
         handlePageChange={handlePageNavigation}
         rowData={posts}
+        rowKey="slug"
         selectedRowKeys={selectedRowKeys}
         totalCount={totalCount}
         onRowSelect={setSelectedRowKeys}
