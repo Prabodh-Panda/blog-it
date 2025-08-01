@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     resources :my_posts, only: :index, path: "my-posts" do
       collection do
         delete "bulk_delete"
-        patch "bulk_edit"
+        patch "bulk_update"
       end
     end
     resources :categories, only: %i[index create]

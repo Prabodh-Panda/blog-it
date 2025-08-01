@@ -12,7 +12,7 @@ class MyPostPolicy
     posts.all? { |post| post.user_id == user.id }
   end
 
-  def bulk_edit?
+  def bulk_update?
     bulk_delete?
   end
 

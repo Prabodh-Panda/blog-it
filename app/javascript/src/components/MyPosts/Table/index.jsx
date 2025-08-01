@@ -3,11 +3,12 @@ import React, { useState } from "react";
 import { PageLoader } from "components/commons";
 import {
   useBulkDeleteMyPosts,
+  useBulkUpdateMyPosts,
   useFetchMyPosts,
 } from "hooks/reactQuery/useMyPosts";
 import useQueryParams from "hooks/useQueryParams";
 import { Filter } from "neetoicons";
-import { Button, Table as NeetoUITable, Typography } from "neetoui";
+import { Button, Table as NeetoUITable, Typography, Dropdown } from "neetoui";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import routes from "routes";
@@ -19,6 +20,11 @@ import ColumnSelector from "./ColumnSelector";
 import { COLUMN_DATA, DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from "./constants";
 import FilterPane from "./FilterPane";
 import { getArticleCountText, getFilteredColumns } from "./utils";
+
+const {
+  Menu,
+  MenuItem: { Button: MenuItemButton },
+} = Dropdown;
 
 const Table = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -39,19 +45,24 @@ const Table = () => {
     useFetchMyPosts(queryParams);
 
   const { mutate: bulkDeleteMyPosts } = useBulkDeleteMyPosts();
+  const { mutate: bulkUpdateMyPosts } = useBulkUpdateMyPosts();
 
   const handlePageNavigation = page =>
     history.replace(buildUrl(routes.myPosts.index, { page }));
 
-  const handleBulkDelete = async () => {
-    bulkDeleteMyPosts(selectedRowKeys);
+  const handleBulkDelete = () => {
+    bulkDeleteMyPosts({ slugs: selectedRowKeys });
+  };
+
+  const handleBulkUpdate = status => {
+    bulkUpdateMyPosts({ status, slugs: selectedRowKeys });
   };
 
   if (isLoading) return <PageLoader />;
 
   return (
     <div className="px-16">
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-4 flex items-center gap-2">
         <div className="flex items-center gap-4">
           <Typography weight="medium">
             {getArticleCountText(selectedRowKeys.length, totalCount, title)}
@@ -59,7 +70,17 @@ const Table = () => {
           <ActiveFilterDisplay />
         </div>
         {selectedRowKeys.length > 0 ? (
-          <div>
+          <div className="flex items-center gap-2">
+            <Dropdown buttonStyle="secondary" label={t("labels.changeStatus")}>
+              <Menu>
+                <MenuItemButton onClick={() => handleBulkUpdate("draft")}>
+                  {t("labels.draft")}
+                </MenuItemButton>
+                <MenuItemButton onClick={() => handleBulkUpdate("published")}>
+                  {t("labels.publish")}
+                </MenuItemButton>
+              </Menu>
+            </Dropdown>
             <Button
               label={t("labels.delete")}
               style="danger-text"
@@ -67,7 +88,7 @@ const Table = () => {
             />
           </div>
         ) : (
-          <div className="flex items-center gap-4">
+          <div className="ml-auto flex items-center gap-4">
             <ColumnSelector />
             <Button
               icon={Filter}

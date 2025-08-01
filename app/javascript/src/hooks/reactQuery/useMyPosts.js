@@ -13,13 +13,26 @@ export const useFetchMyPosts = params =>
 
 export const useBulkDeleteMyPosts = () =>
   useMutation(myPostsApi.bulkDelete, {
-    onSuccess: (_data, slugs) => {
+    onSuccess: (_data, { slugs }) => {
       const deletedPostsKeys = slugs.map(slug => [QUERY_KEYS.POSTS, slug]);
 
       invalidateQueryKeys([
         [QUERY_KEYS.POSTS],
         [QUERY_KEYS.MY_POSTS],
         ...deletedPostsKeys,
+      ]);
+    },
+  });
+
+export const useBulkUpdateMyPosts = () =>
+  useMutation(myPostsApi.bulkUpdate, {
+    onSuccess: (_data, { slugs }) => {
+      const updatedPostKeys = slugs.map(slug => [QUERY_KEYS.POSTS, slug]);
+
+      invalidateQueryKeys([
+        [QUERY_KEYS.POSTS],
+        [QUERY_KEYS.MY_POSTS],
+        ...updatedPostKeys,
       ]);
     },
   });

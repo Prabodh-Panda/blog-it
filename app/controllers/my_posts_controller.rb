@@ -20,6 +20,18 @@ class MyPostsController < ApplicationController
     render_notice(t("successfully_deleted_bulk", entity: "Posts"))
   end
 
+  def bulk_update
+    status = bulk_update_params[:status]
+    posts = @scoped_posts.where(slug: bulk_update_params[:slugs]).where.not(status:)
+    authorize posts, policy_class: MyPostPolicy
+    if status == "published"
+      posts.update_all(last_published_at: Time.current, status:)
+    else
+      posts.update_all(status:)
+    end
+    render_notice(t("successfully_updated_bulk", entity: "Posts"))
+  end
+
   private
 
     def load_scoped_posts!
@@ -27,6 +39,10 @@ class MyPostsController < ApplicationController
     end
 
     def bulk_delete_params
-      params.require(:bulk_delete).permit(slugs: [])
+      params.permit(slugs: [])
+    end
+
+    def bulk_update_params
+      params.require(:posts).permit(:status, slugs: [])
     end
 end

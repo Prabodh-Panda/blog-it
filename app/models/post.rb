@@ -19,6 +19,8 @@ class Post < ApplicationRecord
     presence: true,
     length: { maximum: MAX_DESCRIPTION_LENGTH }
 
+  validates :status, presence: true
+
   validates_inclusion_of :is_bloggable, in: [true, false]
 
   validates :slug, uniqueness: true
