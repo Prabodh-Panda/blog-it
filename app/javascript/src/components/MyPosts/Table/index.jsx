@@ -8,8 +8,14 @@ import {
 } from "hooks/reactQuery/useMyPosts";
 import useQueryParams from "hooks/useQueryParams";
 import { Filter } from "neetoicons";
-import { Button, Table as NeetoUITable, Typography, Dropdown } from "neetoui";
-import { useTranslation } from "react-i18next";
+import {
+  Button,
+  Table as NeetoUITable,
+  Typography,
+  Dropdown,
+  Alert,
+} from "neetoui";
+import { Trans, useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import routes from "routes";
 import useSelectedColumnsStore from "stores/useSelectedColumnsStore";
@@ -29,6 +35,7 @@ const {
 const Table = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [isFilterPaneOpen, setIsFilterPaneOpen] = useState(false);
+  const [isDeletePostsAlertOpen, setIsDeletePostsAlertOpen] = useState(false);
 
   const { t } = useTranslation();
 
@@ -84,7 +91,25 @@ const Table = () => {
             <Button
               label={t("labels.delete")}
               style="danger-text"
-              onClick={handleBulkDelete}
+              onClick={() => setIsDeletePostsAlertOpen(true)}
+            />
+            <Alert
+              isOpen={isDeletePostsAlertOpen}
+              submitButtonLabel={t("labels.delete")}
+              title={t("titles.deletePost")}
+              message={
+                <Trans
+                  shouldUnescape
+                  components={{ strong: <strong /> }}
+                  i18nKey="messages.deletePosts"
+                  values={{ count: selectedRowKeys.length }}
+                />
+              }
+              onClose={() => setIsDeletePostsAlertOpen(false)}
+              onSubmit={() => {
+                handleBulkDelete();
+                setIsDeletePostsAlertOpen(false);
+              }}
             />
           </div>
         ) : (

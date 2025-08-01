@@ -102,6 +102,8 @@
     "selectedCount_one": "{{count}} article selected of {{totalCount}}",
     "selectedCount_other": "{{count}} articles selected of {{totalCount}}",
     "searchResults_one": "{{count}} result for \"{{searchTerm}}\"",
-    "searchResults_other": "{{count}} results for \"{{searchTerm}}\""
+    "searchResults_other": "{{count}} results for \"{{searchTerm}}\"",
+    "deletePosts_one": "You are about to delete <strong>{{count}} post</strong>. This action cannot be undone. Are you sure you want to continue?",
+    "deletePosts_other": "You are about to delete <strong>{{count}} posts</strong>. This action cannot be undone. Are you sure you want to continue?"
   }
 }
