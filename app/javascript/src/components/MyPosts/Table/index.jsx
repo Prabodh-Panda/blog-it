@@ -1,54 +1,141 @@
 import React, { useState } from "react";
 
 import { PageLoader } from "components/commons";
-import NotFound from "components/commons/NotFound";
-import { useFetchMyPosts } from "hooks/reactQuery/useMyPosts";
+import {
+  useBulkDeleteMyPosts,
+  useBulkUpdateMyPosts,
+  useFetchMyPosts,
+} from "hooks/reactQuery/useMyPosts";
 import useQueryParams from "hooks/useQueryParams";
-import { Table as NeetoUITable, Typography } from "neetoui";
-import { isEmpty } from "ramda";
-import { useTranslation } from "react-i18next";
+import { Filter } from "neetoicons";
+import {
+  Button,
+  Table as NeetoUITable,
+  Typography,
+  Dropdown,
+  Alert,
+} from "neetoui";
+import { Trans, useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import routes from "routes";
+import useSelectedColumnsStore from "stores/useSelectedColumnsStore";
 import { buildUrl } from "utils/url";
 
+import ActiveFilterDisplay from "./ActiveFilterDisplay";
+import ColumnSelector from "./ColumnSelector";
 import { COLUMN_DATA, DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from "./constants";
+import FilterPane from "./FilterPane";
+import { getArticleCountText, getFilteredColumns } from "./utils";
+
+const {
+  Menu,
+  MenuItem: { Button: MenuItemButton },
+} = Dropdown;
 
 const Table = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [isFilterPaneOpen, setIsFilterPaneOpen] = useState(false);
+  const [isDeletePostsAlertOpen, setIsDeletePostsAlertOpen] = useState(false);
 
   const { t } = useTranslation();
+
+  const selectedColumnNames = useSelectedColumnsStore(
+    state => state.selectedColumnNames
+  );
 
   const history = useHistory();
 
   const queryParams = useQueryParams();
-  const { page } = queryParams;
+  const { page, title } = queryParams;
 
   const { data: { posts, totalCount } = {}, isLoading } =
     useFetchMyPosts(queryParams);
 
+  const { mutate: bulkDeleteMyPosts } = useBulkDeleteMyPosts();
+  const { mutate: bulkUpdateMyPosts } = useBulkUpdateMyPosts();
+
   const handlePageNavigation = page =>
     history.replace(buildUrl(routes.myPosts.index, { page }));
 
-  if (isLoading) return <PageLoader />;
+  const handleBulkDelete = () => {
+    bulkDeleteMyPosts({ slugs: selectedRowKeys });
+  };
 
-  if (isEmpty(posts)) return <NotFound title={t("errors.noPostsFound")} />;
+  const handleBulkUpdate = status => {
+    bulkUpdateMyPosts({ status, slugs: selectedRowKeys });
+  };
+
+  if (isLoading) return <PageLoader />;
 
   return (
     <div className="px-16">
-      <Typography className="mb-4" weight="medium">
-        {t("messages.articleCount", { count: totalCount })}
-      </Typography>
+      <div className="mb-4 flex items-center gap-2">
+        <div className="flex items-center gap-4">
+          <Typography weight="medium">
+            {getArticleCountText(selectedRowKeys.length, totalCount, title)}
+          </Typography>
+          <ActiveFilterDisplay />
+        </div>
+        {selectedRowKeys.length > 0 ? (
+          <div className="flex items-center gap-2">
+            <Dropdown buttonStyle="secondary" label={t("labels.changeStatus")}>
+              <Menu>
+                <MenuItemButton onClick={() => handleBulkUpdate("draft")}>
+                  {t("labels.draft")}
+                </MenuItemButton>
+                <MenuItemButton onClick={() => handleBulkUpdate("published")}>
+                  {t("labels.publish")}
+                </MenuItemButton>
+              </Menu>
+            </Dropdown>
+            <Button
+              label={t("labels.delete")}
+              style="danger-text"
+              onClick={() => setIsDeletePostsAlertOpen(true)}
+            />
+            <Alert
+              isOpen={isDeletePostsAlertOpen}
+              submitButtonLabel={t("labels.delete")}
+              title={t("titles.deletePost")}
+              message={
+                <Trans
+                  shouldUnescape
+                  components={{ strong: <strong /> }}
+                  i18nKey="messages.deletePosts"
+                  values={{ count: selectedRowKeys.length }}
+                />
+              }
+              onClose={() => setIsDeletePostsAlertOpen(false)}
+              onSubmit={() => {
+                handleBulkDelete();
+                setIsDeletePostsAlertOpen(false);
+              }}
+            />
+          </div>
+        ) : (
+          <div className="ml-auto flex items-center gap-4">
+            <ColumnSelector />
+            <Button
+              icon={Filter}
+              style="text"
+              onClick={() => setIsFilterPaneOpen(true)}
+            />
+          </div>
+        )}
+      </div>
       <NeetoUITable
         rowSelection
-        columnData={COLUMN_DATA}
+        columnData={getFilteredColumns(selectedColumnNames, COLUMN_DATA)}
         currentPageNumber={Number(page) || DEFAULT_PAGE}
         defaultPageSize={DEFAULT_PAGE_SIZE}
         handlePageChange={handlePageNavigation}
         rowData={posts}
+        rowKey="slug"
         selectedRowKeys={selectedRowKeys}
         totalCount={totalCount}
         onRowSelect={setSelectedRowKeys}
       />
+      <FilterPane isOpen={isFilterPaneOpen} onClose={setIsFilterPaneOpen} />
     </div>
   );
 };

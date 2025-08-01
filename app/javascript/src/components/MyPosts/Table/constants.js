@@ -1,8 +1,12 @@
 import { t } from "i18next";
 
-import Status from "./Status";
+import ActionButtons from "./ActionButtons";
 import TitleLink from "./TitleLink";
-import { getCategoriesString, getLastUpdatedAtDateTimeString } from "./utils";
+import {
+  getCapitalizedStatus,
+  getCategoriesString,
+  getLastUpdatedAtDateTimeString,
+} from "./utils";
 
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_PAGE_SIZE = 10;
@@ -31,6 +35,42 @@ export const COLUMN_DATA = [
     title: t("titles.status"),
     dataIndex: "status",
     key: "status",
-    render: Status,
+    render: getCapitalizedStatus,
   },
+  {
+    title: "",
+    key: "actionButtons",
+    render: ActionButtons,
+  },
+];
+
+export const COLUMN_NAME_SELECTOR_OPTIONS = [
+  {
+    name: "title",
+    label: t("titles.title"),
+    disabled: true,
+  },
+  {
+    name: "categories",
+    label: t("titles.categories"),
+  },
+  {
+    name: "lastPublishedAt",
+    label: t("titles.lastPublishedAt"),
+  },
+  {
+    name: "status",
+    label: t("titles.status"),
+  },
+];
+
+export const FILTER_INITIAL_VALUES = {
+  title: "",
+  categories: [],
+  status: {},
+};
+
+export const STATUS_OPTIONS = [
+  { value: "draft", label: t("labels.draft") },
+  { value: "published", label: t("labels.published") },
 ];

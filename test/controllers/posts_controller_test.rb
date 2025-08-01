@@ -8,6 +8,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     @organization = @user.organization
     @headers = headers(@user)
     @user_posts = create_list(:post, 2, user: @user, organization: @organization)
+    @category_one = create(:category)
   end
 
   def test_index_should_return_only_published_posts_from_users_organization
@@ -85,7 +86,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
         title: "",
         description: "Desc",
         status: "draft",
-        category_ids: [1, 2]
+        category_ids: [@category_one.id]
       }
     }
 

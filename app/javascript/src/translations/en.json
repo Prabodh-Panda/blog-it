@@ -11,7 +11,8 @@
     "title": "Title",
     "lastPublishedAt": "Last published at",
     "status": "Status",
-    "deletePost": "Delete post?"
+    "deletePost": "Delete post?",
+    "filters": "Filters"
   },
   "labels": {
     "addNewBlogPost": "Add new blog post",
@@ -38,7 +39,13 @@
     "delete": "Delete",
     "saveAsDraft": "Save as draft",
     "draft": "Draft",
-    "edit": "Edit"
+    "edit": "Edit",
+    "columns": "Columns",
+    "done": "Done",
+    "clearFilters": "Clear filters",
+    "status": "Status",
+    "published": "Published",
+    "changeStatus": "Change status"
   },
   "placeholders": {
     "title": "Enter title",
@@ -46,7 +53,9 @@
     "name": "Oliver",
     "email": "oliver@example.com",
     "password": "********",
-    "organization": "PixelCompute"
+    "organization": "PixelCompute",
+    "categories": "Choose categories",
+    "status": "Choose a status"
   },
   "validations": {
     "titleRequired": "Title is required",
@@ -89,6 +98,12 @@
     "articleCount_one": "{{count}} article",
     "articleCount_other": "{{count}} articles",
     "deletePost": "You are about to delete <strong>{{title}}</strong>. This action cannot be undone. Are you sure you want to continue?",
-    "notPublished": "Has not been published"
+    "notPublished": "Has not been published",
+    "selectedCount_one": "{{count}} article selected of {{totalCount}}",
+    "selectedCount_other": "{{count}} articles selected of {{totalCount}}",
+    "searchResults_one": "{{count}} result for \"{{searchTerm}}\"",
+    "searchResults_other": "{{count}} results for \"{{searchTerm}}\"",
+    "deletePosts_one": "You are about to delete <strong>{{count}} post</strong>. This action cannot be undone. Are you sure you want to continue?",
+    "deletePosts_other": "You are about to delete <strong>{{count}} posts</strong>. This action cannot be undone. Are you sure you want to continue?"
   }
 }

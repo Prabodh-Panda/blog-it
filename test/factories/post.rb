@@ -9,10 +9,5 @@ FactoryBot.define do
     status { "draft" }
 
     user { build(:user, organization: organization) }
-
-    after(:create) do |post|
-      categories = create_list(:category, 2, organization: post.organization)
-      post.categories << categories
-    end
   end
 end
