@@ -5,6 +5,7 @@ en:
   successfully_deleted: "%{entity} was successfully deleted!"
   successfully_updated_bulk: "%{entity} were successfully updated!"
   successfully_deleted_bulk: "%{entity} were successfully deleted!"
+  not_found: "Couldn't find %{entity}"
   post:
     slug:
       immutable: "is immutable!"
