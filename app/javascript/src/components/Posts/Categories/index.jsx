@@ -40,9 +40,12 @@ const Categories = () => {
 
   return (
     <div
-      className={classNames("min-w-80 bg-gray-200 p-4", {
-        hidden: !isCategoriesPaneOpen,
-      })}
+      className={classNames(
+        "flex min-w-80 flex-col overflow-auto bg-gray-200 p-4",
+        {
+          hidden: !isCategoriesPaneOpen,
+        }
+      )}
     >
       <div className="flex items-center justify-between">
         <Typography className="uppercase" style="h4" weight="bold">
