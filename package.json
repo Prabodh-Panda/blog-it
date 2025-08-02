@@ -78,7 +78,7 @@
     "esbuild-sass-plugin": "^3.3.1",
     "file-saver": "^2.0.5",
     "formik": "^2.4.6",
-    "framer-motion": "^12.11.3",
+    "framer-motion": "^12.23.12",
     "i18next": "21.7.0",
     "js-logger": "^1.6.1",
     "path-browserify": "^1.0.1",

@@ -4,7 +4,7 @@
     <p><span class="font-semibold">Author:</span> <%= @post.user.name %></p>
     <p>
         <span class="font-semibold">Last Published At:</span>
-        <%= @post.last_published_at ? @post.last_published_at.strftime("%B %d, %Y %l:%M %p") : "Not published yet" %>
+        <%= @post.last_published_at ? @post.last_published_at.in_time_zone.strftime("%B %d, %Y %l:%M %p") : "Not published yet" %>
     </p>
 </div>
 

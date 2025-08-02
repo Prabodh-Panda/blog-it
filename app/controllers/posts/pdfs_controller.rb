@@ -5,7 +5,6 @@ class Posts::PdfsController < ApplicationController
 
   def create
     PdfsJob.perform_async(@post.slug, @current_user.id)
-    render_notice(t("in_progress", action: "PDF generation"))
   end
 
   def download

@@ -17,3 +17,8 @@ en:
     could_not_auth: "Could not authenticate with the provided credentials."
     authorization:
       denied: "Access denied. You are not authorized to perform this action."
+  report:
+    render: "Rendering the report"
+    generate: "Generating the PDF report"
+    upload: "Uploading to server"
+    attach: "Attaching the report to the user"
