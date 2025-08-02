@@ -9,6 +9,8 @@ class Post < ApplicationRecord
   belongs_to :user
   belongs_to :organization
 
+  has_many :votes
+
   has_and_belongs_to_many :categories
 
   validates :title,
@@ -29,6 +31,14 @@ class Post < ApplicationRecord
 
   before_create :set_slug
   before_save :set_last_published_if_published, if: -> { new_record? || will_save_change_to_status? }
+
+  def net_votes
+    votes.upvote.count - votes.downvote.count
+  end
+
+  def user_vote(user)
+    votes.find_by(user_id: user.id)&.vote_type
+  end
 
   private
 

@@ -5,7 +5,6 @@ FactoryBot.define do
     association :organization
     title { Faker::Book.unique.title }
     description { Faker::Lorem.paragraph_by_chars(number: 200) }
-    is_bloggable { true }
     status { "draft" }
 
     user { build(:user, organization: organization) }

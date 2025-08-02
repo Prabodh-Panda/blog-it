@@ -2,7 +2,11 @@
 
 Rails.application.routes.draw do
   constraints(lambda { |req| req.format == :json }) do
-    resources :posts, except: %i[new edit], param: :slug
+    resources :posts, except: %i[new edit], param: :slug do
+      member do
+        post :vote, controller: :votes
+      end
+    end
     resources :my_posts, only: :index, path: "my-posts" do
       collection do
         delete "bulk_delete"

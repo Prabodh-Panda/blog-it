@@ -47,3 +47,10 @@ export const useDestroyPost = () =>
       );
     },
   });
+
+export const usePostVote = () =>
+  useMutation(postsApi.vote, {
+    onSuccess: () => {
+      invalidateQueryKeys([[QUERY_KEYS.POSTS]]);
+    },
+  });
