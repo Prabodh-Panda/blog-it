@@ -3,32 +3,24 @@
 class MyPostsController < ApplicationController
   MY_POSTS_DEFAULT_PAGE_SIZE = 10
 
-  after_action :verify_authorized, except: :index
   after_action :verify_policy_scoped, only: :index
 
   before_action :load_scoped_posts!
 
   def index
-    @posts = PostsFilterService.new(@scoped_posts, params).process!
+    @posts = MyPosts::FilterService.new(@scoped_posts, params).process!
+      .order(created_at: :desc)
       .page(params[:page]).per(MY_POSTS_DEFAULT_PAGE_SIZE)
   end
 
   def bulk_delete
     posts = @scoped_posts.where(slug: bulk_delete_params[:slugs])
-    authorize posts, policy_class: MyPostPolicy
     posts.destroy_all
     render_notice(t("successfully_deleted_bulk", entity: "Posts"))
   end
 
   def bulk_update
-    status = bulk_update_params[:status]
-    posts = @scoped_posts.where(slug: bulk_update_params[:slugs]).where.not(status:)
-    authorize posts, policy_class: MyPostPolicy
-    if status == "published"
-      posts.update_all(last_published_at: Time.current, status:)
-    else
-      posts.update_all(status:)
-    end
+    MyPosts::BulkUpdateService.new(@scoped_posts, bulk_update_params).process!
     render_notice(t("successfully_updated_bulk", entity: "Posts"))
   end
 
