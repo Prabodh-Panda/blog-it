@@ -14,8 +14,7 @@ class Vote < ApplicationRecord
   private
 
     def update_post_is_bloggable
-      threshold = 0
-      new_status = post.net_votes > threshold
+      new_status = post.net_votes > Constants::BLOG_IT_THRESHOLD
       if post.is_bloggable != new_status
         post.update_column(:is_bloggable, new_status)
       end
