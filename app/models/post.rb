@@ -36,6 +36,10 @@ class Post < ApplicationRecord
     votes.upvote.count - votes.downvote.count
   end
 
+  def user_vote(user)
+    votes.find_by(user_id: user.id)&.vote_type
+  end
+
   private
 
     def set_slug

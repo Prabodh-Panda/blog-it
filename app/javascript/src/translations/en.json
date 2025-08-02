@@ -45,7 +45,8 @@
     "clearFilters": "Clear filters",
     "status": "Status",
     "published": "Published",
-    "changeStatus": "Change status"
+    "changeStatus": "Change status",
+    "blogIt": "Blog it"
   },
   "placeholders": {
     "title": "Enter title",

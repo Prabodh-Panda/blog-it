@@ -1,9 +1,10 @@
 import React from "react";
 
-import postsApi from "apis/posts";
+import { usePostVote } from "hooks/reactQuery/usePosts";
 import { truncate } from "neetocist";
 import { DownArrow, UpArrow } from "neetoicons";
 import { Button, Tag, Typography } from "neetoui";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import routes from "routes";
 import { buildUrl } from "utils/url";
@@ -17,9 +18,16 @@ const Item = ({
   slug,
   author,
   categories,
+  netVotes,
+  isBloggable,
+  userVote,
 }) => {
+  const { t } = useTranslation();
+
+  const { mutate: votePost } = usePostVote();
+
   const vote = vote_type => {
-    postsApi.vote({
+    votePost({
       slug,
       payload: {
         vote_type,
@@ -31,15 +39,18 @@ const Item = ({
     <div className="my-4 flex border-b py-4">
       <div>
         <div>
-          <Link to={buildUrl(routes.posts.show, { slug })}>
-            <Typography
-              className="cursor-pointer hover:underline"
-              style="h2"
-              weight="medium"
-            >
-              {title}
-            </Typography>
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link to={buildUrl(routes.posts.show, { slug })}>
+              <Typography
+                className="cursor-pointer hover:underline"
+                style="h2"
+                weight="medium"
+              >
+                {title}
+              </Typography>
+            </Link>
+            {isBloggable && <Tag label={t("labels.blogIt")} style="success" />}
+          </div>
           <div className="my-2 flex gap-2">
             {categories.map(({ name, id }) => (
               <Tag key={id} label={name} style="success" type="solid" />
@@ -56,20 +67,20 @@ const Item = ({
           </Typography>
         </div>
       </div>
-      <div className="my-auto ml-4 flex flex-col items-center">
+      <div className="my-auto ml-auto flex flex-col items-center">
         <Button
           icon={UpArrow}
           size="large"
-          style="text"
+          style={userVote === "upvote" ? `primary` : "text"}
           onClick={() => vote("upvote")}
         />
         <Typography style="h3" weight="bold">
-          0
+          {netVotes}
         </Typography>
         <Button
           icon={DownArrow}
           size="large"
-          style="text"
+          style={userVote === "downvote" ? `danger` : "text"}
           onClick={() => vote("downvote")}
         />
       </div>
