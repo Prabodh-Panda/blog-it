@@ -71,4 +71,20 @@ gem "data_migrate"
 gem "kaminari", "~> 1.2", ">= 1.2.2"
 gem "pundit"
 gem "react-rails", "~> 2.7.1"
+gem "sidekiq", "~> 7"
+
+gem "pg", group: [:production]
 gem "simplecov", require: false, group: :test
+
+# PDF generation gem
+gem "wicked_pdf"
+# wicked_pdf uses the following binary
+gem "wkhtmltopdf-binary"
+
+# Required by Active Storage to use the GCS
+gem "google-cloud-storage"
+
+# To load the environment variables
+gem "dotenv-rails"
+
+gem "redis"

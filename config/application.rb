@@ -8,6 +8,8 @@ require "rails/all"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+Dotenv::Railtie.load
+
 module BlogIt
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
@@ -23,10 +25,12 @@ module BlogIt
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
-    # config.time_zone = "Central Time (US & Canada)"
+    config.time_zone = "Kolkata"
     # config.eager_load_paths << Rails.root.join("extras")
     config.generators do |g|
       g.test_framework :test_unit, fixture: false
     end
+
+    config.active_job.queue_adapter = :sidekiq
   end
 end

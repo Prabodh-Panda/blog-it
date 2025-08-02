@@ -6,6 +6,8 @@
       "apis/*": ["app/javascript/src/apis/*"],
       "assets": ["app/javascript/src/assets"],
       "assets/*": ["app/javascript/src/assets/*"],
+      "channels": ["app/javascript/src/channels"],
+      "channels/*": ["app/javascript/src/channels/*"],
       "constants": ["app/javascript/src/constants"],
       "constants/*": ["app/javascript/src/constants/*"],
       "components/*": ["app/javascript/src/components/*"],

@@ -1,0 +1,27 @@
+<h1 class="text-3xl font-bold mb-2"><%= @post.title %></h1>
+
+<div class="mb-4 text-gray-600">
+    <p><span class="font-semibold">Author:</span> <%= @post.user.name %></p>
+    <p>
+        <span class="font-semibold">Last Published At:</span>
+        <%= @post.last_published_at ? @post.last_published_at.in_time_zone.strftime("%B %d, %Y %l:%M %p") : "Not published yet" %>
+    </p>
+</div>
+
+<div class="mb-6">
+    <p class="font-semibold mb-1">Categories:</p>
+    <% if @post.categories.any? %>
+    <ul class="list-disc list-inside">
+        <% @post.categories.each do |category| %>
+        <li><%= category.name %></li>
+        <% end %>
+    </ul>
+    <% else %>
+    <p>No categories assigned</p>
+    <% end %>
+</div>
+
+<div>
+    <h2 class="text-xl font-semibold mb-2">Description</h2>
+    <p class="whitespace-pre-line"><%= @post.description %></p>
+</div>

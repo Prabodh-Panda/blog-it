@@ -68,10 +68,19 @@ const registerIntercepts = () => {
 
   axios.interceptors.response.use(
     response => {
-      handleSuccessResponse(response);
-      transformResponseKeysToCamelCase(response);
+      const contentType = response.headers["content-type"] || "";
 
-      return response.data;
+      if (
+        !contentType.includes("application/pdf") &&
+        !contentType.includes("application/octet-stream")
+      ) {
+        handleSuccessResponse(response);
+        transformResponseKeysToCamelCase(response);
+
+        return response.data;
+      }
+
+      return response;
     },
     error => {
       handleErrorResponse(error);
