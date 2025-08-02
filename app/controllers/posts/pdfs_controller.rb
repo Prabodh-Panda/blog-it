@@ -4,21 +4,16 @@ class Posts::PdfsController < ApplicationController
   before_action :load_post, only: [:create, :download]
 
   def create
-    PdfsJob.perform_async(@post.slug, report_path.to_s)
+    PdfsJob.perform_async(@post.slug, @current_user.id)
     render_notice(t("in_progress", action: "PDF generation"))
   end
 
   def download
-    if File.exist?(report_path)
-      send_file(
-        report_path,
-        type: "application/pdf",
-        filename: pdf_file_name,
-        disposition: "attachment"
-      )
-    else
-      render_error(t("not_found", entity: "PDF"), :not_found)
+    unless @current_user.pdf.attached?
+      render_error(t("not_found", entity: "Pdf"), :not_found) and return
     end
+
+    send_data @current_user.pdf.download, filename: pdf_file_name, content_type: "application/pdf"
   end
 
   private
