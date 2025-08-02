@@ -31,6 +31,20 @@ const vote = ({ slug, payload }) => {
   });
 };
 
-const postsApi = { fetch, create, show, update, destroy, vote };
+const generatePdf = ({ slug }) => axios.post(`/posts/${slug}/pdf`, {});
+
+const download = ({ slug }) =>
+  axios.get(`/posts/${slug}/pdf/download`, { responseType: "blob" });
+
+const postsApi = {
+  fetch,
+  create,
+  show,
+  update,
+  destroy,
+  vote,
+  generatePdf,
+  download,
+};
 
 export default postsApi;

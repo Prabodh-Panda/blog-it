@@ -3,6 +3,9 @@
 Rails.application.routes.draw do
   constraints(lambda { |req| req.format == :json }) do
     resources :posts, except: %i[new edit], param: :slug do
+      resource :pdf, only: :create, module: :posts do
+        get :download, on: :member
+      end
       member do
         post :vote, controller: :votes
       end

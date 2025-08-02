@@ -75,3 +75,8 @@ gem "sidekiq", "~> 7"
 
 gem "pg", group: [:production]
 gem "simplecov", require: false, group: :test
+
+# PDF generation gem
+gem "wicked_pdf"
+# wicked_pdf uses the following binary
+gem "wkhtmltopdf-binary"
