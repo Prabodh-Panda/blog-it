@@ -6,15 +6,15 @@ import { subscribeToPdfDownloadChannel } from "channels/pdfDownloadChannel";
 import ProgressBar from "components/commons/ProgressBar";
 import FileSaver from "file-saver";
 import Logger from "js-logger";
-import { Button } from "neetoui";
-import { useParams } from "react-router-dom";
+import { Modal, Typography } from "neetoui";
+import { useTranslation } from "react-i18next";
 
-const DownloadPdf = () => {
-  const [isLoading, setIsLoading] = useState(true);
+const { Header, Body } = Modal;
+
+const DownloadPdf = ({ isOpen, onClose, slug }) => {
   const [progress, setProgress] = useState(0);
-  const [message, setMessage] = useState("");
 
-  const { slug } = useParams();
+  const { t } = useTranslation();
 
   const consumer = createConsumer();
 
@@ -27,52 +27,45 @@ const DownloadPdf = () => {
   };
 
   const downloadPdf = async () => {
-    setIsLoading(true);
     try {
       const { data } = await postsApi.download({ slug });
       FileSaver.saveAs(data, `${slug}.pdf`);
     } catch (error) {
       Logger.error(error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    subscribeToPdfDownloadChannel({
-      consumer,
-      setMessage,
-      setProgress,
-      generatePdf,
-    });
+    if (isOpen) {
+      subscribeToPdfDownloadChannel({
+        consumer,
+        setProgress,
+        generatePdf,
+      });
+    }
 
     return () => {
       consumer.disconnect();
     };
-  }, []);
+  }, [isOpen]);
 
   useEffect(() => {
     if (progress === 100) {
-      setIsLoading(false);
-      setMessage("Report is ready to be downloaded");
+      downloadPdf();
     }
   }, [progress]);
 
   return (
-    <div>
-      <div className="flex flex-col gap-y-8">
-        <h1>Download Report</h1>
-        <div className="mb-4 w-full">
-          <div className="mx-auto mb-4 w-full overflow-hidden rounded-lg border border-gray-200 bg-white text-gray-800 sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-2xl">
-            <div className="space-y-2 p-6">
-              <p className="text-xl font-semibold">{message}</p>
-              <ProgressBar progress={progress} />
-            </div>
-          </div>
-          <Button label="Download" loading={isLoading} onClick={downloadPdf} />
-        </div>
-      </div>
-    </div>
+    <Modal {...{ isOpen, onClose }}>
+      <Header>
+        <Typography style="h2" weight="bold">
+          {t("titles.downloadPdf")}
+        </Typography>
+      </Header>
+      <Body>
+        <ProgressBar progress={progress} />
+      </Body>
+    </Modal>
   );
 };
 

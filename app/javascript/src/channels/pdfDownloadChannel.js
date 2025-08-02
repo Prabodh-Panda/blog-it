@@ -2,7 +2,6 @@ import { getFromLocalStorage } from "utils/storage";
 
 export const subscribeToPdfDownloadChannel = ({
   consumer,
-  setMessage,
   setProgress,
   generatePdf,
 }) => {
@@ -14,12 +13,10 @@ export const subscribeToPdfDownloadChannel = ({
     },
     {
       connected() {
-        setMessage("Connected the Cables...");
         generatePdf();
       },
       received(data) {
-        const { message, progress } = data;
-        setMessage(message);
+        const { progress } = data;
         setProgress(progress);
       },
     }

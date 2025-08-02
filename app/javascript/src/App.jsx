@@ -4,7 +4,6 @@ import { Login, Signup } from "components/Authentication";
 import { PrivateRoute } from "components/commons";
 import MyPosts from "components/MyPosts";
 import Posts from "components/Posts";
-import DownloadPdf from "components/Posts/DownloadPdf";
 import EditPost from "components/Posts/Edit";
 import NewPost from "components/Posts/New";
 import ShowPost from "components/Posts/Show";
@@ -32,12 +31,6 @@ const App = () => {
         <Switch>
           <Route exact component={Signup} path={routes.auth.signup} />
           <Route exact component={Login} path={routes.auth.login} />
-          <PrivateRoute
-            component={DownloadPdf}
-            condition={isLoggedIn}
-            path={routes.posts.pdf}
-            redirectRoute={routes.auth.login}
-          />
           <PrivateRoute
             component={ShowPost}
             condition={isLoggedIn}
