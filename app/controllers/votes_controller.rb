@@ -19,6 +19,7 @@ class VotesController < ApplicationController
 
     def load_post
       @post = @current_user.posts.find_by(slug: params[:slug])
+      raise ActiveRecord::RecordNotFound.new(nil, Post) unless @post
     end
 
     def vote_params
