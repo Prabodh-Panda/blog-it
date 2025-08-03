@@ -7,6 +7,11 @@ class MyPostsControllerTest < ActionDispatch::IntegrationTest
     @organization = create(:organization)
     @user = create(:user, organization: @organization)
     @headers = headers(@user)
+
+    @other_user = create(:user, organization: @organization)
+    @other_user_headers = headers(@other_user)
+
+    @category = create(:category, organization: @organization)
   end
 
   def test_index_should_return_only_users_posts
@@ -31,6 +36,53 @@ class MyPostsControllerTest < ActionDispatch::IntegrationTest
 
     other_posts.each do |post|
       refute_includes returned_post_ids, post.id
+    end
+  end
+
+  def test_bulk_delete_should_delete_specified_posts
+    posts = create_list(:post, 3, category_ids: [@category.id], user: @user, organization: @organization)
+    slugs = posts.map(&:slug)
+
+    assert_difference("Post.count", -3) do
+      delete bulk_delete_my_posts_path, params: { slugs: slugs }, headers: @headers
+    end
+
+    assert_response :success
+
+    posts.each do |post|
+      assert_raises(ActiveRecord::RecordNotFound) { Post.find(post.id) }
+    end
+  end
+
+  def test_bulk_delete_should_not_delete_other_users_posts
+    other_posts = create_list(:post, 3, user: @other_user, organization: @organization)
+    slugs = other_posts.map(&:slug)
+
+    assert_no_difference("Post.count") do
+      delete bulk_delete_my_posts_path, params: { slugs: slugs }, headers: @headers
+    end
+  end
+
+  def test_bulk_update_should_update_status_of_specified_posts
+    posts = create_list(:post, 3, user: @user, organization: @organization, status: "draft")
+    slugs = posts.map(&:slug)
+
+    patch bulk_update_my_posts_path, params: { posts: { status: "published", slugs: slugs } }, headers: @headers
+    assert_response :success
+
+    posts.each do |post|
+      assert_equal "published", post.reload.status
+    end
+  end
+
+  def test_bulk_update_should_not_update_other_users_posts
+    other_posts = create_list(:post, 3, user: @other_user, organization: @organization, status: "draft")
+    slugs = other_posts.map(&:slug)
+
+    patch bulk_update_my_posts_path, params: { posts: { status: "published", slugs: slugs } }, headers: @headers
+
+    other_posts.each do |post|
+      assert_equal "draft", post.reload.status
     end
   end
 end
