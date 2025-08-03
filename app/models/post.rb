@@ -8,25 +8,18 @@ class Post < ApplicationRecord
 
   belongs_to :user
   belongs_to :organization
-
   has_many :votes
-
   has_and_belongs_to_many :categories
 
   validates :title,
     presence: true,
     length: { maximum: MAX_TITLE_LENGTH }
-
   validates :description,
     presence: true,
     length: { maximum: MAX_DESCRIPTION_LENGTH }
-
   validates :status, presence: true
-
   validates_inclusion_of :is_bloggable, in: [true, false]
-
   validates :slug, uniqueness: true
-
   validate :slug_not_changed
 
   before_create :set_slug
