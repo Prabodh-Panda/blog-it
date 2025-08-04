@@ -7,12 +7,11 @@ class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
 
   belongs_to :organization
-  has_many :posts
-  has_many :votes, dependent: :destroy
+  with_options dependent: :destroy do |user|
+    user.has_many :posts
+    user.has_many :votes
+  end
   has_one_attached :pdf
-
-  has_secure_password
-  has_secure_token :authentication_token
 
   validates :name, presence: true, length: { maximum: MAX_NAME_LENGTH }
   validates :email, presence: true,
@@ -23,6 +22,9 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true, on: :create
 
   before_save :to_lowercase
+
+  has_secure_password
+  has_secure_token :authentication_token
 
   private
 
