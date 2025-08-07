@@ -10,6 +10,7 @@
 # Ignore all logfiles
 /log/*
 /tmp
+/tmp/pids/*
 /db/backups
 /public/uploads
 *.DS_Store
@@ -17,6 +18,8 @@ coverage
 .*swp
 /uploads/*
 .byebug_history
+!/tmp/pids
+!/tmp/pids/.keep
 
 # Ignore node packages
 node_modules
