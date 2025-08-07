@@ -9,7 +9,7 @@
 
 # Ignore all logfiles
 /log/*
-/tmp
+/tmp/*
 /tmp/pids/*
 /db/backups
 /public/uploads
