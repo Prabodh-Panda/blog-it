@@ -110,5 +110,10 @@
   "resolutions": {
     "strip-ansi": "^6.0.1",
     "string-width": "^4.2.2"
+  },
+  "engines": {
+    "node": "22.13",
+    "npm": "9.x",
+    "yarn": "1.22.x"
   }
 }
